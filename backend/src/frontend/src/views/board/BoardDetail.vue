@@ -27,6 +27,14 @@ export default {
     goModify(pstartNo) {
       this.$router.push({ name: "BoardModify", params: { pstartNo: pstartNo } });
     },
+    deleteBoard(pstartNo) {
+      axios.delete(`/api/boards/${Number(pstartNo)}`).then((res) => {
+        this.item = res.data;
+        console.log(this.item);
+        window.alert("삭제완료");
+        this.$router.push({ name: "BoardView" });
+      });
+    },
   },
 };
 </script>
