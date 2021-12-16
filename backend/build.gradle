@@ -33,7 +33,7 @@ processResources.dependsOn 'npmBuild'
 
 group = 'com.ktds'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '11'
+sourceCompatibility = '1.8'
 
 //lombok 설정 추가 시작
 configurations {
