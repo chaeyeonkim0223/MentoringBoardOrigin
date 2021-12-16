@@ -24,7 +24,8 @@
         update "BOARD"
         set
             "PSTART_TITL_NM" = #{pstartTitlNm},
-            "PSTART_CN" = #{pstartCn}
+            "PSTART_CN" = #{pstartCn},
+            "INQ_CNT" = #{inqCnt}
         where "PSTART_NO" = #{pstartNo}
     </update>
     <delete id="delete" parameterType="int">
