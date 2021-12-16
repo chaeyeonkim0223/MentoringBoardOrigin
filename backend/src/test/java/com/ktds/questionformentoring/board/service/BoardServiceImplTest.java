@@ -32,7 +32,7 @@ class BoardServiceImplTest {
         boardDTO.setInqCnt(1);
         boardDTO.setCmntCnt(3);
         boardDTO.setSlctnYn('N');
-        boardDTO.setMbrNo(11);
+        boardDTO.setMbrNo(2);
         boardServiceImpl.write(boardDTO);
 
     }
