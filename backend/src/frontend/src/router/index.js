@@ -33,7 +33,7 @@ const routes = [
     component: () => import("@/views/board/BoardWrite"),
   },
   {
-    path: "/board/modify",
+    path: "/board/modify/:pstartNo",
     name: "BoardModify",
     component: () => import("@/views/board/BoardModify"),
   },
