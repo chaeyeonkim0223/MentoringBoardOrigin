@@ -9,6 +9,32 @@ const routes = [
     path: "/",
     name: "Home",
     component: Home,
+    redirect: {
+      name: "BoardView",
+    },
+    children: [
+      {
+        path: "/board",
+        name: "BoardView",
+        component: () => import("@/views/board/BoardView"),
+        //beforeEnter: checkAuth(),
+      },
+      {
+        path: "/board/:pstartNo",
+        name: "BoardDetail",
+        component: () => import("@/views/board/BoardDetail"),
+      },
+      {
+        path: "/board/write",
+        name: "BoardWrite",
+        component: () => import("@/views/board/BoardWrite"),
+      },
+      {
+        path: "/board/modify/:pstartNo",
+        name: "BoardModify",
+        component: () => import("@/views/board/BoardModify"),
+      },
+    ],
   },
   {
     path: "/chart/barchart",
@@ -16,27 +42,7 @@ const routes = [
     component: () => import("@/views/chart/BarChart"),
     //beforeEnter: checkAuth(),
   },
-  {
-    path: "/board",
-    name: "BoardView",
-    component: () => import("@/views/board/BoardView"),
-    //beforeEnter: checkAuth(),
-  },
-  {
-    path: "/board/:pstartNo",
-    name: "BoardDetail",
-    component: () => import("@/views/board/BoardDetail"),
-  },
-  {
-    path: "/board/write",
-    name: "BoardWrite",
-    component: () => import("@/views/board/BoardWrite"),
-  },
-  {
-    path: "/board/modify/:pstartNo",
-    name: "BoardModify",
-    component: () => import("@/views/board/BoardModify"),
-  },
+
   //Editor
   // {
   //   path: "/editor",

@@ -41,7 +41,8 @@
 
           <v-col>
             <v-sheet min-height="70vh" rounded="lg">
-              <!--  -->
+              <!-- <BoardView /> -->
+              <router-view></router-view>
             </v-sheet>
           </v-col>
         </v-row>
@@ -52,15 +53,16 @@
 
 <script>
 // import MainMenu from "@/components/MainMenu.vue";
-
+// import BoardView from "./board/BoardView.vue";
 export default {
   name: "Home",
   components: {
     // Header,
     // MainMenu,
+    // BoardView,
   },
   data: () => ({
-    links: ["Dashboard", "Messages", "Profile", "Updates"],
+    links: ["멘토링 게시판"],
   }),
 };
 </script>
