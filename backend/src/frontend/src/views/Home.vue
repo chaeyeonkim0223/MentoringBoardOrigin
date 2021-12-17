@@ -9,10 +9,16 @@
         </v-btn>
         <!-- <MainMenu /> -->
         <v-spacer></v-spacer>
-
-        <v-responsive max-width="260">
-          <v-text-field dense flat hide-details rounded solo-inverted></v-text-field>
-        </v-responsive>
+        <v-btn
+          small
+          class="mx-2"
+          fab
+          dark
+          color="indigo"
+          @click="$router.push({ name: 'BoardWrite' })"
+        >
+          <v-icon dark> mdi-plus </v-icon>
+        </v-btn>
       </v-container>
     </v-app-bar>
 
@@ -41,7 +47,8 @@
 
           <v-col>
             <v-sheet min-height="70vh" rounded="lg">
-              <!--  -->
+              <!-- <BoardView /> -->
+              <router-view></router-view>
             </v-sheet>
           </v-col>
         </v-row>
@@ -52,15 +59,16 @@
 
 <script>
 // import MainMenu from "@/components/MainMenu.vue";
-
+// import BoardView from "./board/BoardView.vue";
 export default {
   name: "Home",
   components: {
     // Header,
     // MainMenu,
+    // BoardView,
   },
   data: () => ({
-    links: ["Dashboard", "Messages", "Profile", "Updates"],
+    links: ["멘토링 게시판"],
   }),
 };
 </script>

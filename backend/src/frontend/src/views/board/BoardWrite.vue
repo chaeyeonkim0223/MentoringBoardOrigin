@@ -5,23 +5,22 @@
       id="input-live"
       v-model="pstartTitlNm"
       aria-describedby="input-live-help input-live-feedback"
-      placeholder="Enter your name"
+      placeholder="글 제목을 입력하세요"
       trim
     ></b-form-input>
-    <b-form-input
-      id="input-live"
-      v-model="pstartCn"
-      aria-describedby="input-live-help input-live-feedback"
-      placeholder="Enter your name"
-      trim
-    ></b-form-input>
+    <vue-editor v-model="pstartCn"></vue-editor>
   </div>
 </template>
 <script>
 import axios from "axios";
 // import axios from "@/assets/conf/axiosCondig.js";
 axios.defaults.headers.post["Content-Type"] = "application/json";
+import { VueEditor } from "vue2-editor";
+// import Editor from "./Editor.vue";
 export default {
+  components: {
+    VueEditor,
+  },
   data() {
     return {
       pstartTitlNm: "",
