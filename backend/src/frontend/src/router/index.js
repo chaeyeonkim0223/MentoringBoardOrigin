@@ -34,6 +34,11 @@ const routes = [
         name: "BoardModify",
         component: () => import("@/views/board/BoardModify"),
       },
+      // {
+      //   path: "/test",
+      //   name: "Test",
+      //   component: () => import("@/views/board/Test"),
+      // },
     ],
   },
   {

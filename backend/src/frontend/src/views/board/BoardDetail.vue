@@ -1,6 +1,7 @@
 <template lang="">
   <div>
-    {{ JSON.stringify(item) }}
+    <!-- {{ JSON.stringify(item) }} -->
+    <div v-html="input"></div>
     <b-button v-if="checkMyPost(item.pstartNo)" @click="goModify(item.pstartNo)">수정</b-button>
     <b-button v-if="checkMyPost(item.pstartNo)" @click="deleteBoard(item.pstartNo)">삭제</b-button>
   </div>
@@ -11,11 +12,13 @@ export default {
   data() {
     return {
       item: {},
+      input: String,
     };
   },
   created() {
     axios.get(`/api/boards/${this.$route.params.pstartNo}`).then((res) => {
       this.item = res.data;
+      this.input = res.data.pstartCn;
       console.log(this.item);
     });
   },
