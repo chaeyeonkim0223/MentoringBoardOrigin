@@ -23,7 +23,7 @@ import java.util.Set;
 @EnableSwagger2
 @Profile({ "!prd" })
 public class SwaggerConfig {
-    // 호출 url: http://localhost:8080/swagger-ui.html
+    // 호출 url: http://localhost:8081/swagger-ui.html
 
     /**
      * Docket를 생성하는 메소드
@@ -60,8 +60,9 @@ public class SwaggerConfig {
                 .useDefaultResponseMessages(false)
                 .consumes(getConsumeContentTypes())
                 .produces(getProduceContentTypes()).apiInfo(getApiInfo()).select()
-                .apis(RequestHandlerSelectors.basePackage("com.ktds.questionformentoring.controller"))
-                .paths(PathSelectors.ant("/**/*")).build();
+                .apis(RequestHandlerSelectors.any())
+                .paths(PathSelectors.ant("/api/**"))
+                .build();
     }
 
     /**
