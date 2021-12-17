@@ -37,6 +37,17 @@ const routes = [
     name: "BoardModify",
     component: () => import("@/views/board/BoardModify"),
   },
+  //Editor
+  // {
+  //   path: "/editor",
+  //   name: "Editor",
+  //   component: () => import("@/components/ToastUI/Editor"),
+  // },
+  // {
+  //   path: "/viewer",
+  //   name: "ToastView",
+  //   component: () => import("@/components/ToastUI/ToastView"),
+  // },
 ];
 
 const router = new VueRouter({
