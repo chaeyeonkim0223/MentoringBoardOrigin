@@ -9,10 +9,16 @@
         </v-btn>
         <!-- <MainMenu /> -->
         <v-spacer></v-spacer>
-
-        <v-responsive max-width="260">
-          <v-text-field dense flat hide-details rounded solo-inverted></v-text-field>
-        </v-responsive>
+        <v-btn
+          small
+          class="mx-2"
+          fab
+          dark
+          color="indigo"
+          @click="$router.push({ name: 'BoardWrite' })"
+        >
+          <v-icon dark> mdi-plus </v-icon>
+        </v-btn>
       </v-container>
     </v-app-bar>
 
