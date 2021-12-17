@@ -11,6 +11,7 @@ import "bootstrap-vue/dist/bootstrap-vue.css";
 //Element ui
 import Element from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";
+import vuetify from './plugins/vuetify'
 
 Vue.use(BootstrapVue);
 Vue.use(Element, { size: "small", zIndex: 3000 });
@@ -19,5 +20,6 @@ Vue.config.productionTip = false;
 new Vue({
   router,
   store,
-  render: (h) => h(App),
+  vuetify,
+  render: (h) => h(App)
 }).$mount("#app");
