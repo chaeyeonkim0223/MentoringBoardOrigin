@@ -41,6 +41,13 @@ const routes = [
       // },
     ],
   },
+
+  {
+    path: "/admin/memberList",
+    name: "memberList",
+    component: () => import("../views/admin/AdminMemberView"),
+  },
+
   {
     path: "/chart/barchart",
     name: "BarChart",
