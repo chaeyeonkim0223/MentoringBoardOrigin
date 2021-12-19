@@ -4,6 +4,7 @@
       {{ title }}
       <v-spacer></v-spacer>
       <v-text-field
+        class="search-bar"
         v-model="search"
         append-icon="mdi-magnify"
         label="Search"
@@ -45,5 +46,8 @@ export default {
 <style scoped>
 .v-sheet.v-card {
   box-shadow: none !important;
+}
+.search-bar {
+  margin-right: 10%;
 }
 </style>

@@ -1,6 +1,16 @@
 <template>
   <div>
     <!-- <b-button @click="goBoardWrite"></b-button> -->
+    <v-btn
+      small
+      class="mx-2 wirte-btn"
+      fab
+      dark
+      color="indigo"
+      @click="$router.push({ name: 'BoardWrite' })"
+    >
+      <v-icon dark> mdi-plus </v-icon>
+    </v-btn>
     <Table v-if="items.length != 0" :items="items" :headers="headers" :title="'게시물'" />
     <!-- <b-table striped hover :items="items" ></b-table> -->
   </div>
@@ -47,3 +57,11 @@ export default {
   },
 };
 </script>
+<style scoped>
+.wirte-btn {
+  position: absolute;
+  z-index: 5000;
+  right: 5%;
+  top: 5%;
+}
+</style>

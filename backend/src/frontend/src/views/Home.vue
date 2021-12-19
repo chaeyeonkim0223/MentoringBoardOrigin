@@ -9,16 +9,6 @@
         </v-btn>
         <!-- <MainMenu /> -->
         <v-spacer></v-spacer>
-        <v-btn
-          small
-          class="mx-2"
-          fab
-          dark
-          color="indigo"
-          @click="$router.push({ name: 'BoardWrite' })"
-        >
-          <v-icon dark> mdi-plus </v-icon>
-        </v-btn>
       </v-container>
     </v-app-bar>
 
