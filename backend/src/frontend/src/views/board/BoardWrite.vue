@@ -12,15 +12,17 @@
       <v-btn small class="mx-2 wirte-btn mt-4" fab dark color="indigo" @click="writeBoard">
         <v-icon dark> mdi-plus </v-icon>
       </v-btn>
+      <v-btn small class="mx-2 wirte-btn mt-4" fab dark color="indigo" @click="$router.back()">
+        뒤로
+      </v-btn>
     </div>
   </div>
 </template>
 <script>
 import axios from "axios";
-// import axios from "@/assets/conf/axiosCondig.js";
 axios.defaults.headers.post["Content-Type"] = "application/json";
 import { VueEditor } from "vue2-editor";
-// import Editor from "./Editor.vue";
+
 export default {
   components: {
     VueEditor,

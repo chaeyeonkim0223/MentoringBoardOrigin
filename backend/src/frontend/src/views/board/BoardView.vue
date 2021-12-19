@@ -1,6 +1,5 @@
 <template>
-  <div>
-    <!-- <b-button @click="goBoardWrite"></b-button> -->
+  <div class="p-3">
     <v-btn
       small
       class="mx-2 wirte-btn"
@@ -12,7 +11,6 @@
       <v-icon dark> mdi-plus </v-icon>
     </v-btn>
     <Table v-if="items.length != 0" :items="items" :headers="headers" :title="'게시물'" />
-    <!-- <b-table striped hover :items="items" ></b-table> -->
   </div>
 </template>
 
@@ -62,6 +60,6 @@ export default {
   position: absolute;
   z-index: 5000;
   right: 5%;
-  top: 5%;
+  top: 7%;
 }
 </style>
