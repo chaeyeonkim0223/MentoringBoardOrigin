@@ -4,9 +4,10 @@
       {{ title }}
       <v-spacer></v-spacer>
       <v-text-field
+        class="search-bar"
         v-model="search"
         append-icon="mdi-magnify"
-        label="Search"
+        label="제목을 검색하세요"
         single-line
         hide-details
       ></v-text-field>
@@ -40,10 +41,23 @@ export default {
       this.$router.push({ name: "BoardDetail", params: { pstartNo: this.pstartNo } });
     },
   },
+  // created() {
+  //   let self = this;
+  //   const a = self.items.map((item) => {
+  //     return self.checkMemberCode(item.rgtrMbrCd);
+  //   });
+
+  //   for (let i = 0; i < this.items.length; i++) {
+  //     this.items[i].rgtrMbrCd = a[i];
+  //   }
+  // },
 };
 </script>
 <style scoped>
 .v-sheet.v-card {
   box-shadow: none !important;
+}
+.search-bar {
+  margin-right: 10%;
 }
 </style>

@@ -60,9 +60,8 @@ public class SwaggerConfig {
                 .useDefaultResponseMessages(false)
                 .consumes(getConsumeContentTypes())
                 .produces(getProduceContentTypes()).apiInfo(getApiInfo()).select()
-                .apis(RequestHandlerSelectors.any())
-                .paths(PathSelectors.ant("/api/**"))
-                .build();
+                .apis(RequestHandlerSelectors.basePackage("com.ktds.questionformentoring"))
+                .paths(PathSelectors.ant("/**/**/**/*")).build();
     }
 
     /**

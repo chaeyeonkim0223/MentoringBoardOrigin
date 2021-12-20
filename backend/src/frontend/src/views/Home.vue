@@ -2,33 +2,13 @@
   <v-app id="inspire">
     <v-app-bar app color="white" flat>
       <v-container class="py-0 fill-height">
-        <!--<v-avatar class="mr-10" color="grey darken-1" size="32"></v-avatar>-->
-        <v-img alt="logo.png"></v-img>
+        <v-avatar class="mr-10" color="grey darken-1" size="32"></v-avatar>
 
         <v-btn v-for="link in links" :key="link" text>
           {{ link }}
         </v-btn>
         <!-- <MainMenu /> -->
         <v-spacer></v-spacer>
-        <v-btn
-          small
-          class="mx-2"
-          fab
-          dark
-          color="indigo"
-          @click="$router.push({ name: 'BoardWrite' })"
-        >
-          <v-icon dark> mdi-plus </v-icon>
-        </v-btn>
-        <v-btn
-          small
-          class="mx-2"
-          fab
-          color="red"
-          @click="$router.push({ name: 'AdminMemberView' })"
-          >
-            <v-icon dark>mdi-plus</v-icon>
-        </v-btn>
       </v-container>
     </v-app-bar>
 

@@ -1,16 +1,25 @@
 <template lang="">
-  <div>
-    {{ JSON.stringify(item) }}
-    <b-input v-model="item.pstartTitlNm"></b-input>
-    <b-input v-model="item.pstartCn"></b-input>
-    <b-button @click="ModifyBoard(item)">수정완료</b-button>
+  <div class="p-3">
+    <v-text-field
+      label="글 제목"
+      placeholder="글 제목을 입력하세요"
+      v-model="item.pstartTitlNm"
+      trim
+    ></v-text-field>
+
+    <vue-editor v-model="item.pstartCn"></vue-editor>
+    <v-btn class="mt-4" depressed color="primary" @click="ModifyBoard(item)"> 수정완료 </v-btn>
   </div>
 </template>
 <script>
 import axios from "axios";
-// import axios from "@/assets/conf/axiosCondig.js";
 axios.defaults.headers.post["Content-Type"] = "application/json";
+
+import { VueEditor } from "vue2-editor";
 export default {
+  components: {
+    VueEditor,
+  },
   data() {
     return {
       item: {},

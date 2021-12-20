@@ -44,28 +44,14 @@ class MemberServiceImplTest {
 
     @Test
     void searchMemberList() {
-        List<MemberManagementDTO> result = memberService.searchMemberList();
-        for (int i=1; i<=result.size(); i++) {
-            assertEquals(result.get(i-1).getMbrNo(), i);
-        }
     }
 
     @Test
     void searchMemberNameList() {
-        String name = "test";
-        List<MemberManagementDTO> result = memberService.searchMemberNameList(name);
-        for (int i=1; i<=result.size(); i++) {
-            assertEquals(result.get(i-1).getMbrNm(), name);
-        }
     }
 
     @Test
     void searchMemberTypeList() {
-        String type = "test";
-        List<MemberManagementDTO> result = memberService.searchMemberTypeList(type);
-        for (int i=1; i<=result.size(); i++) {
-            assertEquals(result.get(i-1).getMbrTypeCd(), type);
-        }
     }
 
     @Test
