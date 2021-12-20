@@ -22,7 +22,6 @@
 import axios from "axios";
 axios.defaults.headers.post["Content-Type"] = "application/json";
 import { VueEditor } from "vue2-editor";
-
 export default {
   components: {
     VueEditor,

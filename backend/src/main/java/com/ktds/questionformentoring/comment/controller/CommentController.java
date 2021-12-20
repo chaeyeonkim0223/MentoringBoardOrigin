@@ -98,14 +98,12 @@ public class CommentController {
     })
     public ResponseEntity deleteComment(@PathVariable int cmntSn) {
         try {
-            commentServiceImpl.delete(cmntSn);
-
             // 게시물의 댓글 수 감소
             CommentDTO commentDTO = commentServiceImpl.findById(cmntSn);
             BoardDTO boardDTO = boardServiceImpl.findById(commentDTO.getPstartNo());
             boardDTO.setCmntCnt(boardDTO.getCmntCnt() - 1);
             boardServiceImpl.update(boardDTO);
-
+            commentServiceImpl.delete(cmntSn);
             return new ResponseEntity(HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);

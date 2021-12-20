@@ -37,29 +37,31 @@
         삭제
       </v-btn>
     </div>
-    <v-divider></v-divider>
-    <!-- <CommentWrite v-if="true"/>
-     <div v-for="(comment, index) in comments" :key="index">
+    <!-- 댓글 구간 시작 -->
+    <CommentWrite v-if="true" @getCommentInit="getCommentInit" :pstartNo="item.pstartNo" />
+    <div v-for="(comment, index) in comments" :key="index">
       <v-divider></v-divider>
-      <CommentView :comment="comment" />
-    </div> -->
+      <CommentView :comment="comment" @getCommentInit="getCommentInit" />
+    </div>
+    <!-- 댓글 구간 끝 -->
   </div>
 </template>
 <script>
 import axios from "axios";
 import { VueEditor } from "vue2-editor";
-// import CommentWrite from "./comment/CommentWrite.vue"
-// import CommentView from "./comment/CommentView.vue"
+import CommentWrite from "./comment/CommentWrite.vue";
+import CommentView from "./comment/CommentView.vue";
 export default {
   components: {
     VueEditor,
-    // CommentWrite,CommentView
+    CommentWrite,
+    CommentView,
   },
   data() {
     return {
       item: {},
       input: String,
-      comment: [],
+      comments: [],
     };
   },
   created() {
@@ -68,9 +70,18 @@ export default {
       this.input = res.data.pstartCn;
       console.log(this.item);
     });
-    axios.get(`/api/`);
+    axios.get(`/api/comments/${this.$route.params.pstartNo}`).then((res) => {
+      this.comments = res.data;
+      console.log(this.comments);
+    });
   },
   methods: {
+    getCommentInit(pstartNo) {
+      axios.get(`/api/comments/${pstartNo}`).then((res) => {
+        this.comments = res.data;
+        console.log(this.comments);
+      });
+    },
     checkMemberCode(code) {
       if (code == "MB001") return "관리자";
       else if (code == "MB002") return "멘토";
