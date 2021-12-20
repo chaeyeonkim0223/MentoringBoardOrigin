@@ -37,19 +37,29 @@
         삭제
       </v-btn>
     </div>
+    <v-divider></v-divider>
+    <!-- <CommentWrite v-if="true"/>
+     <div v-for="(comment, index) in comments" :key="index">
+      <v-divider></v-divider>
+      <CommentView :comment="comment" />
+    </div> -->
   </div>
 </template>
 <script>
 import axios from "axios";
 import { VueEditor } from "vue2-editor";
+// import CommentWrite from "./comment/CommentWrite.vue"
+// import CommentView from "./comment/CommentView.vue"
 export default {
   components: {
     VueEditor,
+    // CommentWrite,CommentView
   },
   data() {
     return {
       item: {},
       input: String,
+      comment: [],
     };
   },
   created() {
@@ -58,6 +68,7 @@ export default {
       this.input = res.data.pstartCn;
       console.log(this.item);
     });
+    axios.get(`/api/`);
   },
   methods: {
     checkMemberCode(code) {

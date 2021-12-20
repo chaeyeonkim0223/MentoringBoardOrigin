@@ -7,7 +7,7 @@
         class="search-bar"
         v-model="search"
         append-icon="mdi-magnify"
-        label="Search"
+        label="제목을 검색하세요"
         single-line
         hide-details
       ></v-text-field>
