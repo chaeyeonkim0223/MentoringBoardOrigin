@@ -20,6 +20,15 @@
         >
           <v-icon dark> mdi-plus </v-icon>
         </v-btn>
+        <v-btn
+          small
+          class="mx-2"
+          fab
+          color="red"
+          @click="$router.push({ name: 'AdminMemberView' })"
+          >
+            <v-icon dark>mdi-plus</v-icon>
+        </v-btn>
       </v-container>
     </v-app-bar>
 

@@ -14,6 +14,15 @@
         value="mentee"
         hide-details
     ></v-checkbox>
+
+    <input type="radio" id="mentor" value="mentor" v-model="picked">
+    <label for="mentor">멘토만보기</label>
+    <br>
+    <input type="radio" id="mentee" value="mentee" v-model="picked">
+    <label for="mentee">멘티만보기</label>
+    <br>
+    <span>선택: {{ picked }}</span>
+
     <Table v-if="items.length !== 0" :items="items" :headers="headers" :title="'회원관리'" />
   </div>
 </template>
@@ -24,6 +33,9 @@ import Table from "../board/Tables/Table.vue";
 export default {
   components: {
     Table,
+  },
+  method: {
+    getMemberTypeList()
   },
   created() {
     axios.get("/api/admin/memberList").then((res) => {
@@ -45,6 +57,7 @@ export default {
         { text: "회원가입일시", value: "mbrSbscDt" },
       ],
       mbrNo: null,
+      picked: '',
     };
   },
 };
