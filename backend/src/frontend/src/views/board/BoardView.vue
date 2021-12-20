@@ -1,13 +1,18 @@
 <template>
   <div>
-    <b-button @click="goBoardWrite"></b-button>
-    <b-table striped hover :items="items" @row-clicked="goDetail"></b-table>
+    <!-- <b-button @click="goBoardWrite"></b-button> -->
+    <Table v-if="items.length != 0" :items="items" :headers="headers" :title="'게시물'" />
+    <!-- <b-table striped hover :items="items" ></b-table> -->
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import Table from "./Tables/Table.vue";
 export default {
+  components: {
+    Table,
+  },
   methods: {
     goDetail(record, index) {
       console.log(record);
@@ -29,6 +34,14 @@ export default {
   data() {
     return {
       items: [],
+      headers: [
+        { text: "글번호", value: "pstartNo" },
+        { text: "글제목", value: "pstartTitlNm" },
+        { text: "멘토명", value: "rgtrId" },
+        { text: "작성자", value: "rgtrNm" },
+        { text: "등록일자", value: "regDt" },
+        { text: "답변여부", value: "slctnYn" },
+      ],
       pstartNo: null,
     };
   },

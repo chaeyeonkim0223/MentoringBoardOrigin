@@ -47,8 +47,10 @@ public class BoardController {
             @PathVariable @ApiParam(value = "게시글 pstartNo", required = true) int pstartNo) {
         try {
             BoardDTO boardDTO = boardService.findById(pstartNo);
+
             //조회수 +1
             boardDTO.setInqCnt(boardDTO.getInqCnt() + 1);
+            System.out.println("boardDTO = " + boardDTO);
             boardService.update(boardDTO);
             return new ResponseEntity(boardDTO, HttpStatus.OK);
         } catch (Exception e) {
@@ -65,7 +67,18 @@ public class BoardController {
     public ResponseEntity<BoardDTO> writeBoard(
             @RequestBody @ApiParam(value = "게시글 생성 정보", required = true) BoardDTO boardDTO) {
         try {
-            BoardDTO result = boardService.write(boardDTO);
+//                  boardDTO.setPstartNo(1);
+//            boardDTO.setRgtrId("id");
+//            boardDTO.setRgtrNm("name");
+//            boardDTO.setRgtrMbrCd("공통코드");
+////        boardDTO.setRegDt("timestamp");
+////            boardDTO.setPstartTitlNm("게시물 제목명");
+////            boardDTO.setPstartCn("게시물 내용");
+//            boardDTO.setInqCnt(1);
+//            boardDTO.setCmntCnt(3);
+//            boardDTO.setSlctnYn('N');
+//            boardDTO.setMbrNo(2);
+            BoardDTO result = boardService.write(boardDTO);//
             return new ResponseEntity(result, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
