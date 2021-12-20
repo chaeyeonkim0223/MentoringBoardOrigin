@@ -38,7 +38,7 @@
       </v-btn>
     </div>
     <!-- 댓글 구간 시작 -->
-    <!-- <CommentWrite v-if="true" /> -->
+    <CommentWrite v-if="true" @getCommentInit="getCommentInit" :pstartNo="item.pstartNo" />
     <div v-for="(comment, index) in comments" :key="index">
       <v-divider></v-divider>
       <CommentView :comment="comment" @getCommentInit="getCommentInit" />
@@ -49,12 +49,12 @@
 <script>
 import axios from "axios";
 import { VueEditor } from "vue2-editor";
-// import CommentWrite from "./comment/CommentWrite.vue";
+import CommentWrite from "./comment/CommentWrite.vue";
 import CommentView from "./comment/CommentView.vue";
 export default {
   components: {
     VueEditor,
-    // CommentWrite,
+    CommentWrite,
     CommentView,
   },
   data() {

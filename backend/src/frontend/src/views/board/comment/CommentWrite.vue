@@ -12,43 +12,40 @@
 </template>
 
 <script>
-import http from "@/core/services/http-common";
-import { mapGetters } from "vuex";
-
+import axios from "axios";
+axios.defaults.headers.post["Content-Type"] = "application/json";
 export default {
-  name: "commentwrite",
-  props: ["bid", "modifyComment"],
+  props: ["pstartNo"],
   data() {
     return {
       //댓글 등록용 content
       content: "",
     };
   },
-  computed: {
-    ...mapGetters(["currentUser"]),
-  },
+
   methods: {
     regist() {
       if (this.content.length == 0) {
         alert("댓글 내용이 비어있어요!");
         return;
       }
-      http
-        .post("/comment/", {
-          userid: this.currentUser.userid,
-          bid: this.bid,
-          content: this.content,
+      console.log(this.pstartNo);
+      axios
+        .post("/api/comments", {
+          pstartNo: Number(this.pstartNo),
+          //임의작성
+          rgtrId: "chaeyeon0223",
+          rgtrNm: "김채연",
+          rgtrMbrCd: "MB002",
+          cmntCn: this.content,
+          mbrNo: 2,
         })
-        .then(({ data }) => {
-          if (data != true) {
-            let msg = "댓글 등록에 실패했습니다";
-            alert(msg);
-          }
-          // 댓글창 내용 지우기
+        .then((res) => {
+          //댓글또업데이트
+          console.log(res.data);
+          this.$emit("getCommentInit", this.pstartNo);
+          console.log("emit전달");
           this.content = "";
-
-          // 새로 삽입했으니 댓글 다시 얻기.
-          this.$store.dispatch("getComments", this.bid);
         });
     },
   },
