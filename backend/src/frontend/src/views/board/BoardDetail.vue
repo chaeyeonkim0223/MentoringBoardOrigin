@@ -76,6 +76,13 @@ export default {
     });
   },
   methods: {
+    getCommentInit(pstartNo) {
+      axios.get(`/api/comments/${pstartNo}`).then((res) => {
+        this.comments = res.data;
+        console.log(this.comments);
+        console.log("init성공");
+      });
+    },
     checkMemberCode(code) {
       if (code == "MB001") return "관리자";
       else if (code == "MB002") return "멘토";
