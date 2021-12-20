@@ -1,27 +1,32 @@
 <template lang="">
-  <div>
-    <b-button @click="writeBoard"></b-button>
-    <b-form-input
-      id="input-live"
+  <div class="p-3">
+    <v-text-field
+      label="글 제목"
+      placeholder="글 제목을 입력하세요"
       v-model="pstartTitlNm"
-      aria-describedby="input-live-help input-live-feedback"
-      placeholder="Enter your name"
       trim
-    ></b-form-input>
-    <b-form-input
-      id="input-live"
-      v-model="pstartCn"
-      aria-describedby="input-live-help input-live-feedback"
-      placeholder="Enter your name"
-      trim
-    ></b-form-input>
+    ></v-text-field>
+
+    <vue-editor v-model="pstartCn"></vue-editor>
+    <div>
+      <v-btn small class="mx-2 wirte-btn mt-4" fab dark color="indigo" @click="writeBoard">
+        <v-icon dark> mdi-plus </v-icon>
+      </v-btn>
+      <v-btn small class="mx-2 wirte-btn mt-4" fab dark color="indigo" @click="$router.back()">
+        뒤로
+      </v-btn>
+    </div>
   </div>
 </template>
 <script>
 import axios from "axios";
-// import axios from "@/assets/conf/axiosCondig.js";
 axios.defaults.headers.post["Content-Type"] = "application/json";
+import { VueEditor } from "vue2-editor";
+
 export default {
+  components: {
+    VueEditor,
+  },
   data() {
     return {
       pstartTitlNm: "",
