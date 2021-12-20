@@ -41,7 +41,7 @@
     <!-- <CommentWrite v-if="true" /> -->
     <div v-for="(comment, index) in comments" :key="index">
       <v-divider></v-divider>
-      <CommentView :comment="comment" />
+      <CommentView :comment="comment" @getCommentInit="getCommentInit" />
     </div>
     <!-- 댓글 구간 끝 -->
   </div>
@@ -80,7 +80,6 @@ export default {
       axios.get(`/api/comments/${pstartNo}`).then((res) => {
         this.comments = res.data;
         console.log(this.comments);
-        console.log("init성공");
       });
     },
     checkMemberCode(code) {

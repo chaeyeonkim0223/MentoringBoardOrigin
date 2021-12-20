@@ -57,12 +57,10 @@ export default {
       });
     },
     remove() {
-      let self = this;
       if (confirm("정말로 삭제할까요?")) {
         console.log(this.comment.cmntSn);
         axios.delete(`/api/comments/${Number(this.comment.cmntSn)}`).then(() => {
-          console.log("삭제성공~");
-          self.$emit("getCommentInit", self.comment.pstartNo);
+          this.$emit("getCommentInit", this.comment.pstartNo);
         });
       }
     },
