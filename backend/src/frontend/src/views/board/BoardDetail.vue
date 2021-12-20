@@ -6,8 +6,8 @@
       </h3>
       <v-divider></v-divider>
       <p class="text">
-        {{ item.rgtrNm }} | {{ item.rgtrMbrCd }} | 작성일 {{ item.regDt }} | 답변여부 :
-        {{ item.slctnYn }} | 댓글 수 : {{ item.cmntCnt }}
+        {{ item.rgtrNm }} | {{ checkMemberCode(item.rgtrMbrCd) }} | 작성일 {{ item.regDt }} |
+        답변여부 : {{ item.slctnYn }} | 댓글 수 : {{ item.cmntCnt }}
       </p>
       <v-divider></v-divider>
       <vue-editor class="text editor" v-html="item.pstartCn"></vue-editor>
@@ -15,6 +15,9 @@
     </div>
 
     <div class="btn-group">
+      <v-btn class="m-1" depressed color="primary" @click="$router.push({ name: 'BoardView' })">
+        목록
+      </v-btn>
       <v-btn
         class="m-1"
         depressed
@@ -57,6 +60,11 @@ export default {
     });
   },
   methods: {
+    checkMemberCode(code) {
+      if (code == "MB001") return "관리자";
+      else if (code == "MB002") return "멘토";
+      else if (code == "MB003") return "멘티";
+    },
     checkMyPost() {
       //내가 쓴 글이면
       return true;

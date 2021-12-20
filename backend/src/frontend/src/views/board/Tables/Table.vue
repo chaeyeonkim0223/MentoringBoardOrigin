@@ -41,6 +41,16 @@ export default {
       this.$router.push({ name: "BoardDetail", params: { pstartNo: this.pstartNo } });
     },
   },
+  // created() {
+  //   let self = this;
+  //   const a = self.items.map((item) => {
+  //     return self.checkMemberCode(item.rgtrMbrCd);
+  //   });
+
+  //   for (let i = 0; i < this.items.length; i++) {
+  //     this.items[i].rgtrMbrCd = a[i];
+  //   }
+  // },
 };
 </script>
 <style scoped>
