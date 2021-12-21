@@ -19,13 +19,13 @@ import java.util.List;
 @Slf4j
 @Api(value = "관리자 유저게시판 API", tags = {"admin user management"})
 @RestController
-@RequestMapping("/api/admin/member")
+@RequestMapping("/api/admin")
 @RequiredArgsConstructor
 public class MemberManagementController {
 
     private final MemberServiceImpl memberServiceImpl;
 
-    @GetMapping("/list")
+    @GetMapping("/memberList")
     @ApiOperation(value = "유저리스트 조회", notes = "유저리스트 전체 조회")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
@@ -37,7 +37,7 @@ public class MemberManagementController {
         return memberServiceImpl.searchMemberList();
     }
 
-    @GetMapping("/list/{mbrNm}")
+    @GetMapping("/memberList/{mbrNm}")
     @ApiOperation(value = "유저리스트 이름 조회", notes = "유저리스트 이름으로 검색")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
@@ -49,7 +49,7 @@ public class MemberManagementController {
         return memberServiceImpl.searchMemberNameList(mbrNm);
     }
 
-    @GetMapping("/list/{mbrTypeCd}")
+    @GetMapping("/memberList/{mbrTypeCd}")
     @ApiOperation(value = "유저리스트 타입 조회", notes = "유저리스트 멘토, 멘티로 검색")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
@@ -61,7 +61,7 @@ public class MemberManagementController {
         return memberServiceImpl.searchMemberTypeList(mbrTypeCd);
     }
 
-    @DeleteMapping("/{mbrNo}")
+    @DeleteMapping("/memberList/{mbrNo}")
     @ApiOperation(value = "유저 삭제", notes = "유저리스트에서 삭제")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),

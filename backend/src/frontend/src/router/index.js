@@ -39,8 +39,14 @@ const routes = [
       //   name: "Test",
       //   component: () => import("@/views/board/Test"),
       // },
+      {
+        path: "/admin/memberList",
+        name: "AdminMemberView",
+        component: () => import("../views/admin/AdminMemberView"),
+      },
     ],
   },
+
   {
     path: "/chart/barchart",
     name: "BarChart",
