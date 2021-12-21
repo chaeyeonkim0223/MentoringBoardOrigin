@@ -16,12 +16,19 @@
       :headers="headers"
       :items="items"
       :search="search"
-      @click:row="goDetail"
-    ></v-data-table>
+    >
+      <template v-slot:delete>
+        <v-btn color="error" @click="deleteMbr">
+          삭제
+        </v-btn>
+      </template>
+    </v-data-table>
   </v-card>
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   props: {
     items: Array,
@@ -30,27 +37,14 @@ export default {
   },
   data() {
     return {
-      pstartNo: null,
       search: "",
     };
   },
   methods: {
-    goDetail(record) {
-      console.log(record);
-      this.pstartNo = record.pstartNo;
-      this.$router.push({ name: "BoardDetail", params: { pstartNo: this.pstartNo } });
-    },
-  },
-  // created() {
-  //   let self = this;
-  //   const a = self.items.map((item) => {
-  //     return self.checkMemberCode(item.rgtrMbrCd);
-  //   });
+    deleteMbr() {
 
-  //   for (let i = 0; i < this.items.length; i++) {
-  //     this.items[i].rgtrMbrCd = a[i];
-  //   }
-  // },
+    }
+  },
 };
 </script>
 <style scoped>

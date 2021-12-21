@@ -1,42 +1,43 @@
 <template>
   <div>
-    <v-checkbox
-        v-model="checkItems"
-        label="멘토"
-        color="indigo darken-3"
-        value="mentor"
-        hide-details
-    ></v-checkbox>
-    <v-checkbox
-        v-model="checkItems"
-        label="멘티"
-        color="indigo darken-3"
-        value="mentee"
-        hide-details
-    ></v-checkbox>
 
-    <input type="radio" id="mentor" value="mentor" v-model="picked">
-    <label for="mentor">멘토만보기</label>
-    <br>
-    <input type="radio" id="mentee" value="mentee" v-model="picked">
-    <label for="mentee">멘티만보기</label>
+    <input type="radio" id="all" value="all" v-model="picked" @click="getMemberList()">전체보기<br>
+    <input type="radio" id="admin" value="MB001" v-model="picked" @click="getMemberTypeList('MB001')">관리자만 보기<br>
+    <input type="radio" id="mentor" value="MB002" v-model="picked" @click="getMemberTypeList('MB002')">멘토만 보기<br>
+    <input type="radio" id="mentee" value="MB003" v-model="picked" @click="getMemberTypeList('MB003')">멘티만 보기<br>
     <br>
     <span>선택: {{ picked }}</span>
 
-    <Table v-if="items.length !== 0" :items="items" :headers="headers" :title="'회원관리'" />
+    <Table v-if="items.length !== 0" 
+    :items="items" 
+    :headers="headers" 
+    :title="'회원관리'" />
+
   </div>
 </template>
 
 <script>
 import axios from "axios";
-import Table from "../board/Tables/Table.vue";
+axios.defaults.headers.post["Content-Type"] = "application/json";
+import Table from "./Tables/Table.vue";
+
 export default {
   components: {
     Table,
   },
-  method: {
-    getMemberTypeList() {
-
+  methods: {
+    getMemberList() {
+      axios.get("/api/admin/memberList").then((res) => {
+        console.log(res.data);
+        this.items = res.data;
+      });
+    },
+    getMemberTypeList(data) {
+      this.picked = data;
+      axios.get(`/api/admin/memberList/type/${this.picked}`).then((res) => {
+        console.log(res.data);
+        this.items = res.data;
+      });
     },
   },
   created() {
@@ -54,9 +55,10 @@ export default {
         { text: "이름", value: "mbrNm" },
         { text: "아이디", value: "loginId" },
         { text: "전화번호", value: "telno" },
-        { text: "멤버유형", value: "mtrId" },
+        { text: "멤버유형", value: "mbrTypeCd" },
         { text: "멘토아이디", value: "mtrId" },
         { text: "회원가입일시", value: "mbrSbscDt" },
+        { text: "삭제버튼", value: 'delete', sortable: false},
       ],
       mbrNo: null,
       picked: '',

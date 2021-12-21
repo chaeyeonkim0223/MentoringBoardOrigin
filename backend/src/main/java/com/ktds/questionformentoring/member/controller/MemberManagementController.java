@@ -33,7 +33,7 @@ public class MemberManagementController {
             @ApiResponse(code = 500, message = "서버 오류")
     })
     public List<MemberManagementDTO> searchMemberList() {
-        log.info("GET /api/admin/member/list HTTP/1.1");
+        log.info("GET /api/admin/memberList");
         return memberServiceImpl.searchMemberList();
     }
 
@@ -45,11 +45,11 @@ public class MemberManagementController {
             @ApiResponse(code = 500, message = "서버 오류")
     })
     public List<MemberManagementDTO> searchNameList(@PathVariable String mbrNm) {
-        log.info("GET /api/admin/member/list/{mbrNm} HTTP/1.1");
+        log.info("GET /api/admin/memberList/{mbrNm}");
         return memberServiceImpl.searchMemberNameList(mbrNm);
     }
 
-    @GetMapping("/memberList/{mbrTypeCd}")
+    @GetMapping("/memberList/type/{mbrTypeCd}")
     @ApiOperation(value = "유저리스트 타입 조회", notes = "유저리스트 멘토, 멘티로 검색")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
@@ -57,7 +57,7 @@ public class MemberManagementController {
             @ApiResponse(code = 500, message = "서버 오류")
     })
     public List<MemberManagementDTO> searchTypeList(@PathVariable String mbrTypeCd) {
-        log.info("GET /api/admin/member/list/{mbrTypeCd} HTTP/1.1");
+        log.info("GET /api/admin/memberList/type/{mbrTypeCd}");
         return memberServiceImpl.searchMemberTypeList(mbrTypeCd);
     }
 
@@ -69,7 +69,7 @@ public class MemberManagementController {
             @ApiResponse(code = 500, message = "서버 오류")
     })
     public ResponseEntity deleteMember(@PathVariable Long mbrNo) {
-        log.info("DELETE /api/admin/member/{mbrNo} HTTP/1.1");
+        log.info("DELETE /api/admin/memberList/{mbrNo}");
         memberServiceImpl.deleteByMbrNo(mbrNo);
         return new ResponseEntity(HttpStatus.OK);
     }
