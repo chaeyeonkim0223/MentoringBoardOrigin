@@ -15,9 +15,11 @@ export default {
 
   },
   created() {
+  /*
     axios.get("/api/member").then((res) => {
       this.item = res.data;
     })
+    */
   },
   data() {
     return {

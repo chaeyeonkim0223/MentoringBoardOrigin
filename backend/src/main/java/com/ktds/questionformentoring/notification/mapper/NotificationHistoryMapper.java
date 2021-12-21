@@ -1,5 +1,5 @@
 package com.ktds.questionformentoring.notification.mapper;
-
+/*
 import com.ktds.questionformentoring.notification.entity.NotificationHistoryDTO;
 
 import java.util.List;
@@ -15,3 +15,4 @@ public interface NotificationHistoryMapper {
     // 알림 내역 삭제
     public void deleteByMbrNo(int ntcPsthNo);
 }
+*/

@@ -1,5 +1,5 @@
 package com.ktds.questionformentoring.notification.service;
-
+/*
 import com.ktds.questionformentoring.notification.entity.NotificationHistoryDTO;
 import com.ktds.questionformentoring.notification.mapper.NotificationHistoryMapper;
 import lombok.RequiredArgsConstructor;
@@ -29,3 +29,4 @@ public class NotificationHistoryServiceImpl implements NotificationHistoryServic
         notificationHistoryMapper.deleteByMbrNo(ntcPsthNo);
     }
 }
+*/

@@ -1,5 +1,5 @@
 package com.ktds.questionformentoring.notification.controller;
-
+/*
 import com.ktds.questionformentoring.notification.entity.NotificationHistoryDTO;
 import com.ktds.questionformentoring.notification.service.NotificationHistoryServiceImpl;
 import io.swagger.annotations.*;
@@ -57,3 +57,4 @@ public class NotificationHistoryController {
         return new ResponseEntity(HttpStatus.OK);
     }
 }
+*/
