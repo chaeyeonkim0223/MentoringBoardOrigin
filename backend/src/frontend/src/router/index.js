@@ -14,7 +14,7 @@ const routes = [
     },
     children: [
       {
-        path: "/board",
+        path: "",
         name: "BoardView",
         component: () => import("@/views/board/BoardView"),
         //beforeEnter: checkAuth(),
