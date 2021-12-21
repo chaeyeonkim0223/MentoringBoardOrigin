@@ -5,8 +5,11 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @MapperScan(
-        basePackages = {"com.ktds.questionformentoring.board.mapper", "com.ktds.questionformentoring.member.mapper",
-        "com.ktds.questionformentoring.comment.mapper"}
+        basePackages = {
+                "com.ktds.questionformentoring.board.mapper",
+                "com.ktds.questionformentoring.member.mapper",
+                "com.ktds.questionformentoring.comment.mapper"
+        }
 )
 public class DatabaseConfig {}
 
