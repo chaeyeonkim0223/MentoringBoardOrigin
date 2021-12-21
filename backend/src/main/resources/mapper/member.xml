@@ -28,7 +28,7 @@
         where "MBR_TYPE_CD" = #{mbrTypeCd}
     </select>
 
-    <delete id="deleteByMbrNo" parameterType="Long">
+    <delete id="deleteByMbrNo" parameterType="int">
         delete from "MBR_BAS"
         where "MBR_NO" = #{mbrNo}
     </delete>
