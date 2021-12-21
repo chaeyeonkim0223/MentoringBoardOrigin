@@ -9,10 +9,11 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class MemberLoginHistoryServiceImpl {
+public class MemberLoginHistoryServiceImpl implements MemberLoginHistoryService {
 
     private final MemberLoginHistoryMapper memberLoginHistoryMapper;
 
+    @Override
     public List<MemberLoginHistoryDTO> findByMbrNo(int mbrNo) {
         return memberLoginHistoryMapper.findByMbrNo(mbrNo);
     }
