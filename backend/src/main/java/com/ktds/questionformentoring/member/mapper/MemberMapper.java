@@ -20,5 +20,5 @@ public interface MemberMapper {
     public List<MemberManagementDTO> findByMbrTypeCd(String mbrTypeCd);
 
     // 관리자 페이지 - 유저 삭제
-    public void deleteByMbrNo(Long mbrNo);
+    public void deleteByMbrNo(int mbrNo);
 }
