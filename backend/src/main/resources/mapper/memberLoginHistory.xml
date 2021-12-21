@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ktds.questionformentoring.member.mapper.MemberLoginHistoryMapper">
+
+    <select id="findByMbrNo" parameterType="int" resultType="MemberLoginHistoryDTO">
+        select "MBR_LOGIN_SEQ", "MBR_NO", "LOGIN_ID", "LOGIN_IP", "LOGIN_DT"
+        from "MBR_LOGIN_HST"
+        where "MBR_NO" = #{mbrNo}
+    </select>
+
+</mapper>
