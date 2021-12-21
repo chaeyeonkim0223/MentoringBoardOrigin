@@ -16,6 +16,7 @@
       :headers="headers"
       :items="items"
       :search="search"
+      @click:row="goMemberDetail"
     >
       <template v-slot:delete>
         <v-btn color="error" @click="deleteMbr">

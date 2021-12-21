@@ -16,7 +16,7 @@
         from "MBR_BAS"
     </select>
 
-    <select id="findByMbrNM" parameterType="String" resultType="MemberManagementDTO">
+    <select id="findByMbrNm" parameterType="String" resultType="MemberManagementDTO">
         select "MBR_NO", "MBR_NM", "LOGIN_ID", "MBR_TYPE_CD", "TELNO", "MTR_ID", "MBR_SBSC_DT", "LAST_LOGIN_DT"
         from "MBR_BAS"
         where "MBR_NM" = #{mbrNm}
@@ -28,7 +28,7 @@
         where "MBR_TYPE_CD" = #{mbrTypeCd}
     </select>
 
-    <delete id="deleteByMbrNo" parameterType="Long">
+    <delete id="deleteByMbrNo" parameterType="int">
         delete from "MBR_BAS"
         where "MBR_NO" = #{mbrNo}
     </delete>

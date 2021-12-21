@@ -61,6 +61,10 @@ public class MemberManagementController {
         return memberServiceImpl.searchMemberTypeList(mbrTypeCd);
     }
 
+
+    /**
+     * 유저 삭제: 포린키 문제
+     */
     @DeleteMapping("/memberList/{mbrNo}")
     @ApiOperation(value = "유저 삭제", notes = "유저리스트에서 삭제")
     @ApiResponses({
@@ -68,7 +72,7 @@ public class MemberManagementController {
             @ApiResponse(code = 204, message = "정보 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity deleteMember(@PathVariable Long mbrNo) {
+    public ResponseEntity deleteMember(@PathVariable int mbrNo) {
         log.info("DELETE /api/admin/memberList/{mbrNo}");
         memberServiceImpl.deleteByMbrNo(mbrNo);
         return new ResponseEntity(HttpStatus.OK);

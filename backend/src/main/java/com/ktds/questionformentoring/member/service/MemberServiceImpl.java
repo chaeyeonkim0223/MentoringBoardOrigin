@@ -35,7 +35,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public void deleteByMbrNo(Long mbrNo) {
+    public void deleteByMbrNo(int mbrNo) {
         memberMapper.deleteByMbrNo(mbrNo);
     }
 }
