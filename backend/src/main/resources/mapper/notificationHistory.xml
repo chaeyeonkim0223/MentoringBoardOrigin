@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ktds.questionformentoring.notification.mapper.NotificationHistoryMapper">
+
+    <select id="save" resultType="NotificationHistoryDTO">
+        insert into "MBR_NTC_HST"
+            ("MBR_NO", "NTC_PSTG_NO", "NTC_PSTG_TITL_NM", "NTC_PSTG_CN", "LGN_ID", "RCPTN_DT")
+        values (#{mbrNo}, default , #{ntcPsthTitlNm}, #{ntcPstgCn}, #{lgnId}, #{rcptnDt}) returning *
+    </select>
+
+    <select id="findByMbrNo" resultType="BoardDTO">
+        select "MBR_NO", "NTC_PSTG_NO", "NTC_PSTG_TITL_NM", "NTC_PSTG_CN", "LGN_ID", "RCPTN_DT"
+        from "MBR_NTC_HST"
+        WHERE "MBR_NO" = #{mbrNo}
+    </select>
+
+    <delete id="delete" parameterType="int">
+        delete from "MBR_NTC_HST"
+        where "MBR_NO" = #{mbrNo}
+    </delete>
+
+</mapper>
+
