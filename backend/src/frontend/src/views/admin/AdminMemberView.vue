@@ -35,7 +35,9 @@ export default {
     Table,
   },
   method: {
-    getMemberTypeList()
+    getMemberTypeList() {
+
+    },
   },
   created() {
     axios.get("/api/admin/memberList").then((res) => {
