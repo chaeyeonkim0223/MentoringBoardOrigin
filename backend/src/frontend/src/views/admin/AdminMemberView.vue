@@ -8,7 +8,7 @@
     <br>
     <span>선택: {{ picked }}</span>
 
-    <Table v-if="items.length !== 0" 
+    <Table
     :items="items" 
     :headers="headers" 
     :title="'회원관리'" />
@@ -26,6 +26,10 @@ export default {
     Table,
   },
   methods: {
+    goMemberDetail(record) {
+      this.mbrNo = record.mbrNo;
+      this.$router.push({ name: "AdminMemberDetail", params: { mbrNo: this.mbrNo } }); 
+    },
     getMemberList() {
       axios.get("/api/admin/memberList").then((res) => {
         console.log(res.data);
