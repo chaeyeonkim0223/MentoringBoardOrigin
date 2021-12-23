@@ -19,15 +19,15 @@
 <script>
 import axios from "axios";
 axios.defaults.headers.post["Content-Type"] = "application/json";
-import Table from "./Tables/Table.vue";
+import Table from "./Tables/DetailTable.vue";
 
 export default {
   components: {
     Table,
   },
   methods: {
-    goMemberDetail(record) {
-      this.mbrNo = record.mbrNo;
+    goMemberDetail() {
+      console.log();
       this.$router.push({ name: "AdminMemberDetail", params: { mbrNo: this.mbrNo } }); 
     },
     getMemberList() {

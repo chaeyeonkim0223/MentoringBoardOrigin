@@ -34,15 +34,15 @@ const routes = [
         name: "BoardModify",
         component: () => import("@/views/board/BoardModify"),
       },
-      // {
-      //   path: "/test",
-      //   name: "Test",
-      //   component: () => import("@/views/board/Test"),
-      // },
       {
         path: "/admin/memberList",
         name: "AdminMemberView",
         component: () => import("../views/admin/AdminMemberView"),
+      },
+      {
+        path: "/admin/memberList/:mbrNo",
+        name: "AdminMemberDetail",
+        component: () => import("../views/admin/AdminMemberDetail"),
       },
     ],
   },

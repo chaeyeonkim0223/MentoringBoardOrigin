@@ -16,19 +16,13 @@
       :headers="headers"
       :items="items"
       :search="search"
-      @click:row="goMemberDetail"
-    >
-      <template v-slot:delete>
-        <v-btn color="error" @click="deleteMbr">
-          삭제
-        </v-btn>
-      </template>
+      @click:row="goMemberDetail">
     </v-data-table>
   </v-card>
 </template>
 
 <script>
-import axios from "axios";
+//import axios from "axios";
 
 export default {
   props: {
@@ -39,12 +33,17 @@ export default {
   data() {
     return {
       search: "",
+      mbrNo: null,
     };
   },
   methods: {
     deleteMbr() {
 
-    }
+    },
+    goMemberDetail() {
+      console.log();
+      this.$router.push({ name: "AdminMemberDetail", params: { mbrNo: this.mbrNo } });
+    },
   },
 };
 </script>
