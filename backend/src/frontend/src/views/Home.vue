@@ -4,9 +4,10 @@
       <v-container class="py-0 fill-height">
         <v-avatar class="mr-10" color="grey darken-1" size="32"></v-avatar>
 
-        <v-btn v-for="link in links" :key="link" text>
-          {{ link }}
-        </v-btn>
+        <v-btn text @click="$router.push({ name: 'BoardView' })">멘토링 게시판</v-btn>
+        <v-btn text @click="$router.push({ name: 'AdminMemberView' })">회원관리</v-btn>
+        <v-btn text @click="$router.push({ name: 'AdminBoardView' })">게시판관리</v-btn>
+
         <!-- <MainMenu /> -->
         <v-spacer></v-spacer>
       </v-container>
@@ -18,9 +19,16 @@
           <v-col cols="2">
             <v-sheet rounded="lg">
               <v-list color="transparent">
-                <v-list-item v-for="n in 5" :key="n" link>
+
+                <v-list-item link color="grey lighten-4">
                   <v-list-item-content>
-                    <v-list-item-title @click="$router.push({ name: 'AdminMemberView' })"> List Item {{ n }} </v-list-item-title>
+                    <v-list-item-title @click="$router.push({ name: 'AdminMemberView' })"> 회원관리 </v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+
+                <v-list-item link color="grey lighten-4">
+                  <v-list-item-content>
+                    <v-list-item-title @click="$router.push({ name: 'AdminBoardView' })"> 게시판관리 </v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
 
@@ -37,7 +45,6 @@
 
           <v-col>
             <v-sheet min-height="70vh" rounded="lg">
-              <!-- <BoardView /> -->
               <router-view></router-view>
             </v-sheet>
           </v-col>

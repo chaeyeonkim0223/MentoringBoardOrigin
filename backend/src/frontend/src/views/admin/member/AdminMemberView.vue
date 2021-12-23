@@ -1,13 +1,15 @@
 <template>
   <div>
 
-    <input type="radio" id="all" value="all" v-model="picked" @click="getMemberList()">전체보기<br>
-    <input type="radio" id="admin" value="MB001" v-model="picked" @click="getMemberTypeList('MB001')">관리자만 보기<br>
-    <input type="radio" id="mentor" value="MB002" v-model="picked" @click="getMemberTypeList('MB002')">멘토만 보기<br>
-    <input type="radio" id="mentee" value="MB003" v-model="picked" @click="getMemberTypeList('MB003')">멘티만 보기<br>
-    <br>
-    <span>선택: {{ picked }}</span>
-
+    <v-card class="d-flex align-end flex-row-reverse">
+        <v-radio-group v-model="picked" row>
+            <v-radio style="font-size: 3px" label="전체보기" color="primary" value="all" @click="getMemberList()" ></v-radio>
+            <v-radio label="관리자만 보기" color="primary" value="MB001" @click="getMemberTypeList('MB001')"></v-radio>
+            <v-radio label="멘토만 보기" color="primary" value="MB002" @click="getMemberTypeList('MB002')"></v-radio>
+            <v-radio label="멘티만 보기" color="primary" value="MB003" @click="getMemberTypeList('MB003')"></v-radio>
+        </v-radio-group>
+    </v-card>
+    
     <Table
     :items="items" 
     :headers="headers" 
@@ -56,16 +58,17 @@ export default {
       items: [],
       headers: [
         { text: "번호", value: "mbrNo" },
-        { text: "이름", value: "mbrNm" },
-        { text: "아이디", value: "loginId" },
-        { text: "전화번호", value: "telno" },
-        { text: "멤버유형", value: "mbrTypeCd" },
-        { text: "멘토아이디", value: "mtrId" },
-        { text: "회원가입일시", value: "mbrSbscDt" },
-        { text: "삭제버튼", value: 'delete', sortable: false},
+        { text: "이름", value: "mbrNm", sortable: false },
+        { text: "아이디", value: "loginId", sortable: false },
+        // { text: "전화번호", value: "telno", sortable: false },
+        { text: "멤버유형", value: "mbrTypeCd", sortable: false },
+        { text: "멘토아이디", value: "mtrId", sortable: false },
+        // { text: "회원가입일시", value: "mbrSbscDt", sortable: false },
+        { text: "", value: "delete", sortable: false},
       ],
       mbrNo: null,
       picked: '',
+      dialog: false,
     };
   },
 };

@@ -15,5 +15,5 @@ public class MemberLoginHistoryDTO {
     private int mbrNo;          // 회원 번호
     private String loginId;     // 로그인 아이디
     private String loginIp;     // 로그인 IP
-    private Date LoginDt;       // 로그인 일시
+    private Date loginDt;       // 로그인 일시
 }

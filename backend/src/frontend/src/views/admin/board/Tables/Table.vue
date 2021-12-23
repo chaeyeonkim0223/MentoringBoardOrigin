@@ -16,14 +16,21 @@
       :headers="headers"
       :items="items"
       :search="search"
-      @click:row="goMemberDetail">
+    >
+
+      <template v-slot:item.pstartTitlNm="{ item }">
+        <a class="text-decoration-none text-decoration-underline" @click="goDetail(item.pstartNo)">{{item.pstartTitlNm}}</a>  
+      </template>
+
+      <template v-slot:item.delete="{ item }">
+        <v-btn text color="error" @click="deleteItem(item)">삭제</v-btn>
+      </template>
+
     </v-data-table>
   </v-card>
 </template>
 
 <script>
-//import axios from "axios";
-
 export default {
   props: {
     items: Array,
@@ -32,17 +39,14 @@ export default {
   },
   data() {
     return {
+      pstartNo: null,
       search: "",
-      mbrNo: null,
     };
   },
   methods: {
-    deleteMbr() {
-
-    },
-    goMemberDetail() {
-      console.log();
-      this.$router.push({ name: "AdminMemberDetail", params: { mbrNo: this.mbrNo } });
+    goDetail(record) {
+      this.pstartNo = record;
+      this.$router.push({ name: "AdminBoardDetail", params: { pstartNo: this.pstartNo } });
     },
   },
 };

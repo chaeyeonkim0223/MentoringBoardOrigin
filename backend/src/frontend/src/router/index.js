@@ -34,15 +34,25 @@ const routes = [
         name: "BoardModify",
         component: () => import("@/views/board/BoardModify"),
       },
-      // {
-      //   path: "/test",
-      //   name: "Test",
-      //   component: () => import("@/views/board/Test"),
-      // },
       {
         path: "/admin/memberList",
         name: "AdminMemberView",
-        component: () => import("../views/admin/AdminMemberView"),
+        component: () => import("../views/admin/member/AdminMemberView"),
+      },
+      {
+        path: "/admin/memberList/:mbrNo",
+        name: "AdminMemberDetail",
+        component: () => import("../views/admin/member/AdminMemberDetail"),
+      },
+      {
+        path: "/admin/board",
+        name:"AdminBoardView",
+        component: () => import("../views/admin/board/AdminBoardView"),
+      },
+      {
+        path: "/admin/board/:pstartNo",
+        name:"AdminBoardDetail",
+        component: () => import("../views/admin/board/AdminBoardDetail"),
       },
     ],
   },

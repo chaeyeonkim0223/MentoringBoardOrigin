@@ -12,18 +12,27 @@
         hide-details
       ></v-text-field>
     </v-card-title>
+
     <v-data-table
       :headers="headers"
       :items="items"
-      :search="search"
-      @click:row="goMemberDetail">
+      :search="search">
+      <!-- @click:row="goMemberDetail"> -->
+
+      <template v-slot:item.loginId="{ item }">
+        <a class="text-decoration-none text-decoration-underline" @click="goMemberDetail">{{item.loginId}}</a>  
+      </template>
+
+      <template v-slot:item.delete="{ item }">
+        <v-btn text color="error" @click="deleteItem(item)">삭제</v-btn>
+      </template>
+      
     </v-data-table>
   </v-card>
 </template>
 
 <script>
-//import axios from "axios";
-
+import axios from 'axios';
 export default {
   props: {
     items: Array,
@@ -37,12 +46,18 @@ export default {
     };
   },
   methods: {
-    deleteMbr() {
 
-    },
-    goMemberDetail() {
-      console.log();
+    goMemberDetail(record) {
+      console.log(record);
+      this.mbrNo = record.mbrNo;
       this.$router.push({ name: "AdminMemberDetail", params: { mbrNo: this.mbrNo } });
+    },
+    
+    deleteItem (item) {
+      axios.delete(`/api/admin/memberList/${item}`).then(() => {
+        this.$router.push({ name: "AdminMemberView" });
+        window.alert("삭제완료");
+      });
     },
   },
 };
