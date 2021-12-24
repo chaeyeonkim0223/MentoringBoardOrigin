@@ -1,6 +1,6 @@
 <template>
   <div class="p-3">
-    <Table :items="items" :headers="headers" :title="'게시물관리'" />
+    <Table :items="items" :headers="headers" :title="'게시글 관리'" />
   </div>
 </template>
 

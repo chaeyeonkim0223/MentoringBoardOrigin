@@ -1,19 +1,23 @@
 <template>
   <div>
 
-    <v-card class="d-flex align-end flex-row-reverse">
-        <v-radio-group v-model="picked" row>
-            <v-radio style="font-size: 3px" label="전체보기" color="primary" value="all" @click="getMemberList()" ></v-radio>
-            <v-radio label="관리자만 보기" color="primary" value="MB001" @click="getMemberTypeList('MB001')"></v-radio>
-            <v-radio label="멘토만 보기" color="primary" value="MB002" @click="getMemberTypeList('MB002')"></v-radio>
-            <v-radio label="멘티만 보기" color="primary" value="MB003" @click="getMemberTypeList('MB003')"></v-radio>
-        </v-radio-group>
-    </v-card>
+    <v-container class="d-flex align-end flex-row-reverse">
+    <v-chip-group
+      v-model="selected"
+      column
+      multiple
+      color="blue darken-3"
+    >
+      <v-chip dense filter outlined value="MB001" @click="getMemberTypeList('MB001')">관리자</v-chip>
+      <v-chip dense filter outlined value="MB002" @click="getMemberTypeList('MB002')">멘토</v-chip>
+      <v-chip dense filter outlined value="MB003" @click="getMemberTypeList('MB003')">멘티</v-chip>
+    </v-chip-group>
+    </v-container>
     
     <Table
     :items="items" 
     :headers="headers" 
-    :title="'회원관리'" />
+    :title="'회원 관리'" />
 
   </div>
 </template>
@@ -32,17 +36,14 @@ export default {
       this.mbrNo = record.mbrNo;
       this.$router.push({ name: "AdminMemberDetail", params: { mbrNo: this.mbrNo } }); 
     },
-    getMemberList() {
-      axios.get("/api/admin/memberList").then((res) => {
-        console.log(res.data);
-        this.items = res.data;
-      });
-    },
-    getMemberTypeList(data) {
-      this.picked = data;
-      axios.get(`/api/admin/memberList/type/${this.picked}`).then((res) => {
-        console.log(res.data);
-        this.items = res.data;
+    getMemberTypeList(mbrType) {
+      this.items = this.allItems.filter(m => {
+        if (this.selected.includes(m.mbrTypeCd) && m.mbrTypeCd == mbrType) { 
+          return false; 
+        } else if (!this.selected.includes(m.mbrTypeCd) && m.mbrTypeCd == mbrType) { 
+          return true; 
+        }
+        return this.selected.includes(m.mbrTypeCd);
       });
     },
   },
@@ -50,11 +51,14 @@ export default {
     axios.get("/api/admin/memberList").then((res) => {
       console.log(res.data);
       this.items = res.data;
+      this.allItems = res.data;
     });
   },
   data() {
     return {
       checkItems: ["멘토", "멘티"],
+      selected: ['MB001', 'MB002', 'MB003'],
+      allItems: [],
       items: [],
       headers: [
         { text: "번호", value: "mbrNo" },
@@ -67,7 +71,6 @@ export default {
         { text: "", value: "delete", sortable: false},
       ],
       mbrNo: null,
-      picked: '',
       dialog: false,
     };
   },
