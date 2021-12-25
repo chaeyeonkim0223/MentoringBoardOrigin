@@ -64,6 +64,13 @@ const routes = [
     //beforeEnter: checkAuth(),
   },
 
+  {
+    path: '/login',
+    name: 'Login',
+    component: () => import('@/views/login/Login'),
+    //meta: { authRequired: true },
+  },
+
   //Editor
   // {
   //   path: "/editor",
@@ -82,5 +89,24 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes,
 });
+
+const isAuth = false
+
+router.beforeEach((to, from, next) => {
+  if (
+    to.matched.some(function (routeInfo) {
+      return routeInfo.meta.authRequired
+    })
+  ) {
+    // 인증이 필요한 페이지일 경우 인증 체크
+    if (isAuth) {
+      next() // 페이지 전환
+    } else {
+      alert("로그인 필요")
+    }
+  } else {
+    next() // 페이지 전환
+  }
+})
 
 export default router;
