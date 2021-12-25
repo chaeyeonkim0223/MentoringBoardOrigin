@@ -2,23 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.ktds.questionformentoring.comment.mapper.CommentMapper">
-    <select id="findAll" resultType="CommentDTO">
+    <select id="findAll" resultType="com.ktds.questionformentoring.comment.entity.CommentDTO">
         select * from "COMMENT"
     </select>
-    <select id="findCommentList" parameterType="int" resultType="CommentDTO">
+    <select id="findCommentList" parameterType="int" resultType="com.ktds.questionformentoring.comment.entity.CommentDTO">
         select * from "COMMENT"
         where "PSTART_NO" =#{pstartNo}
     </select>
-    <select id="findById" parameterType="int" resultType="CommentDTO">
+    <select id="findById" parameterType="int" resultType="com.ktds.questionformentoring.comment.entity.CommentDTO">
         select * from "COMMENT"
         where "CMNT_SN" =#{cmntSn}
     </select>
-    <select id="write" resultType="CommentDTO">
+    <select id="write" resultType="com.ktds.questionformentoring.comment.entity.CommentDTO">
         insert into "COMMENT"
         values(default, #{pstartNo}, #{rgtrId}, #{rgtrNm}, #{rgtrMbrCd}, pg_catalog.clock_timestamp(), #{cmntCn},'N', #{mbrNo})
         returning *
     </select>
-    <update id="update" parameterType="CommentDTO">
+    <update id="update" parameterType="com.ktds.questionformentoring.comment.entity.CommentDTO">
         update "COMMENT"
         set "CMNT_CN" =#{cmntCn}, "SLCTN_YN" =#{slctnYn}
         where "CMNT_SN" =#{cmntSn}
