@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ktds.questionformentoring.login.mapper.LoginMapper">
+
+    <select id="findOne" resultType="com.ktds.questionformentoring.member.entity.MemberDTO">
+        select "LOGIN_ID", "LOGIN_PWD"
+        from "MBR_BAS"
+        where "LOGIN_ID" = #{loginId} and "LOGIN_PWD" = #{loginPwd}
+    </select>
+
+    <select id="findAll" resultType="com.ktds.questionformentoring.member.entity.MemberDTO">
+        select "LOGIN_ID", "LOGIN_PWD"
+        from "MBR_BAS"
+    </select>
+</mapper>
