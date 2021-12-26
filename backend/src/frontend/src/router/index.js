@@ -90,23 +90,17 @@ const router = new VueRouter({
   routes,
 });
 
-const isAuth = false
-
 router.beforeEach((to, from, next) => {
-  if (
-    to.matched.some(function (routeInfo) {
-      return routeInfo.meta.authRequired
-    })
-  ) {
-    // 인증이 필요한 페이지일 경우 인증 체크
-    if (isAuth) {
-      next() // 페이지 전환
-    } else {
-      alert("로그인 필요")
-    }
-  } else {
-    next() // 페이지 전환
+  // redirect to login page if not logged in and trying to access a restricted page
+  const publicPages = ['/login'];
+  const authRequired = !publicPages.includes(to.path);
+  const loggedIn = localStorage.getItem('jwt-auth-token');
+
+  if (authRequired && !loggedIn) {
+    return next('/login');
   }
+
+  next();
 })
 
 export default router;
