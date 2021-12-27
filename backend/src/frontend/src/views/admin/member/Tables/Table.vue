@@ -17,14 +17,15 @@
       :headers="headers"
       :items="items"
       :search="search">
-      <!-- @click:row="goMemberDetail"> -->
 
       <template v-slot:item.loginId="{ item }">
-        <a class="text-decoration-none text-decoration-underline" @click="goMemberDetail">{{item.loginId}}</a>  
+        <a class="text-decoration-none text-decoration-underline" @click="goMemberDetail(item)">{{item.loginId}}</a>  
       </template>
 
       <template v-slot:item.delete="{ item }">
-        <v-btn text color="error" @click="deleteItem(item)">삭제</v-btn>
+        <v-btn text color="error" @click="modalShow = !modalShow">삭제</v-btn>
+        <b-modal v-model="modalShow" title="경고"
+          @ok="deleteItem(item.mbrNo)">정말 탈퇴시키겠습니까?</b-modal>
       </template>
       
     </v-data-table>
@@ -43,20 +44,20 @@ export default {
     return {
       search: "",
       mbrNo: null,
+      modalShow: false,
     };
   },
   methods: {
 
-    goMemberDetail(record) {
-      console.log(record);
-      this.mbrNo = record.mbrNo;
+    goMemberDetail(item) {
+      this.mbrNo = item.mbrNo;
       this.$router.push({ name: "AdminMemberDetail", params: { mbrNo: this.mbrNo } });
     },
     
-    deleteItem (item) {
-      axios.delete(`/api/admin/memberList/${item}`).then(() => {
-        this.$router.push({ name: "AdminMemberView" });
-        window.alert("삭제완료");
+    deleteItem (mbrNo) {
+      axios.delete(`/api/admin/memberList/${mbrNo}`).then(() => {
+        window.alert("탈퇴완료");
+        location.reload();
       });
     },
   },
