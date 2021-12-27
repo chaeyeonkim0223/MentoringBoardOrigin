@@ -3,7 +3,7 @@
 
 <mapper namespace="com.ktds.questionformentoring.notification.mapper.NotificationHistoryMapper">
 
-    <select id="save" resultType="NotificationHistoryDTO">
+    <select id="save" resultType="com.ktds.questionformentoring.notification.entity.NotificationHistoryDTO">
         insert into "MBR_NTC_HST"
             ("MBR_NO", "NTC_PSTG_NO", "NTC_PSTG_TITL_NM", "NTC_PSTG_CN", "LGN_ID", "RCPTN_DT")
         values (#{mbrNo}, default , #{ntcPsthTitlNm}, #{ntcPstgCn}, #{lgnId}, #{rcptnDt}) returning *

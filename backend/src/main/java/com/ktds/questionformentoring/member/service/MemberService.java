@@ -7,6 +7,9 @@ import java.util.List;
 
 public interface MemberService {
 
+    // 유저 조회 (한명)
+    MemberManagementDTO searchMember(int mbrNo);
+
     // 유저 저장
     public MemberDTO save(MemberDTO memberDTO);
 

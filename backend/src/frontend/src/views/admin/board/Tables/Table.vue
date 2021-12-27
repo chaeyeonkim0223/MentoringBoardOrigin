@@ -31,6 +31,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
   props: {
     items: Array,
@@ -48,6 +49,14 @@ export default {
       this.pstartNo = record;
       this.$router.push({ name: "AdminBoardDetail", params: { pstartNo: this.pstartNo } });
     },
+    deleteItem(item) {
+      axios.delete(`/api/boards/${Number(item.pstartNo)}`).then((res) => {
+        this.item = res.data;
+        console.log(this.item);
+        window.alert("삭제완료");
+        this.$router.push({ name: "AdminBoardView" });
+      });
+    }
   },
 };
 </script>

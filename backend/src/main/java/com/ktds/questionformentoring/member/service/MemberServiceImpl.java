@@ -15,6 +15,11 @@ public class MemberServiceImpl implements MemberService {
     private final MemberMapper memberMapper;
 
     @Override
+    public MemberManagementDTO searchMember(int mbrNo) {
+        return memberMapper.findByMbrNo(mbrNo);
+    }
+
+    @Override
     public MemberDTO save(MemberDTO memberDTO) {
         return memberMapper.save(memberDTO);
     }
