@@ -30,7 +30,7 @@ public class MemberLoginHistoryController {
             @ApiResponse(code = 500, message = "서버 오류")
     })
     public List<MemberLoginHistoryDTO> searchMemberHistory(@PathVariable int mbrNo) {
-        log.info("GET /api/memberLogin/{mbrNo}");
+        log.info("GET /api/memberLogin/" + mbrNo);
         return memberLoginHistoryService.findByMbrNo(mbrNo);
     }
 }

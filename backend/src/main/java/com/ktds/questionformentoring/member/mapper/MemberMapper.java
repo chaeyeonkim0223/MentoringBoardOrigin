@@ -7,6 +7,9 @@ import java.util.List;
 
 public interface MemberMapper {
 
+    // 유저 조회 (한명)
+    MemberManagementDTO findByMbrNo(int mbrNo);
+
     // 유저 저장
     public MemberDTO save(MemberDTO memberDTO);
 

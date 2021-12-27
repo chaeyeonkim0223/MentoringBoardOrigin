@@ -25,6 +25,18 @@ public class MemberManagementController {
 
     private final MemberServiceImpl memberServiceImpl;
 
+    @GetMapping("/memberList/member/{mbrNo}")
+    @ApiOperation(value = "유저 조회", notes = "유저번호로 조회")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 204, message = "정보 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public MemberManagementDTO searchMember(@PathVariable int mbrNo) {
+        log.info("GET /api/admin/" + mbrNo);
+        return memberServiceImpl.searchMember(mbrNo);
+    }
+
     @GetMapping("/memberList")
     @ApiOperation(value = "유저리스트 조회", notes = "유저리스트 전체 조회")
     @ApiResponses({

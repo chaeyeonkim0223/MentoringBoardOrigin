@@ -34,7 +34,7 @@ public class MemberHistoryController {
             @ApiResponse(code = 500, message = "서버 오류")
     })
     public List<MemberHistoryDTO> searchMemberHistory(@PathVariable int mbrNo) {
-        log.info("GET /api/member/{mbrNo}");
+        log.info("GET /api/member/" + mbrNo);
         return memberHistoryService.findByMbrNo(mbrNo);
     }
 }
