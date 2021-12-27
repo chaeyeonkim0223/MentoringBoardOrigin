@@ -13,6 +13,7 @@ const routes = [
       name: "BoardView",
     },
     children: [
+      // 게시판
       {
         path: "",
         name: "BoardView",
@@ -34,6 +35,7 @@ const routes = [
         name: "BoardModify",
         component: () => import("@/views/board/BoardModify"),
       },
+      // 관리자
       {
         path: "/admin/memberList",
         name: "AdminMemberView",
@@ -53,6 +55,12 @@ const routes = [
         path: "/admin/board/:pstartNo",
         name:"AdminBoardDetail",
         component: () => import("../views/admin/board/AdminBoardDetail"),
+      },
+      // 통계
+      {
+        path: "/statistics",
+        name: "BarChart",
+        component: () => import("../views/chart/BarChart"),
       },
     ],
   },

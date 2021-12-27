@@ -27,16 +27,19 @@
         <v-list-item @click="$router.push({ name: 'BoardView' })">멘토링 게시판</v-list-item>
         <v-list-item @click="$router.push({ name: 'AdminMemberView' })">회원 관리</v-list-item>
         <v-list-item @click="$router.push({ name: 'AdminBoardView' })">게시글 관리</v-list-item>
+        <v-list-item @click="$router.push({ name: 'ChartView' })">통계</v-list-item>
       </v-list>
     </v-navigation-drawer>
 
-      <!-- 알람 -->
+    <!-- 알람 -->
       <v-card
         class="d-flex flex-row-reverse"
         flat
       >
         <v-icon color="white">mdi-circle</v-icon>
         <v-icon color="white">mdi-circle</v-icon>
+        <b-dropdown size="lg"  variant="link" toggle-class="text-decoration-none" no-caret right>
+        <template #button-content>
         <v-btn
           class="ma-2"
           icon
@@ -50,21 +53,15 @@
             offset-x="8" offset-y="0"
             ></v-badge>
         </v-btn>
-        <v-expand-x-transition>
-          <v-card
-            v-show="expand"
-            height="100"
-            width="100"
-            class="mx-auto secondary"
-          >
-            <v-list dense>
-              <v-subheader>REPORTS</v-subheader>
-              
-            </v-list>          
-          </v-card>
-        </v-expand-x-transition>
+        </template>
+          <b-dropdown-text style="width: 300px;">게시글에 댓글이 달렸습니다.</b-dropdown-text>
+          <b-dropdown-divider></b-dropdown-divider>
+          <b-dropdown-text style="width: 300px;">게시글에 댓글이 달렸습니다.</b-dropdown-text>
+          <b-dropdown-divider></b-dropdown-divider>
+          <b-dropdown-text style="width: 300px;">게시글에 댓글이 달렸습니다.</b-dropdown-text>
+        </b-dropdown>
       </v-card>
-      <!-- 여까지 -->
+    <!-- 여까지 -->
 
     <v-main>
 
