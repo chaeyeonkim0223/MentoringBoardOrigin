@@ -32,10 +32,6 @@ export default {
     Table,
   },
   methods: {
-    goMemberDetail(record) {
-      this.mbrNo = record.mbrNo;
-      this.$router.push({ name: "AdminMemberDetail", params: { mbrNo: this.mbrNo } }); 
-    },
     getMemberTypeList(mbrType) {
       this.items = this.allItems.filter(m => {
         if (this.selected.includes(m.mbrTypeCd) && m.mbrTypeCd == mbrType) { 
