@@ -1,8 +1,5 @@
 <template>
   <v-app id="inspire">
-    <v-system-bar app>
-      <v-spacer></v-spacer>
-    </v-system-bar>
 
     <v-navigation-drawer
         v-model="drawer"
@@ -31,37 +28,11 @@
       </v-list>
     </v-navigation-drawer>
 
-    <!-- 알람 -->
-      <v-card
-        class="d-flex flex-row-reverse"
-        flat
-      >
-        <v-icon color="white">mdi-circle</v-icon>
-        <v-icon color="white">mdi-circle</v-icon>
-        <b-dropdown size="lg"  variant="link" toggle-class="text-decoration-none" no-caret right>
-        <template #button-content>
-        <v-btn
-          class="ma-2"
-          icon
-          @click="expand = !expand"
-        >
-          <v-icon large color="indigo lighten-2">mdi-bell</v-icon>
-          <v-badge 
-            :content="message"
-            :value="message"
-            bordered color="red" 
-            offset-x="8" offset-y="0"
-            ></v-badge>
-        </v-btn>
-        </template>
-          <b-dropdown-text style="width: 300px;">게시글에 댓글이 달렸습니다.</b-dropdown-text>
-          <b-dropdown-divider></b-dropdown-divider>
-          <b-dropdown-text style="width: 300px;">게시글에 댓글이 달렸습니다.</b-dropdown-text>
-          <b-dropdown-divider></b-dropdown-divider>
-          <b-dropdown-text style="width: 300px;">게시글에 댓글이 달렸습니다.</b-dropdown-text>
-        </b-dropdown>
-      </v-card>
-    <!-- 여까지 -->
+    <v-app-bar app flat color="white">
+      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+      <v-spacer></v-spacer>
+      <Notification></Notification>
+    </v-app-bar>
 
     <v-main>
 
@@ -82,7 +53,13 @@
 </template>
 
 <script>
+import Notification from "./notification/Notification.vue";
+
 export default {
+  components: {
+    Notification,
+  },
+
   data: () => ({
     drawer: null,
     links: [
