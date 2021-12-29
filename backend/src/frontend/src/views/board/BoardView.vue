@@ -7,6 +7,7 @@
       dark
       color="indigo"
       @click="$router.push({ name: 'BoardWrite' })"
+      style="z-index: 1"
     >
       <v-icon dark> mdi-plus </v-icon>
     </v-btn>
