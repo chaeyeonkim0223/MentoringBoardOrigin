@@ -10,7 +10,7 @@ import lombok.ToString;
 public class BoardCountVo {
 
     //게시글 갯수
-    private int count;
-    //해당 날짜
-    private String regDt;
+    private int totPstartNum;
+    //집계 일자
+    private String totYmd;
 }

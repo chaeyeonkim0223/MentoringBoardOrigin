@@ -11,7 +11,7 @@ import lombok.ToString;
 public class BoardStatusDTO {
 
     /* 집계 일자 */
-    private int totYmd;
+    private String totYmd;
     /* 집계 게시물 숫자 */
     private int totPstartNum;
     /* 집계 답변 완료 게시물 숫자 */

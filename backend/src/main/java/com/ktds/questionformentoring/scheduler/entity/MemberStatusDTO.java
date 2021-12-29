@@ -12,7 +12,7 @@ import lombok.ToString;
 public class MemberStatusDTO {
 
     /* 집계 일자 */
-    private int totYmd;
+    private String totYmd;
     /* 집계 회원 숫자 */
     private int totMbrNum;
     /* 집계 멘티 숫자 */
