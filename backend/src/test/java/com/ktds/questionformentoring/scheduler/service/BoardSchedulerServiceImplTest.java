@@ -1,5 +1,6 @@
 package com.ktds.questionformentoring.scheduler.service;
 
+import com.ktds.questionformentoring.scheduler.entity.BoardCountVo;
 import com.ktds.questionformentoring.scheduler.entity.BoardStatusDTO;
 import com.ktds.questionformentoring.scheduler.mapper.BoardSchedulerMapper;
 import org.assertj.core.api.Assertions;
@@ -7,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
 import java.util.Map;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
@@ -19,7 +21,7 @@ class BoardSchedulerServiceImplTest {
 
     @Test
     void getStatusByDate() {
-        String date = "2021-12-29";
+
         BoardStatusDTO result = boardSchedulerService.getStatusByDate();
         System.out.println("result = " + result.toString());
         assertThat(result.getTotPstartNum()).isEqualTo(9);
@@ -28,9 +30,19 @@ class BoardSchedulerServiceImplTest {
 
     @Test
     void getCountByDate() {
+        List<BoardCountVo> result = boardSchedulerService.getCountByDate();
+        for (BoardCountVo now :
+                result) {
+            System.out.println("now = " + now.toString());
+
+        }
+
+
     }
 
     @Test
     void insertStatus() {
+        BoardStatusDTO result = boardSchedulerService.insertStatus();
+        System.out.println("result = " + result.toString());
     }
 }

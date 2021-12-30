@@ -17,7 +17,7 @@
         insert into "STAT_WHDWL_MBR_STUS" values (
         now(),
         (select count("MBR_NO")  from "MBR_BAS" where "RTRMMB_DT" is not null and "MTR_ID" is null),
-        (select count("MBR_NO")  from "MBR_BAS" where "RTRMMB_DT" is not null and "MTR_ID" is not null))                          )
+        (select count("MBR_NO")  from "MBR_BAS" where "RTRMMB_DT" is not null and "MTR_ID" is not null))
         returning *
     </select>
     <!--    회원 현황 조회-->

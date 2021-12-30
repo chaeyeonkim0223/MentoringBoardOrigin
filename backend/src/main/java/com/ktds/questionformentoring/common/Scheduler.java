@@ -7,8 +7,8 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 public class Scheduler {
-    @Scheduled(cron = "*/10 * * * * *")
-    public void TestSchedularRun(){
-        log.info("hello schedular");
-    }
+//    @Scheduled(cron = "*/10 * * * * *")
+//    public void TestSchedularRun(){
+//        log.info("hello schedular");
+//    }
 }
