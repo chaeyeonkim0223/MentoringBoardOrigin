@@ -44,7 +44,7 @@
             <a 
                 class="noti"
                 @click="goBoardDetail(item)"
-                > 알림입니다. {{ item.ntcPstgCn }} </a>
+                > {{ item.ntcPstgCn }} </a>
         </b-dropdown-text>
         </div>
 
