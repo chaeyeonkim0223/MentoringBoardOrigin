@@ -1,4 +1,5 @@
 <template>
+
     <v-card
     flat
     style="z-index: 9999"
@@ -26,28 +27,26 @@
         </v-btn>
         </template>
 
-        <b-dropdown-text 
+        <b-dropdown-header
             v-if="this.items.length == 0"
             style="width: 400px"
             >
-        </b-dropdown-text>
+            알림이 없습니다.
+        </b-dropdown-header>
 
-
+        
+        <div class="type2" style="overflow-y: auto; height: 300px;">
         <b-dropdown-text
             v-for="item in items"
             :key="item.ntcPstgNo"
-            style="width: 400px"
+            style="width: 450px"
             >
             <a 
-                class="text-sm-body-2"
-                @click="goBoardDetail(item.pstartNo)"
-                > {{ item.ntcPstgCn }} </a>
-            <v-btn 
-                icon color="error"
-                @click="deleteNotification(item.ntcPstgNo)"
-                ><v-icon>mdi-delete</v-icon>
-            </v-btn>
+                class="noti"
+                @click="goBoardDetail(item)"
+                > 알림입니다. {{ item.ntcPstgCn }} </a>
         </b-dropdown-text>
+        </div>
 
     </b-dropdown>
     </v-card>
@@ -67,8 +66,9 @@ export default {
     },
 
     methods: {
-        goBoardDetail(pstartNo) {
-            this.$router.push({ name: "BoardDetail", params: { pstartNo: pstartNo } });
+        goBoardDetail(item) {
+            this.$router.push({ name: "BoardDetail", params: { pstartNo: item.pstartNo } });
+            this.deleteNotification(item.ntcPstgNo);
         },
         getAlarmHistory() {
             this.mbrNo = 3;
@@ -85,6 +85,7 @@ export default {
     },
     data() {
     return {
+        benched: 0,
         mbrNo: null,
         message: null,
         items: [],
@@ -93,3 +94,45 @@ export default {
 }
 
 </script>
+
+<style>
+.box {
+    -ms-overflow-style: none; 
+} 
+
+.box::-webkit-scrollbar {
+    display:none; 
+}
+
+
+
+/* 스크롤바 설정*/
+.type2::-webkit-scrollbar{
+    width: 6px;
+}
+
+/* 스크롤바 막대 설정*/
+.type2::-webkit-scrollbar-thumb{
+    height: 17%;
+    background-color: rgb(219, 219, 219);
+    border-radius: 10px;  
+}
+
+/* 스크롤바 뒷 배경 설정*/
+.type2::-webkit-scrollbar-track{
+    background-color: rgb(255, 255, 255);
+}
+
+.noti {
+  font-size: small;
+  font-family: 'GowunDodum-Regular', Avenir, Helvetica, Arial, sans-serif;
+}
+
+@font-face {
+    font-family: 'GowunDodum-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/GowunDodum-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+</style>
