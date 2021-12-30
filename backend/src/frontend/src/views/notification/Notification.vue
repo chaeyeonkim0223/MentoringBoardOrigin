@@ -5,14 +5,18 @@
     >
     <v-icon color="white">mdi-circle</v-icon>
     <v-icon color="white">mdi-circle</v-icon>
-    <b-dropdown size="lg"  variant="link" toggle-class="text-decoration-none" no-caret right>
+    <b-dropdown size="lg"  
+        variant="link" 
+        toggle-class="text-decoration-none" 
+        no-caret right
+        >
         <template #button-content>
         <v-btn
             class="ma-2"
             icon
-            @click="expand = !expand"
+            @click="getAlarmHistory"
         >
-            <v-icon large color="indigo lighten-2">mdi-bell</v-icon>
+            <v-icon large color="blue-grey darken-2">mdi-bell</v-icon>
             <v-badge
             :content="message"
             :value="message"
@@ -22,53 +26,68 @@
         </v-btn>
         </template>
 
-        <b-dropdown-header>알림내역</b-dropdown-header>
-        <v-divider></v-divider>
-        <v-simple-table 
-            v-if="this.items.size != 0"
-            style="width: 300px"
+        <b-dropdown-text 
+            v-if="this.items.length == 0"
+            style="width: 400px"
             >
-            <template v-slot: default>
-                <tbody style="width: 300px">
-                    <tr
-                        v-for="item in items"
-                        :key="item.no">
-                        <td>{{ item.contents }}</td>
-                    </tr>
-                </tbody>
-            </template>
-        </v-simple-table>
+        </b-dropdown-text>
+
+
+        <b-dropdown-text
+            v-for="item in items"
+            :key="item.ntcPstgNo"
+            style="width: 400px"
+            >
+            <a 
+                class="text-sm-body-2"
+                @click="goBoardDetail(item.pstartNo)"
+                > {{ item.ntcPstgCn }} </a>
+            <v-btn 
+                icon color="error"
+                @click="deleteNotification(item.ntcPstgNo)"
+                ><v-icon>mdi-delete</v-icon>
+            </v-btn>
+        </b-dropdown-text>
+
     </b-dropdown>
     </v-card>
 </template>
 
 <script>
+import axios from 'axios';
 
 export default {
+
+    created() {
+        this.mbrNo = 3;
+        axios.get(`/api/notification/${this.mbrNo}`).then((res) => {
+            this.items = res.data;
+            this.message = this.items.length;
+        });
+    },
+
+    methods: {
+        goBoardDetail(pstartNo) {
+            this.$router.push({ name: "BoardDetail", params: { pstartNo: pstartNo } });
+        },
+        getAlarmHistory() {
+            this.mbrNo = 3;
+            axios.get(`/api/notification/${this.mbrNo}`).then((res) => {
+                this.items = res.data;
+                this.message = this.items.length;
+            });
+        },
+        deleteNotification(ntcPstgNo) {
+            axios.delete(`/api/notification/${ntcPstgNo}`).then(() => {
+                this.getAlarmHistory();
+            })
+        },
+    },
     data() {
     return {
-      items: [
-            {
-                no: 1, 
-                title: '알림제목입니다.',
-                contents: '알림내용입니다. 알림내용입니다. 알림내용입니다. 알림내용입니다. 알림내용입니다. 알림내용입니다. 알림내용입니다. 알림내용입니다.',
-            },
-            {
-                no: 2,
-                title: '알림제목입니다.',
-                contents: '알림내용입니다. 알림내용입니다.',
-            },
-            {
-                no: 3,
-                title: '알림제목입니다.',
-                contents: '알림내용입니다. 알림내용입니다.',
-            },
-            {
-                no: 4,
-                title: '알림제목입니다.',
-                contents: '알림내용입니다. 알림내용입니다.',
-            },
-        ],
+        mbrNo: null,
+        message: null,
+        items: [],
     };
   },
 }
