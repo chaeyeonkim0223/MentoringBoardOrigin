@@ -10,7 +10,7 @@
           class="pa-4"
       >
 
-        <div>{{ name }}님, 안녕하세요.</div>
+        <div><b>{{ name }}</b>님, 안녕하세요.</div>
         <div>
           <v-btn text x-small elevation="0" color="light-blue darken-4">로그인</v-btn>
           <v-btn text x-small elevation="0" color="light-blue darken-4">회원가입</v-btn>
