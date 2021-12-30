@@ -10,7 +10,8 @@
         답변여부 : {{ item.slctnYn }} | 댓글 수 : {{ item.cmntCnt }}
       </p>
       <v-divider></v-divider>
-      <vue-editor class="text editor" v-html="item.pstartCn"></vue-editor>
+      <div class="text editor" v-html="item.pstartCn"></div>
+      <!-- <vue-editor ></vue-editor> -->
       <v-divider></v-divider>
     </div>
 
@@ -48,12 +49,12 @@
 </template>
 <script>
 import axios from "axios";
-import { VueEditor } from "vue2-editor";
+// import { VueEditor } from "vue2-editor";
 import CommentWrite from "./comment/CommentWrite.vue";
 import CommentView from "./comment/CommentView.vue";
 export default {
   components: {
-    VueEditor,
+    // VueEditor,
     CommentWrite,
     CommentView,
   },

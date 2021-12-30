@@ -1,5 +1,4 @@
 package com.ktds.questionformentoring.notification.controller;
-/*
 import com.ktds.questionformentoring.notification.entity.NotificationHistoryDTO;
 import com.ktds.questionformentoring.notification.service.NotificationHistoryServiceImpl;
 import io.swagger.annotations.*;
@@ -29,7 +28,7 @@ public class NotificationHistoryController {
             @ApiResponse(code = 500, message = "서버 오류")
     })
     public List<NotificationHistoryDTO> searchNotificationHistory(@PathVariable int mbrNo) {
-        log.info("GET /api/notification/{mbrNo}");
+        log.info("GET /api/notification" + mbrNo);
         return notificationHistoryService.findByMbrNo(mbrNo);
     }
 
@@ -52,9 +51,8 @@ public class NotificationHistoryController {
             @ApiResponse(code = 500, message = "서버 오류")
     })
     public ResponseEntity deleteNotificationHistoryByNtcPstgNo(@PathVariable int ntcPstgNo) {
-        log.info("DELETE /api/{ntcPstgNo}");
-        notificationHistoryService.deleteByMbrNo(ntcPstgNo);
+        log.info("DELETE /api/" + ntcPstgNo);
+        notificationHistoryService.deleteByNtcPstgNo(ntcPstgNo);
         return new ResponseEntity(HttpStatus.OK);
     }
 }
-*/

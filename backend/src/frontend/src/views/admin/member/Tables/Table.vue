@@ -23,9 +23,19 @@
       </template>
 
       <template v-slot:item.delete="{ item }">
-        <v-btn text color="error" @click="modalShow = !modalShow">삭제</v-btn>
+        <v-btn text color="error" @click="modalShow = true">삭제</v-btn>
+
         <b-modal v-model="modalShow" title="경고"
-          @ok="deleteItem(item.mbrNo)">정말 탈퇴시키겠습니까?</b-modal>
+          @ok="deleteItem(item.mbrNo); snackbar=true">정말 탈퇴시키겠습니까?
+        </b-modal>
+        
+        <v-snackbar v-model="snackbar" elevation="0">탈퇴완료
+          <template v-slot:action="{ attrs }">
+            <v-btn color="blue" text v-bind="attrs" @click="snackbar = false">닫기</v-btn>
+          </template>
+        </v-snackbar>
+
+        
       </template>
       
     </v-data-table>
@@ -45,6 +55,8 @@ export default {
       search: "",
       mbrNo: null,
       modalShow: false,
+      snackbar: false,
+      dialogDelete: false,
     };
   },
   methods: {
@@ -56,8 +68,8 @@ export default {
     
     deleteItem (mbrNo) {
       axios.delete(`/api/admin/memberList/${mbrNo}`).then(() => {
-        window.alert("탈퇴완료");
         location.reload();
+        this.snackbar = true;
       });
     },
   },

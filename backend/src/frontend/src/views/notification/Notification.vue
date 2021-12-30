@@ -1,18 +1,23 @@
 <template>
+
     <v-card
     flat
     style="z-index: 9999"
     >
     <v-icon color="white">mdi-circle</v-icon>
     <v-icon color="white">mdi-circle</v-icon>
-    <b-dropdown size="lg"  variant="link" toggle-class="text-decoration-none" no-caret right>
+    <b-dropdown size="lg"  
+        variant="link" 
+        toggle-class="text-decoration-none" 
+        no-caret right
+        >
         <template #button-content>
         <v-btn
             class="ma-2"
             icon
-            @click="expand = !expand"
+            @click="getAlarmHistory"
         >
-            <v-icon large color="indigo lighten-2">mdi-bell</v-icon>
+            <v-icon large color="blue-grey darken-2">mdi-bell</v-icon>
             <v-badge
             :content="message"
             :value="message"
@@ -22,55 +27,112 @@
         </v-btn>
         </template>
 
-        <b-dropdown-header>알림내역</b-dropdown-header>
-        <v-divider></v-divider>
-        <v-simple-table 
-            v-if="this.items.size != 0"
-            style="width: 300px"
+        <b-dropdown-header
+            v-if="this.items.length == 0"
+            style="width: 400px"
             >
-            <template v-slot: default>
-                <tbody style="width: 300px">
-                    <tr
-                        v-for="item in items"
-                        :key="item.no">
-                        <td>{{ item.contents }}</td>
-                    </tr>
-                </tbody>
-            </template>
-        </v-simple-table>
+            알림이 없습니다.
+        </b-dropdown-header>
+
+        
+        <div class="type2" style="overflow-y: auto; height: 300px;">
+        <b-dropdown-text
+            v-for="item in items"
+            :key="item.ntcPstgNo"
+            style="width: 450px"
+            >
+            <a 
+                class="noti"
+                @click="goBoardDetail(item)"
+                > 알림입니다. {{ item.ntcPstgCn }} </a>
+        </b-dropdown-text>
+        </div>
+
     </b-dropdown>
     </v-card>
 </template>
 
 <script>
+import axios from 'axios';
 
 export default {
+
+    created() {
+        this.mbrNo = 3;
+        axios.get(`/api/notification/${this.mbrNo}`).then((res) => {
+            this.items = res.data;
+            this.message = this.items.length;
+        });
+    },
+
+    methods: {
+        goBoardDetail(item) {
+            this.$router.push({ name: "BoardDetail", params: { pstartNo: item.pstartNo } });
+            this.deleteNotification(item.ntcPstgNo);
+        },
+        getAlarmHistory() {
+            this.mbrNo = 3;
+            axios.get(`/api/notification/${this.mbrNo}`).then((res) => {
+                this.items = res.data;
+                this.message = this.items.length;
+            });
+        },
+        deleteNotification(ntcPstgNo) {
+            axios.delete(`/api/notification/${ntcPstgNo}`).then(() => {
+                this.getAlarmHistory();
+            })
+        },
+    },
     data() {
     return {
-      items: [
-            {
-                no: 1, 
-                title: '알림제목입니다.',
-                contents: '알림내용입니다. 알림내용입니다. 알림내용입니다. 알림내용입니다. 알림내용입니다. 알림내용입니다. 알림내용입니다. 알림내용입니다.',
-            },
-            {
-                no: 2,
-                title: '알림제목입니다.',
-                contents: '알림내용입니다. 알림내용입니다.',
-            },
-            {
-                no: 3,
-                title: '알림제목입니다.',
-                contents: '알림내용입니다. 알림내용입니다.',
-            },
-            {
-                no: 4,
-                title: '알림제목입니다.',
-                contents: '알림내용입니다. 알림내용입니다.',
-            },
-        ],
+        benched: 0,
+        mbrNo: null,
+        message: null,
+        items: [],
     };
   },
 }
 
 </script>
+
+<style>
+.box {
+    -ms-overflow-style: none; 
+} 
+
+.box::-webkit-scrollbar {
+    display:none; 
+}
+
+
+
+/* 스크롤바 설정*/
+.type2::-webkit-scrollbar{
+    width: 6px;
+}
+
+/* 스크롤바 막대 설정*/
+.type2::-webkit-scrollbar-thumb{
+    height: 17%;
+    background-color: rgb(219, 219, 219);
+    border-radius: 10px;  
+}
+
+/* 스크롤바 뒷 배경 설정*/
+.type2::-webkit-scrollbar-track{
+    background-color: rgb(255, 255, 255);
+}
+
+.noti {
+  font-size: small;
+  font-family: 'GowunDodum-Regular', Avenir, Helvetica, Arial, sans-serif;
+}
+
+@font-face {
+    font-family: 'GowunDodum-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/GowunDodum-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+</style>

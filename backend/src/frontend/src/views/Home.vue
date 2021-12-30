@@ -1,5 +1,5 @@
 <template>
-  <v-app id="inspire">
+  <v-app id="app">
 
     <v-navigation-drawer
         v-model="drawer"
@@ -44,7 +44,7 @@
           <v-col
               cols="12"
           >
-              <router-view></router-view>
+              <router-view :key="$route.fullPath"></router-view>
           </v-col>
         </v-row>
       </v-container>
