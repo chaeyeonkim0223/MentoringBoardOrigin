@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ktds.questionformentoring.scheduler.mapper.MemberSchedulerMapper">
+<!--    회원 현황 삽입-->
+    <select id="insertMemberStatus" resultType="MemberStatusDTO">
+        insert into "STAT_MBR_TYPE" values (
+            now(),
+            (select count("MBR_NO")from "MBR_BAS"),
+            (select count("MBR_NO")from "MBR_BAS" where "MBR_TYPE_CD" = 'MB003'),
+            (select count("MBR_NO")from "MBR_BAS" where "MBR_TYPE_CD" = 'MB002'),
+            (select count("MBR_NO")from "MBR_BAS" where "RTRMMB_DT" is not null)                               )
+        returning *
+    </select>
+<!--    탈퇴 현황 삽입-->
+    <select id="insertOutMemberStatus" resultType="OutMemberStatusDTO">
+        insert into "STAT_WHDWL_MBR_STUS" values (
+        now(),
+        (select count("MBR_NO")  from "MBR_BAS" where "RTRMMB_DT" is not null and "MTR_ID" is null),
+        (select count("MBR_NO")  from "MBR_BAS" where "RTRMMB_DT" is not null and "MTR_ID" is not null))
+        returning *
+    </select>
+    <!--    회원 현황 조회-->
+    <select id="getMemberStatus" parameterType="map" resultType="MemberStatusDTO">
+        select "TOT_YMD","TOT_MBR_NUM","TOT_MTE_NUM","TOT_MTR_NUM","TOT_WHDWL_MBR_NUM"
+        from "STAT_MBR_TYPE"
+        where to_char("TOT_YMD",'YYYY-MM-DD') = #{date}
+    </select>
+<!--    탈퇴 회원 현황 조회-->
+    <select id="getOutMemberStatus" parameterType="map" resultType="OutMemberStatusDTO">
+        select "TOT_YMD","TOT_MBR_NUM","TOT_MTE_NUM","TOT_MTR_NUM","TOT_WHDWL_MBR_NUM"
+        from "STAT_MBR_TYPE"
+        where to_char("TOT_YMD",'YYYY-MM-DD') = #{date}
+    </select>
+</mapper>

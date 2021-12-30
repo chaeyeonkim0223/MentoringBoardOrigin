@@ -2,11 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.ktds.questionformentoring.board.mapper.BoardMapper">
-<!--    <select id="testSelect" resultType="BoardDTO">-->
-<!--    select * from newtable-->
-<!--    </select> parameterType="com.ktds.questionformentoring.board.entity.BoardDTO"-->
+
     <select id="write" resultType="com.ktds.questionformentoring.board.entity.BoardDTO">
-        insert into "BOARD"
+        insert into "BOARD"ㅏ
         ("PSTART_NO", "RGTR_ID", "RGTR_NM", "RGTR_MBR_CD", "REG_DT", "PSTART_TITL_NM", "PSTART_CN", "INQ_CNT", "CMNT_CNT", "SLCTN_YN", "MBR_NO")
         values (default , #{rgtrId}, #{rgtrNm}, #{rgtrMbrCd}, pg_catalog.clock_timestamp(),
                 #{pstartTitlNm}, #{pstartCn}, #{inqCnt}, #{cmntCnt}, #{slctnYn}, #{mbrNo}) returning *
