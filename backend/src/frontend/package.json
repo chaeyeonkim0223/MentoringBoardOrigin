@@ -15,6 +15,7 @@
     "core-js": "^3.6.5",
     "element-ui": "^2.4.11",
     "jui-chart": "^2.0.4",
+    "url-search-params-polyfill": "^8.1.1",
     "vue": "^2.6.14",
     "vue-router": "^3.5.3",
     "vue2-editor": "^2.10.3",
