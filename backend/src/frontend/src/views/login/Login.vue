@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>JWT 회원가입 화면 입니다.</h1>
+    <h1>로그인 화면 입니다.</h1>
     <div>
       <label for="userid">userid</label>
       <input id="userid" type="text" v-model="userid" />
@@ -28,37 +28,24 @@ export default {
     };
   },
   computed() {
-
   },
   created() {
-    console.log('jwt-access-token\n', localStorage.getItem('jwt-auth-token'));
-    console.log('jwt-refresh-token\n', localStorage.getItem('jwt-refresh-token'));
   },
   methods: {
     async login(username, password) {
-      console.log(username, password);
-      console.log(this.$route);
-      username = 'menteeID2';
-      password = '1234';
       let params = {
         loginId: username,
         loginPwd: password,
       };
 
-      console.log(params);
       axios
         .post(`api/v1/auth/login`, params)
         .then((res) => {
-          console.log(res)
           if (res.data.code === 200) {
-            alert('login success');
-            console.log('res\n', res)
-            console.log(res.headers["jwt-auth-token"]);
-            console.log(res.headers["jwt-refresh-token"]);
             localStorage.setItem("jwt-auth-token", res.headers["jwt-auth-token"]);
             localStorage.setItem("jwt-refresh-token", res.headers["jwt-refresh-token"]);
-            console.log('jwt-access-token\n', localStorage.getItem('jwt-auth-token'));
-            console.log('jwt-refresh-token\n', localStorage.getItem('jwt-refresh-token'));
+            alert('login success');
+            location.href = '/'
           } else {
             alert('login fail');
           }

@@ -7,6 +7,7 @@ import java.util.Map;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ktds.questionformentoring.common.ResponseMsg;
+import com.ktds.questionformentoring.login.entity.LoginDTO;
 import com.ktds.questionformentoring.login.mapper.LoginMapper;
 import com.ktds.questionformentoring.member.entity.MemberDTO;
 import io.jsonwebtoken.*;
@@ -52,7 +53,7 @@ public class LoginServiceImpl implements LoginService {
                 .setHeaderParam("typ", "JWT") // 토큰 타입
                 .setSubject("refreshToken") // 토큰 제목
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRE_REFRESH_TOKEN_TIME)) // 토큰 유효시간
-                //.claim("info", null) // 토큰에 담을 데이터
+                .claim("info", memberDto) // 토큰에 담을 데이터
                 .signWith(SignatureAlgorithm.HS256, SECRET_KEY.getBytes()) // secretKey를 사용하여 해싱 암호화 알고리즘 처리
                 .compact(); // 직렬화, 문자열로 변경
     }
@@ -77,7 +78,15 @@ public class LoginServiceImpl implements LoginService {
     // interceptor에서 토큰 유효성을 검증하기 위한 메서드
     @Override
     public void checkValid(String token) {
-        Jwts.parser().setSigningKey(SECRET_KEY.getBytes()).parseClaimsJws(token);
+        try {
+            Jwts.parser().setSigningKey(SECRET_KEY.getBytes()).parseClaimsJws(token);
+        } catch(ExpiredJwtException e) {
+            e.printStackTrace();
+            throw new InvalidParameterException("토큰이 만료되었습니다.");
+        } catch(SignatureException | UnsupportedJwtException | MalformedJwtException | IllegalArgumentException e) {
+            e.printStackTrace();
+            throw new InvalidParameterException("유효하지 않은 토큰입니다.");
+        }
     }
 
     @Override
@@ -108,19 +117,19 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public ResponseEntity<Object> checkValidToken(String accessToken, String refreshToken) {
+    public ResponseEntity<Object> checkValidToken(String type, String accessToken, String refreshToken) {
         ResponseMsg msg = new ResponseMsg(200, "", "");
+        LoginDTO loginDTO = new LoginDTO();
         try {
-            if (accessToken != null) {
-                Map<String, Object> tokenInfoMap = this.getInfo(accessToken);
-                MemberDTO user = new ObjectMapper().convertValue(tokenInfoMap.get("user"), MemberDTO.class);
-                msg.setResData(user);
+            if (accessToken != null && "access-token".equals(type)) {
+                this.checkValid(accessToken);
                 msg.setMsg("access token validated");
-                System.out.println("!!!!!!!!!   access token validated");
-            } else if(refreshToken != null) {
+            } else if(refreshToken != null && "refresh-token".equals(type)) {
                 Map<String, Object> tokenInfoMap = this.getInfo(refreshToken);
-                msg.setMsg("refresh token validated");
-                System.out.println("!!!!!!!!!   refresh token validated");
+                MemberDTO user = new ObjectMapper().convertValue(tokenInfoMap.get("user"), MemberDTO.class);
+                loginDTO.setAccessToken(this.createUserToken(user));
+                msg.setResData(loginDTO);
+                msg.setMsg("access, refresh token is valid");
             } else{
                 msg.setMsg("token값이 누락되었습니다.");
                 msg.setCode(400);

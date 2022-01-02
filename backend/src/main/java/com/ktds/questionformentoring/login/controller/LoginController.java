@@ -46,12 +46,12 @@ public class LoginController {
     }
 
     @PostMapping("/checkToken") // 토큰에 담겨있는 사용자 정보를 리턴, 토큰이 필요한 경로
-    public ResponseEntity<Object> checkToken(HttpServletRequest request) {
+    public ResponseEntity<Object> checkToken(HttpServletRequest request, @RequestBody Map<String, Object> object) {
         //파라미터 검증, 유효시간, 토큰값 검증 확인
-        ResponseMsg msg = new ResponseMsg(200, "", "");
         String accessToken = request.getHeader("jwt-auth-token");
         String refreshToken = request.getHeader("jwt-refresh-token");
-        return loginService.checkValidToken(accessToken, refreshToken);
+        String type = (String) object.get("type");
+        return loginService.checkValidToken(type, accessToken, refreshToken);
     }
 
     @PostMapping("/login") // 로그인, 토큰이 필요하지 않는 경로
@@ -64,7 +64,6 @@ public class LoginController {
                 String refreshToken = loginService.createRefreshToken(memberDTO);
                 response.setHeader("jwt-auth-token", token); // client에 token 전달
                 response.setHeader("jwt-refresh-token", refreshToken); // client에 refresh token 전달
-                System.out.println(refreshToken);
                 msg.setMsg("login Success");
             } else {
                 msg.setCode(401);

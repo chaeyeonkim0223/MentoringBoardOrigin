@@ -3,8 +3,6 @@ package com.ktds.questionformentoring.login.service;
 import com.ktds.questionformentoring.common.ResponseMsg;
 import com.ktds.questionformentoring.member.entity.MemberDTO;
 import org.springframework.http.ResponseEntity;
-
-import javax.xml.ws.Response;
 import java.util.List;
 import java.util.Map;
 
@@ -16,5 +14,5 @@ public interface LoginService {
     public boolean checkValidUser(MemberDTO memberDto);
     public List<MemberDTO> findAll();
     public MemberDTO findOne(MemberDTO memberDTO);
-    public ResponseEntity<Object> checkValidToken(String accessToken, String refreshToken);
+    public ResponseEntity<Object> checkValidToken(String type, String accessToken, String refreshToken);
 }
