@@ -116,9 +116,11 @@ public class LoginServiceImpl implements LoginService {
                 MemberDTO user = new ObjectMapper().convertValue(tokenInfoMap.get("user"), MemberDTO.class);
                 msg.setResData(user);
                 msg.setMsg("access token validated");
+                System.out.println("!!!!!!!!!   access token validated");
             } else if(refreshToken != null) {
                 Map<String, Object> tokenInfoMap = this.getInfo(refreshToken);
                 msg.setMsg("refresh token validated");
+                System.out.println("!!!!!!!!!   refresh token validated");
             } else{
                 msg.setMsg("token값이 누락되었습니다.");
                 msg.setCode(400);

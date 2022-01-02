@@ -31,13 +31,15 @@ export default {
 
   },
   created() {
-
+    console.log('jwt-access-token\n', localStorage.getItem('jwt-auth-token'));
+    console.log('jwt-refresh-token\n', localStorage.getItem('jwt-refresh-token'));
   },
   methods: {
     async login(username, password) {
       console.log(username, password);
       console.log(this.$route);
-
+      username = 'menteeID2';
+      password = '1234';
       let params = {
         loginId: username,
         loginPwd: password,
@@ -50,9 +52,13 @@ export default {
           console.log(res)
           if (res.data.code === 200) {
             alert('login success');
+            console.log('res\n', res)
             console.log(res.headers["jwt-auth-token"]);
+            console.log(res.headers["jwt-refresh-token"]);
             localStorage.setItem("jwt-auth-token", res.headers["jwt-auth-token"]);
-            console.log(localStorage.getItem('jwt-auth-token'));
+            localStorage.setItem("jwt-refresh-token", res.headers["jwt-refresh-token"]);
+            console.log('jwt-access-token\n', localStorage.getItem('jwt-auth-token'));
+            console.log('jwt-refresh-token\n', localStorage.getItem('jwt-refresh-token'));
           } else {
             alert('login fail');
           }
@@ -63,8 +69,8 @@ export default {
     },
     logout() {
       localStorage.removeItem("jwt-auth-token");
+      localStorage.removeItem("jwt-refresh-token");
       alert('logout');
-      console.log(localStorage.getItem('jwt-auth-token'));
     }
   },
 };

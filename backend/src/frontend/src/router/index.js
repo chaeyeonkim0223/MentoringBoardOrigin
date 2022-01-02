@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "@/views/Home.vue";
+import auth from "../common/auth"
 
 Vue.use(VueRouter);
 
@@ -90,16 +91,26 @@ const router = new VueRouter({
   routes,
 });
 
-router.beforeEach((to, from, next) => {
+router.beforeEach( async(to, from, next) => {
   // redirect to login page if not logged in and trying to access a restricted page
   const publicPages = ['/login'];
   const authRequired = !publicPages.includes(to.path);
-  const loggedIn = localStorage.getItem('jwt-auth-token');
+  const accessToken = localStorage.getItem('jwt-auth-token');
+  const refreshToken = localStorage.getItem('jwt-refresh-token');
 
-  if (authRequired && !loggedIn) {
-    return next('/login');
+  if (authRequired) {
+    if (!accessToken && !refreshToken) {
+      return next('/login');
+    } else if (!accessToken && refreshToken) {
+      //access token 재발급
+      console.log('refresh token')
+      let result = await auth.getAccessToken();
+      console.log(result)
+      if(!result) return next('/login');
+    } else {
+      //access token 만 식별되는 상황.
+    }
   }
-
   next();
 })
 

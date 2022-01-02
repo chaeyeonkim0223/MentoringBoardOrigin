@@ -64,6 +64,7 @@ public class LoginController {
                 String refreshToken = loginService.createRefreshToken(memberDTO);
                 response.setHeader("jwt-auth-token", token); // client에 token 전달
                 response.setHeader("jwt-refresh-token", refreshToken); // client에 refresh token 전달
+                System.out.println(refreshToken);
                 msg.setMsg("login Success");
             } else {
                 msg.setCode(401);
