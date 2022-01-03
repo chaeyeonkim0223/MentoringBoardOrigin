@@ -2,7 +2,7 @@
   <div class="p-3">
     <v-btn
       small
-      class="mx-2 wirte-btn"
+      class="mx-2 write-btn"
       fab
       dark
       color="indigo"
@@ -16,7 +16,8 @@
 </template>
 
 <script>
-import axios from "axios";
+import axios from "axios"
+// import axios from "@/common/auth.js"
 import Table from "./Tables/Table.vue";
 export default {
   components: {
@@ -36,6 +37,7 @@ export default {
     axios.get("/api/boards").then((res) => {
       this.items = res.data;
     });
+  
   },
   data() {
     return {
@@ -44,7 +46,7 @@ export default {
       headers: [
         { text: "글번호", value: "pstartNo" },
         { text: "글제목", value: "pstartTitlNm" },
-        { text: "멘토명(회원번호로 멘토 회원정보가져와야함)", value: "mbrNo" },
+        { text: "멘토명(회원번호로 멘토 회원정보가져와야함)", value: "mentorName" },
         { text: "작성자", value: "rgtrNm" },
         { text: "등록일자", value: "regDt" },
         { text: "답변여부", value: "slctnYn" },
@@ -55,7 +57,7 @@ export default {
 };
 </script>
 <style scoped>
-.wirte-btn {
+.write-btn {
   position: absolute;
   z-index: 5000;
   right: 5%;

@@ -22,6 +22,7 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   props: {
     items: Array,
@@ -40,17 +41,28 @@ export default {
       this.pstartNo = record.pstartNo;
       this.$router.push({ name: "BoardDetail", params: { pstartNo: this.pstartNo } });
     },
+    async getMentorName(mbrNo) {
+      let mentorName = "";
+      mentorName = await axios.get(`/api/boards/mentor/${mbrNo}`).then((res) => {
+      console.log("멘토이름가져옴")
+      console.log(res.data);
+      return res.data.mbrNm;
+    });
+      return mentorName;
+    }
   },
-  // created() {
-  //   let self = this;
-  //   const a = self.items.map((item) => {
-  //     return self.checkMemberCode(item.rgtrMbrCd);
-  //   });
+  created() {
+    this.getMentorName(3)
+    // let self = this;
+    // const a = self.items.map((item) => {
+    //   return 
+    //   // return self.checkMemberCode(item.rgtrMbrCd);
+    // });
 
-  //   for (let i = 0; i < this.items.length; i++) {
-  //     this.items[i].rgtrMbrCd = a[i];
-  //   }
-  // },
+    for (let i = 0; i < this.items.length; i++) {
+      this.items[i].mentorName = this.getMentorName(this.items[i].mbrNo).mentorName;
+    }
+  },
 };
 </script>
 <style scoped>
