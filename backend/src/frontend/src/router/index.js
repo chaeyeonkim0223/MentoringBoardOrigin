@@ -60,16 +60,16 @@ const routes = [
       // 통계
       {
         path: "/statistics",
-        name: "BarChart",
-        component: () => import("../views/chart/BarChart"),
+        name: "ChartView",
+        component: () => import("../views/chart/ChartView"),
       },
     ],
   },
 
   {
     path: "/chart/barchart",
-    name: "BarChart",
-    component: () => import("@/views/chart/BarChart"),
+    name: "BarChartView",
+    component: () => import("@/views/chart/BarChartView"),
     //beforeEnter: checkAuth(),
   },
 
