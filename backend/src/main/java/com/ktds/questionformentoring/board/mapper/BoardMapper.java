@@ -1,6 +1,7 @@
 package com.ktds.questionformentoring.board.mapper;
 
 import com.ktds.questionformentoring.board.entity.BoardDTO;
+import com.ktds.questionformentoring.member.entity.MemberDTO;
 
 import java.util.List;
 
@@ -17,4 +18,7 @@ public interface BoardMapper {
     public void update(BoardDTO boardDTO);
     /* 글 삭제 */
     public void delete(int pstartNo);
+    // 멘토 정보 조회
+    public MemberDTO getMentorInfo(int mbrNo);
+
 }

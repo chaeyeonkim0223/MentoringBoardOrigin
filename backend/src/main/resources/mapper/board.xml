@@ -4,14 +4,17 @@
 <mapper namespace="com.ktds.questionformentoring.board.mapper.BoardMapper">
 
     <select id="write" resultType="com.ktds.questionformentoring.board.entity.BoardDTO">
-        insert into "BOARD"ㅏ
+        insert into "BOARD"
         ("PSTART_NO", "RGTR_ID", "RGTR_NM", "RGTR_MBR_CD", "REG_DT", "PSTART_TITL_NM", "PSTART_CN", "INQ_CNT", "CMNT_CNT", "SLCTN_YN", "MBR_NO")
         values (default , #{rgtrId}, #{rgtrNm}, #{rgtrMbrCd}, pg_catalog.clock_timestamp(),
-                #{pstartTitlNm}, #{pstartCn}, #{inqCnt}, #{cmntCnt}, #{slctnYn}, #{mbrNo}) returning *
+                #{pstartTitlNm}, #{pstartCn}, #{inqCnt}, #{cmntCnt}, #{slctnYn}, #{mbrNo})
+                order by "REG_DT" desc
+                returning *
     </select>
     <select id="findAll" resultType="com.ktds.questionformentoring.board.entity.BoardDTO">
         select "PSTART_NO", "RGTR_ID", "RGTR_NM", "RGTR_MBR_CD", "REG_DT", "PSTART_TITL_NM", "PSTART_CN", "INQ_CNT", "SLCTN_YN", "MBR_NO"
         from "BOARD"
+        order by "REG_DT" desc
     </select>
     <select id="findById" parameterType="int" resultType="com.ktds.questionformentoring.board.entity.BoardDTO">
         select "PSTART_NO", "RGTR_ID", "RGTR_NM", "RGTR_MBR_CD", "REG_DT", "PSTART_TITL_NM", "PSTART_CN", "INQ_CNT", "SLCTN_YN", "MBR_NO"
@@ -30,5 +33,12 @@
         delete from "BOARD"
         where "PSTART_NO" = #{pstartNo}
     </delete>
+    <select id="getMentorInfo" parameterType="int" resultType="com.ktds.questionformentoring.member.entity.MemberDTO">
+        select * from "MBR_BAS"
+        where "LOGIN_ID" = (
+            select "MTR_ID" from "MBR_BAS" mb
+            where "MBR_NO" = #{mbrNo}
+        )
+    </select>
 </mapper>
 
