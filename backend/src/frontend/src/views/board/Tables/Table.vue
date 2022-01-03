@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import axios from "axios";
+// import axios from "axios";
 export default {
   props: {
     items: Array,
@@ -41,27 +41,31 @@ export default {
       this.pstartNo = record.pstartNo;
       this.$router.push({ name: "BoardDetail", params: { pstartNo: this.pstartNo } });
     },
-    async getMentorName(mbrNo) {
-      let mentorName = "";
-      mentorName = await axios.get(`/api/boards/mentor/${mbrNo}`).then((res) => {
-      console.log("멘토이름가져옴")
-      console.log(res.data);
-      return res.data.mbrNm;
-    });
-      return mentorName;
-    }
+    // async getMentorName(mbrNo) {
+    //   let mentorName = await axios.get(`/api/boards/mentor/${mbrNo}`).then((res) => {
+    //     // console.log("멘토이름가져옴");
+    //     // console.log(res.data);
+    //     return res.data.mbrNm;
+    //   });
+    //   return mentorName;
+    // },
   },
-  created() {
-    this.getMentorName(3)
+  mounted() {
+    // this.getMentorName(3);
     // let self = this;
     // const a = self.items.map((item) => {
-    //   return 
+    //   return
     //   // return self.checkMemberCode(item.rgtrMbrCd);
     // });
-
-    for (let i = 0; i < this.items.length; i++) {
-      this.items[i].mentorName = this.getMentorName(this.items[i].mbrNo).mentorName;
-    }
+    // for (let i = 0; i < this.items.length; i++) {
+    //   this.getMentorName(this.items[i].mbrNo).then((val) => {
+    //     this.items[i].mentorName = val;
+    //     console.log(this.items[i]);
+    //     console.log("promise" + val);
+    //   });
+    //   console.log("for문");
+    //   // console.log(this.items[i].mentorName);
+    // }
   },
 };
 </script>
