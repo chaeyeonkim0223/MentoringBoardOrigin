@@ -14,6 +14,12 @@
       <v-card 
         tile elevation="0" 
         class="pa-2 pie">
+        <strong>탈퇴회원현황</strong>
+        <pie-chart :data="outData" :options="outOptions"></pie-chart>
+      </v-card>
+      <v-card 
+        tile elevation="0" 
+        class="pa-2 pie">
         <strong>오늘의 글</strong>
         <pie-chart :data="postData" :options="postOptions"></pie-chart>
       </v-card>
@@ -64,6 +70,7 @@ export default {
           }
         ]
       },
+
       postOptions: {
         hoverBorderWidth: 20
       },
@@ -80,6 +87,21 @@ export default {
         ]
       },
       
+      outOptions: {
+        hoverBorderWidth: 20
+      },
+      outData: {
+        hoverBackgroundColor: "white",
+        hoverBorderWidth: 10,
+        labels: ["멘토", "멘티"],
+        datasets: [
+          {
+            label: "Data One",
+            backgroundColor: ["#FAE3D9", "#8AC6D1"],
+            data: [3, 19]
+          }
+        ]
+      },
       
     };
   }
