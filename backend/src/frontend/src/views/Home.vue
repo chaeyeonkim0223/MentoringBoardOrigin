@@ -9,16 +9,13 @@
           color="grey lighten-4"
           class="pa-4"
       >
-        <v-avatar
-            class="mb-4"
-            color="grey darken-1"
-            size="64"
-        ></v-avatar>
 
-        <div>john@vuetifyjs.com</div>
+        <div><b>{{ name }}</b>님, 안녕하세요.</div>
+        <div>
+          <v-btn text x-small elevation="0" color="light-blue darken-4">로그인</v-btn>
+          <v-btn text x-small elevation="0" color="light-blue darken-4">회원가입</v-btn>
+        </div>
       </v-sheet>
-
-      <v-divider></v-divider>
 
       <v-list>
         <v-list-item @click="$router.push({ name: 'BoardView' })">멘토링 게시판</v-list-item>
@@ -34,10 +31,10 @@
       <Notification></Notification>
     </v-app-bar>
 
-    <v-main>
+    <v-main class="myLayout">
 
       <v-container
-          class="py-8 px-6"
+          class="py-0 px-6"
           fluid
       >
         <v-row>
@@ -61,6 +58,7 @@ export default {
   },
 
   data: () => ({
+    name: '김채연',
     drawer: null,
     links: [
     ],
@@ -69,3 +67,9 @@ export default {
   }),
 }
 </script>
+
+<style>
+  .myLayout {
+    padding: 0px 0px 0px 256px !important;
+  }
+</style>

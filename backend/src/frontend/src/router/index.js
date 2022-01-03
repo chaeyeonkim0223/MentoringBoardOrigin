@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "@/views/Home.vue";
+import auth from "../common/auth"
 
 Vue.use(VueRouter);
 
@@ -59,17 +60,24 @@ const routes = [
       // 통계
       {
         path: "/statistics",
-        name: "BarChart",
-        component: () => import("../views/chart/BarChart"),
+        name: "ChartView",
+        component: () => import("../views/chart/ChartView"),
       },
     ],
   },
 
   {
     path: "/chart/barchart",
-    name: "BarChart",
-    component: () => import("@/views/chart/BarChart"),
+    name: "BarChartView",
+    component: () => import("@/views/chart/BarChartView"),
     //beforeEnter: checkAuth(),
+  },
+
+  {
+    path: '/login',
+    name: 'Login',
+    component: () => import('@/views/login/Login'),
+    //meta: { authRequired: true },
   },
 
   //Editor
@@ -90,5 +98,29 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes,
 });
+
+router.beforeEach( async(to, from, next) => {
+  // redirect to login page if not logged in and trying to access a restricted page
+  const publicPages = ['/login', '/board', '/'];
+  const authRequired = !publicPages.includes(to.path)
+  let accessToken = localStorage.getItem('jwt-auth-token')
+  let refreshToken = localStorage.getItem('jwt-refresh-token')
+
+  if (authRequired) {
+    if (!accessToken && !refreshToken) {
+      return next('/login')
+    } else if (!accessToken && refreshToken && await auth.sendRefreshToken()) {
+      return next('/login')
+    } else if(accessToken) {
+      //access token 만 식별되는 상황.
+      if(await auth.sendAccessToken() || await auth.sendRefreshToken()) {
+        return next('/login')
+      } else {
+        next();
+      }
+    }
+  }
+  next();
+})
 
 export default router;

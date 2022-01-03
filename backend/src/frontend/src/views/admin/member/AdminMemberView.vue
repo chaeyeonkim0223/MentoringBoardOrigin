@@ -6,11 +6,11 @@
       v-model="selected"
       column
       multiple
-      color="blue darken-3"
+      color="light-blue accent-4"
     >
-      <v-chip dense filter outlined value="MB001" @click="getMemberTypeList('MB001')">관리자</v-chip>
-      <v-chip dense filter outlined value="MB002" @click="getMemberTypeList('MB002')">멘토</v-chip>
-      <v-chip dense filter outlined value="MB003" @click="getMemberTypeList('MB003')">멘티</v-chip>
+      <v-chip dense value="MB001" @click="getMemberTypeList('MB001')">관리자</v-chip>
+      <v-chip dense value="MB002" @click="getMemberTypeList('MB002')">멘토</v-chip>
+      <v-chip dense value="MB003" @click="getMemberTypeList('MB003')">멘티</v-chip>
     </v-chip-group>
     </v-container>
     
@@ -68,6 +68,7 @@ export default {
       ],
       mbrNo: null,
       dialog: false,
+      snackbar: false,
     };
   },
 };
