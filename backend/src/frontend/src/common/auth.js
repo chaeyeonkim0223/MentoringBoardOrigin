@@ -7,13 +7,14 @@ export default {
       }
       let result = false
       await axios
-      .post(`api/v1/auth/checkToken`, params)
+      .post(`/api/v1/auth/checkToken`, params)
       .then((res) => {
+        console.log(res)
         if (res.data.code === 200) {
-          console.log('get authtoken success')
+          console.log('get auth token success')
         } else {
           result = true
-          console.log('get authtoken fail')
+          console.log('get auth token fail')
         }
       })
       .catch(function (e) {
@@ -27,13 +28,14 @@ export default {
     }
     let result = false
     await axios
-    .post(`api/v1/auth/checkToken`, params)
+    .post(`/api/v1/auth/checkToken`, params)
     .then((res) => {
+      console.log(res)
       if (res.data.code === 200) {
-        console.log('get authtoken success')
+        console.log('get auth token success')
       } else {
         result = true
-        console.log('get authtoken fail')
+        console.log('get auth token fail')
       }
     })
     .catch(function (e) {
