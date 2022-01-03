@@ -17,12 +17,12 @@
             icon
             @click="getAlarmHistory"
         >
-            <v-icon large color="blue-grey darken-2">mdi-bell</v-icon>
+            <v-icon color="blue-grey darken-2">mdi-bell-outline</v-icon>
             <v-badge
             :content="message"
             :value="message"
             bordered color="red"
-            offset-x="8" offset-y="0"
+            offset-x="6" offset-y="0"
             ></v-badge>
         </v-btn>
         </template>
@@ -35,10 +35,11 @@
         </b-dropdown-header>
 
         
-        <div class="type2" style="overflow-y: auto; height: 300px;">
+        <div class="type2" style="overflow-y: auto; height: 200px;">
         <b-dropdown-text
             v-for="item in items"
             :key="item.ntcPstgNo"
+            class="dropdownText"
             style="width: 450px"
             >
             <a 
@@ -102,6 +103,10 @@ export default {
 
 .box::-webkit-scrollbar {
     display:none; 
+}
+
+.b-dropdown-text {
+    padding: 0px 0px 0px 0px !important;
 }
 
 

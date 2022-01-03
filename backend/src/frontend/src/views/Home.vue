@@ -28,7 +28,7 @@
     <v-app-bar app flat color="white">
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
       <v-spacer></v-spacer>
-      <Notification></Notification>
+      <Notification ref="notification"></Notification>
     </v-app-bar>
 
     <v-main class="myLayout">
@@ -55,6 +55,16 @@ import Notification from "./notification/Notification.vue";
 export default {
   components: {
     Notification,
+  },
+
+  created() {
+    this.$refs.notification.getAlarmHistory();
+    this.notification.$on('reset', this.reset);
+  },
+
+  updated() {
+    this.$refs.notification.getAlarmHistory();
+    this.notification.$on('reset', this.reset);
   },
 
   data: () => ({
