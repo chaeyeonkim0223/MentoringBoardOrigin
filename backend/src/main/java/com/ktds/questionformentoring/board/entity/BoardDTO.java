@@ -34,5 +34,7 @@ public class BoardDTO {
     private char slctnYn;
     /* 회원번호 */
     private int mbrNo;
+    // 멘토 이름
+    private String mtrNm;
 
 }
