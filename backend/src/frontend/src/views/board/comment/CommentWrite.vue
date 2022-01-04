@@ -46,6 +46,7 @@ export default {
           this.$emit("getCommentInit", this.pstartNo);
           console.log("emit전달");
           this.content = "";
+
         });
     },
   },

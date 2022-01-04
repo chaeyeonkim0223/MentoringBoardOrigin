@@ -3,14 +3,14 @@
 
 <mapper namespace="com.ktds.questionformentoring.comment.mapper.CommentMapper">
     <select id="findAll" resultType="com.ktds.questionformentoring.comment.entity.CommentDTO">
-        select * from "COMMENT"
+        select "CMNT_SN", "PSTART_NO", "RGTR_ID", "RGTR_NM", "RGTR_MBR_CD", to_char("REG_DT", 'YYYY-MM-DD HH24:MI:SS') as "REG_DT", "CMNT_CN", "SLCTN_YN", "MBR_NO" from "COMMENT"
     </select>
     <select id="findCommentList" parameterType="int" resultType="com.ktds.questionformentoring.comment.entity.CommentDTO">
-        select * from "COMMENT"
+        select "CMNT_SN", "PSTART_NO", "RGTR_ID", "RGTR_NM", "RGTR_MBR_CD", to_char("REG_DT", 'YYYY-MM-DD HH24:MI:SS') as "REG_DT", "CMNT_CN", "SLCTN_YN", "MBR_NO" from "COMMENT"
         where "PSTART_NO" =#{pstartNo}
     </select>
     <select id="findById" parameterType="int" resultType="com.ktds.questionformentoring.comment.entity.CommentDTO">
-        select * from "COMMENT"
+        select "CMNT_SN", "PSTART_NO", "RGTR_ID", "RGTR_NM", "RGTR_MBR_CD", to_char("REG_DT", 'YYYY-MM-DD HH24:MI:SS') as "REG_DT", "CMNT_CN", "SLCTN_YN", "MBR_NO" from "COMMENT"
         where "CMNT_SN" =#{cmntSn}
     </select>
     <select id="write" resultType="com.ktds.questionformentoring.comment.entity.CommentDTO">

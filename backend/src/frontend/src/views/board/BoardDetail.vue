@@ -6,8 +6,9 @@
       </h3>
       <v-divider></v-divider>
       <p class="text">
-        {{ item.rgtrNm }} | {{ checkMemberCode(item.rgtrMbrCd) }} | 작성일 {{ item.regDt }} |
-        답변여부 : {{ item.slctnYn }} | 댓글 수 : {{ item.cmntCnt }}
+        {{ item.rgtrNm }} | {{ checkMemberCode(item.rgtrMbrCd) }} | 작성일
+        {{ item.regDt }} | 답변여부 : {{ item.slctnYn }} | 댓글 수 :
+        {{ item.cmntCnt }} | 채택 : {{ item.slctnYn }}
       </p>
       <v-divider></v-divider>
       <div class="text editor" v-html="item.pstartCn"></div>
@@ -16,7 +17,12 @@
     </div>
 
     <div class="btn-group">
-      <v-btn class="m-1" depressed color="primary" @click="$router.push({ name: 'BoardView' })">
+      <v-btn
+        class="m-1"
+        depressed
+        color="primary"
+        @click="$router.push({ name: 'BoardView' })"
+      >
         목록
       </v-btn>
       <v-btn
@@ -39,22 +45,28 @@
       </v-btn>
     </div>
     <!-- 댓글 구간 시작 -->
-    <CommentWrite v-if="true" @getCommentInit="getCommentInit" :pstartNo="item.pstartNo" />
+    <CommentWrite
+      v-if="true"
+      @getCommentInit="getCommentInit"
+      :pstartNo="item.pstartNo"
+    />
     <div v-for="(comment, index) in comments" :key="index">
       <v-divider></v-divider>
-      <CommentView :comment="comment" @getCommentInit="getCommentInit" />
+      <CommentView
+        :comment="comment"
+        @getCommentInit="getCommentInit"
+        :item="item"
+      />
     </div>
     <!-- 댓글 구간 끝 -->
   </div>
 </template>
 <script>
 import axios from "axios";
-// import { VueEditor } from "vue2-editor";
 import CommentWrite from "./comment/CommentWrite.vue";
 import CommentView from "./comment/CommentView.vue";
 export default {
   components: {
-    // VueEditor,
     CommentWrite,
     CommentView,
   },
@@ -93,12 +105,14 @@ export default {
       return true;
     },
     goModify(pstartNo) {
-      this.$router.push({ name: "BoardModify", params: { pstartNo: pstartNo } });
+      this.$router.push({
+        name: "BoardModify",
+        params: { pstartNo: pstartNo },
+      });
     },
     deleteBoard(pstartNo) {
       axios.delete(`/api/boards/${Number(pstartNo)}`).then((res) => {
         this.item = res.data;
-        console.log(this.item);
         window.alert("삭제완료");
         this.$router.push({ name: "BoardView" });
       });

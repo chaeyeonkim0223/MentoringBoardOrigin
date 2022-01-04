@@ -3,7 +3,8 @@
     <!-- 댓글 보여주는 form -->
     <div v-if="!isModifyShow" class="comment">
       <div class="head">
-        {{ comment.rgtrNm }} | {{ checkMemberCode(comment.rgtrMbrCd) }} | {{ comment.regDt }}
+        {{ comment.rgtrNm }} | {{ checkMemberCode(comment.rgtrMbrCd) }} |
+        {{ comment.regDt }}
       </div>
       <div class="content" v-html="enterToBr(comment.cmntCn)"></div>
 
@@ -11,14 +12,19 @@
         <p class="p-1" @click="isModifyShow = true">수정</p>
 
         <p class="p-1" @click="remove">삭제</p>
+
+        <p v-if="comment.slctnYn != 'Y'" class="p-1" @click="select(comment)">
+          채택
+        </p>
       </div>
     </div>
     <!-- 댓글 수정하는 form -->
     <div v-if="isModifyShow" class="comment">
       <div class="head">
-        {{ comment.rgtrNm }} | {{ checkMemberCode(comment.rgtrMbrCd) }} | {{ comment.regDt }}
+        {{ mComment.rgtrNm }} | {{ checkMemberCode(mComment.rgtrMbrCd) }} |
+        {{ mComment.regDt }}
       </div>
-      <v-textarea v-model="comment.cmntCn" solo></v-textarea>
+      <v-textarea v-model="mComment.cmntCn" solo></v-textarea>
       <div class="btn-group" v-if="checkMyComment()">
         <p class="p-1" @click="modify">확인</p>
         <p class="p-1" @click="cancle">취소</p>
@@ -31,10 +37,11 @@ import axios from "axios";
 axios.defaults.headers.post["Content-Type"] = "application/json";
 
 export default {
-  props: ["comment"],
+  props: ["comment", "item"],
   data() {
     return {
       isModifyShow: false,
+      mComment: this.comment,
     };
   },
   methods: {
@@ -59,33 +66,43 @@ export default {
     remove() {
       if (confirm("정말로 삭제할까요?")) {
         console.log(this.comment.cmntSn);
-        axios.delete(`/api/comments/${Number(this.comment.cmntSn)}`).then(() => {
-          this.$emit("getCommentInit", this.comment.pstartNo);
-        });
+        axios
+          .delete(`/api/comments/${Number(this.comment.cmntSn)}`)
+          .then(() => {
+            this.$emit("getCommentInit", this.comment.pstartNo);
+          });
       }
     },
     cancle() {
       this.isModifyShow = false;
-      this.c_cmt.content = this.comment.content;
+      this.mComment = this.comment;
     },
     enterToBr(str) {
       if (str) return str.replace(/(?:\r\n|\r|\n)/g, "<br />");
     },
-    // copy_comment(comment) {
-    //   return {
-    //     bid: this.comment.bid,
-    //     seq: this.comment.seq,
-    //     content: this.comment.content,
-    //     regtime: this.comment.regtime,
-    //     userid: this.comment.userid,
-    //   };
-    // },
+    select(comment) {
+      comment.slctnYn = "Y";
+      // 서버 통신
+      // 댓글 채택 업데이트
+      axios.put("/api/comments", comment).then((res) => {
+        // console.log(res.data);
+        this.$emit("getCommentInit", res.data.pstartNo);
+        console.log("보내기 전 item", this.item);
+        //게시글 채택 업데이트
+        let selectedBoard = this.item;
+        selectedBoard.slctnYn = "Y";
+        console.log("보낼 item", selectedBoard);
+        axios
+          .put("/api/boards", selectedBoard)
+          .then((res) => {
+            console.log(res.data);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      });
+    },
   },
-  // watch: {
-  //   comment: function (newVal) {
-  //     this.c_cmt = this.copy_comment(this.comment);
-  //   },
-  // },
 };
 </script>
 
