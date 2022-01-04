@@ -84,7 +84,8 @@ export default {
       items: [],
       // text : header , value : 할당될 변수명
       headers: [
-        { text: "글번호", value: "pstartNo" },
+        // { text: "글번호", value: "pstartNo" },
+        { text: "글번호", value: "index" },
         { text: "글제목", value: "pstartTitlNm" },
         { text: "멘토이름", value: "mtrNm" },
         { text: "작성자", value: "rgtrNm" },
