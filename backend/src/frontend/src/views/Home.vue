@@ -58,13 +58,13 @@ export default {
   },
 
   created() {
-    this.$refs.notification.getAlarmHistory();
-    this.notification.$on('reset', this.reset);
+    // this.$refs.notification.getAlarmHistory();
+    // this.$refs.notification.$on('reset', this.reset);
   },
 
   updated() {
     this.$refs.notification.getAlarmHistory();
-    this.notification.$on('reset', this.reset);
+    this.$refs.notification.$on('reset', this.reset);
   },
 
   data: () => ({
