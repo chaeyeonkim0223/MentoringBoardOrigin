@@ -77,9 +77,14 @@ export default {
     select(comment) {
       comment.slctnYn = 'Y'
       // 서버 통신
+      // 댓글 채택 업데이트
       axios.put("/api/comments", comment).then((res) => {
         console.log(res.data);
         this.$emit("getCommentInit", res.data.pstartNo);
+
+        //게시글 채택 업데이트
+        this.$emit("getBoardInit", res.data.pstartNo);
+
       });
 
     }

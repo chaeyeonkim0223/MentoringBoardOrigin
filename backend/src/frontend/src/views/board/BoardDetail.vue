@@ -7,7 +7,7 @@
       <v-divider></v-divider>
       <p class="text">
         {{ item.rgtrNm }} | {{ checkMemberCode(item.rgtrMbrCd) }} | 작성일 {{ item.regDt }} |
-        답변여부 : {{ item.slctnYn }} | 댓글 수 : {{ item.cmntCnt }}
+        답변여부 : {{ item.slctnYn }} | 댓글 수 : {{ item.cmntCnt }} | 채택 : {{ item.slctnYn}}
       </p>
       <v-divider></v-divider>
       <div class="text editor" v-html="item.pstartCn"></div>
@@ -42,7 +42,7 @@
     <CommentWrite v-if="true" @getCommentInit="getCommentInit" :pstartNo="item.pstartNo" />
     <div v-for="(comment, index) in comments" :key="index">
       <v-divider></v-divider>
-      <CommentView :comment="comment" @getCommentInit="getCommentInit" />
+      <CommentView :comment="comment" @getCommentInit="getCommentInit" @getBoardInit="getBoardInit"/>
     </div>
     <!-- 댓글 구간 끝 -->
   </div>
@@ -81,6 +81,12 @@ export default {
       axios.get(`/api/comments/${pstartNo}`).then((res) => {
         this.comments = res.data;
         console.log(this.comments);
+      });
+    },
+    getBoardInit(pstartNo) {
+      axios.get(`/api/boards/${pstartNo}`).then((res) => {
+        this.item = res.data;
+        console.log(this.item);
       });
     },
     checkMemberCode(code) {
