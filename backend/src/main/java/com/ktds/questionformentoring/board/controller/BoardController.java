@@ -111,6 +111,7 @@ public class BoardController {
     })
     public ResponseEntity deleteBoard(@PathVariable int pstartNo) {
         try {
+            System.out.println("pstartNo = " + pstartNo);
             boardService.delete(pstartNo);
             return new ResponseEntity(HttpStatus.OK);
         } catch (Exception e) {
