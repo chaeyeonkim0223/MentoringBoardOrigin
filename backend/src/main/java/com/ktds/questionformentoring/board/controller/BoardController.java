@@ -2,6 +2,7 @@ package com.ktds.questionformentoring.board.controller;
 
 import com.ktds.questionformentoring.board.entity.BoardDTO;
 import com.ktds.questionformentoring.board.service.BoardService;
+import com.ktds.questionformentoring.member.entity.MemberDTO;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -114,6 +115,24 @@ public class BoardController {
             return new ResponseEntity(HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
+    @GetMapping("/mentor/{mbrNo}")
+    @ApiOperation(value = "멘토 정보를 회원 번호로 조회", notes = "<strong>회원 번호로 멘토의 정보를 조회한다.</strong>")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 204, message = "정보 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<MemberDTO> findMentorInfo(
+            @PathVariable @ApiParam(value = "회원번호 mbrNo", required = true) int mbrNo) {
+        try {
+            MemberDTO mentorInfo = boardService.getMentorInfo(mbrNo);
+            return new ResponseEntity(mentorInfo, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
         }
     }
 

@@ -2,6 +2,7 @@ package com.ktds.questionformentoring.board.service;
 
 import com.ktds.questionformentoring.board.entity.BoardDTO;
 import com.ktds.questionformentoring.board.mapper.BoardMapper;
+import com.ktds.questionformentoring.member.entity.MemberDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +21,15 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public List<BoardDTO> findAll() {
-        return boardMapper.findAll();
+
+
+        List<BoardDTO> result = boardMapper.findAll();
+        int index=result.size();
+        for (BoardDTO boardDTO:
+             result) {
+            boardDTO.setIndex(index--);
+        }
+        return result;
     }
 
     @Override
@@ -37,4 +46,10 @@ public class BoardServiceImpl implements BoardService {
     public void delete(int pstartNo) {
         boardMapper.delete(pstartNo);
     }
+
+    @Override
+    public MemberDTO getMentorInfo(int mbrNo) {
+        return boardMapper.getMentorInfo(mbrNo);
+    }
+
 }
