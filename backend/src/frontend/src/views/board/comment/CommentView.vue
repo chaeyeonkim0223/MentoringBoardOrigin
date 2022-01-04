@@ -11,14 +11,16 @@
         <p class="p-1" @click="isModifyShow = true">수정</p>
 
         <p class="p-1" @click="remove">삭제</p>
+
+          <p v-if="(comment.slctnYn != 'Y')" class="p-1" @click="select(comment)">채택</p>
       </div>
     </div>
     <!-- 댓글 수정하는 form -->
     <div v-if="isModifyShow" class="comment">
       <div class="head">
-        {{ comment.rgtrNm }} | {{ checkMemberCode(comment.rgtrMbrCd) }} | {{ comment.regDt }}
+        {{ mComment.rgtrNm }} | {{ checkMemberCode(mComment.rgtrMbrCd) }} | {{ mComment.regDt }}
       </div>
-      <v-textarea v-model="comment.cmntCn" solo></v-textarea>
+      <v-textarea v-model="mComment.cmntCn" solo></v-textarea>
       <div class="btn-group" v-if="checkMyComment()">
         <p class="p-1" @click="modify">확인</p>
         <p class="p-1" @click="cancle">취소</p>
@@ -35,6 +37,7 @@ export default {
   data() {
     return {
       isModifyShow: false,
+      mComment: this.comment
     };
   },
   methods: {
@@ -66,11 +69,20 @@ export default {
     },
     cancle() {
       this.isModifyShow = false;
-      this.c_cmt.content = this.comment.content;
+      this.mComment = this.comment;
     },
     enterToBr(str) {
       if (str) return str.replace(/(?:\r\n|\r|\n)/g, "<br />");
     },
+    select(comment) {
+      comment.slctnYn = 'Y'
+      // 서버 통신
+      axios.put("/api/comments", comment).then((res) => {
+        console.log(res.data);
+        this.$emit("getCommentInit", res.data.pstartNo);
+      });
+
+    }
     // copy_comment(comment) {
     //   return {
     //     bid: this.comment.bid,
