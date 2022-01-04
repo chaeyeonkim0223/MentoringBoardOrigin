@@ -30,7 +30,8 @@
         set
             "PSTART_TITL_NM" = #{pstartTitlNm},
             "PSTART_CN" = #{pstartCn},
-            "INQ_CNT" = #{inqCnt}
+            "INQ_CNT" = #{inqCnt},
+            "SLCTN_YN" = #{slctnYn}
         where "PSTART_NO" = #{pstartNo}
     </update>
     <delete id="delete" parameterType="int">
