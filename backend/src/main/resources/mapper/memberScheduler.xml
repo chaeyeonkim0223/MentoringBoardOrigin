@@ -22,13 +22,13 @@
     </select>
     <!--    회원 현황 조회-->
     <select id="getMemberStatus" parameterType="map" resultType="MemberStatusDTO">
-        select "TOT_YMD","TOT_MBR_NUM","TOT_MTE_NUM","TOT_MTR_NUM","TOT_WHDWL_MBR_NUM"
+        select  to_char("TOT_YMD", 'MM.DD') as "TOT_YMD","TOT_MBR_NUM","TOT_MTE_NUM","TOT_MTR_NUM","TOT_WHDWL_MBR_NUM"
         from "STAT_MBR_TYPE"
         where to_char("TOT_YMD",'YYYY-MM-DD') = #{date}
     </select>
 <!--    탈퇴 회원 현황 조회-->
     <select id="getOutMemberStatus" parameterType="map" resultType="OutMemberStatusDTO">
-        select "TOT_YMD","TOT_MBR_NUM","TOT_MTE_NUM","TOT_MTR_NUM","TOT_WHDWL_MBR_NUM"
+        select  to_char("TOT_YMD", 'MM.DD') as "TOT_YMD","TOT_MBR_NUM","TOT_MTE_NUM","TOT_MTR_NUM","TOT_WHDWL_MBR_NUM"
         from "STAT_MBR_TYPE"
         where to_char("TOT_YMD",'YYYY-MM-DD') = #{date}
     </select>
