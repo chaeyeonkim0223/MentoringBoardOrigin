@@ -10,7 +10,8 @@ import java.util.List;
 @Service
 public class CommentServiceImpl implements CommentService {
 
-    @Autowired private CommentMapper commentMapper;
+    @Autowired
+    private CommentMapper commentMapper;
 
     @Override
     public List<CommentDTO> findAll() {
@@ -41,13 +42,6 @@ public class CommentServiceImpl implements CommentService {
     public void delete(int cmntSn) {
         commentMapper.delete(cmntSn);
     }
-
-//    @Override
-//    public CommentDTO choose(int cmntSn) {
-//        //글의 채택여부도 바꿔주기
-//        return commentMapper.choose(cmntSn);
-//    }
-
     @Override
     public int countNum(int pstartNo) {
         return commentMapper.countNum(pstartNo);

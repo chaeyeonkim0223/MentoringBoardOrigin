@@ -31,53 +31,15 @@ export default {
     },
     goBoardWrite() {
       this.$router.push({ name: "BoardWrite" });
-    },
-    // async getMentorName(mbrNo) {
-    //   await axios.get(`/api/boards/mentor/${mbrNo}`).then((res) => {
-    //     res.data.mbrNm;
-    //     // console.log(res.data.mbrNm);
-    //     this.mentorNameList.push(res.data.mbrNm);
-    //     // console.log(this.mentorNameList);
-    //     return res.data.mbrNm;
-    //   });
-    // },
-    // async getMentorNameList() {
-    //   for (let i = 0; i < this.items.length; i++) {
-    //     await this.getMentorName(this.items[i].mbrNo);
-    //   }
-    // },
-    // updateItems() {
-    //   this.items.mentorName = this.mentorNameList;
-    // },
+    },  
   },
-  // watch: {
-  //   mentorNameList(newList) {
-  //     console.log(newList);
-  //     this.updateItems();
-  //   },
-  // },
   created() {
-    // let mentorNames = [];
+
     axios.get("/api/boards").then((res) => {
       this.items = res.data;
       console.log(this.items)
-      // this.getMentorNameList();
-      // this.items.mentorName = this.mentorNameList;
-      // console.log(this.items.mentorName);
-      // this.updateItems();
+    
     });
-
-    // for (let i = 0; i < this.items.length; i++) {
-    //   const promiseMentorName = this.getMentorName(this.items[i].mbrNo);
-    //   console.log("@@@" + promiseMentorName);
-    //   const getData = () => {
-    //     promiseMentorName.then((res) => {
-    //       console.log(res);
-    //       mentorNames.push(res);
-    //     });
-    //   };
-    //   getData();
-    // }
   },
   data() {
     return {
