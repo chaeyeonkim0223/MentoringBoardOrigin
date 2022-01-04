@@ -60,6 +60,7 @@ export default {
     // let mentorNames = [];
     axios.get("/api/boards").then((res) => {
       this.items = res.data;
+      console.log(this.items)
       // this.getMentorNameList();
       // this.items.mentorName = this.mentorNameList;
       // console.log(this.items.mentorName);
@@ -85,13 +86,13 @@ export default {
       headers: [
         { text: "글번호", value: "pstartNo" },
         { text: "글제목", value: "pstartTitlNm" },
-        // { text: "멘토이름", value: "mentorName" },
+        { text: "멘토이름", value: "mtrNm" },
         { text: "작성자", value: "rgtrNm" },
         { text: "등록일자", value: "regDt" },
         { text: "답변여부", value: "slctnYn" },
       ],
       pstartNo: null,
-      // mentorNameList: [],
+      mentorNameList: [],
     };
   },
 };

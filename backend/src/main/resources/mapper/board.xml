@@ -12,9 +12,13 @@
                 returning *
     </select>
     <select id="findAll" resultType="com.ktds.questionformentoring.board.entity.BoardDTO">
-        select "PSTART_NO", "RGTR_ID", "RGTR_NM", "RGTR_MBR_CD", "REG_DT", "PSTART_TITL_NM", "PSTART_CN", "INQ_CNT", "SLCTN_YN", "MBR_NO"
-        from "BOARD"
-        order by "REG_DT" desc
+        select b."PSTART_NO", b."RGTR_ID", b."RGTR_NM", b."RGTR_MBR_CD", b."REG_DT", b."PSTART_TITL_NM", b."PSTART_CN", b."INQ_CNT", b."SLCTN_YN", b."MBR_NO", mb2."MBR_NM" as "MTR_NM"
+        from "BOARD" b
+                 join "MBR_BAS" mb
+                      on b."MBR_NO" = mb."MBR_NO"
+                 join "MBR_BAS" mb2
+                      on mb2."LOGIN_ID" = mb."MTR_ID"
+        order by b."REG_DT" desc
     </select>
     <select id="findById" parameterType="int" resultType="com.ktds.questionformentoring.board.entity.BoardDTO">
         select "PSTART_NO", "RGTR_ID", "RGTR_NM", "RGTR_MBR_CD", "REG_DT", "PSTART_TITL_NM", "PSTART_CN", "INQ_CNT", "SLCTN_YN", "MBR_NO"
