@@ -67,13 +67,6 @@ const routes = [
   },
 
   {
-    path: "/chart/barchart",
-    name: "BarChartView",
-    component: () => import("@/views/chart/BarChartView"),
-    //beforeEnter: checkAuth(),
-  },
-
-  {
     path: '/login',
     name: 'Login',
     component: () => import('@/views/login/Login'),
