@@ -13,7 +13,11 @@
 
         <p class="p-1" @click="remove">삭제</p>
 
-        <p v-if="comment.slctnYn != 'Y'" class="p-1" @click="select(comment)">
+        <p
+          v-if="comment.slctnYn != 'Y' && item.slctnYn != 'Y'"
+          class="p-1"
+          @click="select(comment)"
+        >
           채택
         </p>
       </div>
