@@ -14,13 +14,13 @@
     <!--    게시글 갯수 (1주일 분량) 가져오기-->
     <select id="getCountByDate" parameterType="map" resultType="BoardCountVo">
         <![CDATA[
-        select "TOT_YMD", "TOT_PSTART_NUM" from "STAT_PSTART_STUS"
+        select to_char("TOT_YMD", 'MM.DD') as "TOT_YMD", "TOT_PSTART_NUM" from "STAT_PSTART_STUS"
         where "TOT_YMD" < to_date(#{date},'YYYY-MM-DD') and "TOT_YMD" >= to_date(#{date},'YYYY-MM-DD') -7
         ]]>
     </select>
     <!--    게시글 현황 조회-->
     <select id="getStatusByDate" parameterType="map" resultType="BoardStatusDTO">
-        select "TOT_YMD","TOT_PSTART_NUM","TOT_ANS_CMPTN_PSTART_NUM","TOT_ANS_YET_CMPTN_PSTART_NUM" from "STAT_PSTART_STUS"
+        select  to_char("TOT_YMD", 'MM.DD') as "TOT_YMD","TOT_PSTART_NUM","TOT_ANS_CMPTN_PSTART_NUM","TOT_ANS_YET_CMPTN_PSTART_NUM" from "STAT_PSTART_STUS"
         where to_char("TOT_YMD",'YYYY-MM-DD') = #{date}
     </select>
 </mapper>

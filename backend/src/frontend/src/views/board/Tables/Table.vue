@@ -17,6 +17,11 @@
       :items="items"
       :search="search"
       @click:row="goDetail"
+      no-data-text="게시글이 없습니다"
+      no-results-text="검색 결과가 없습니다"
+      :footer-props="{
+        itemsPerPageText: '쪽수',
+      }"
     ></v-data-table>
   </v-card>
 </template>
@@ -39,7 +44,10 @@ export default {
     goDetail(record) {
       console.log(record);
       this.pstartNo = record.pstartNo;
-      this.$router.push({ name: "BoardDetail", params: { pstartNo: this.pstartNo } });
+      this.$router.push({
+        name: "BoardDetail",
+        params: { pstartNo: this.pstartNo },
+      });
     },
     // async getMentorName(mbrNo) {
     //   let mentorName = await axios.get(`/api/boards/mentor/${mbrNo}`).then((res) => {
