@@ -17,8 +17,6 @@ public interface CommentService {
     public void update(CommentDTO commentDTO);
     /* 댓글 삭제 */
     public void delete(int cmntSn);
-    /* 댓글 채택 */
-//    public CommentDTO choose(int cmntSn);
     /* 해당 게시물의 댓글 수 세기 */
     public int countNum(int pstartNo);
 }
