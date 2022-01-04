@@ -12,7 +12,7 @@
                 returning *
     </select>
     <select id="findAll" resultType="com.ktds.questionformentoring.board.entity.BoardDTO">
-        select b."PSTART_NO", b."RGTR_ID", b."RGTR_NM", b."RGTR_MBR_CD", to_char(b."REG_DT", 'YYYY-MM-DD HH24:MI:SS'), b."PSTART_TITL_NM", b."PSTART_CN", b."INQ_CNT", b."SLCTN_YN", b."MBR_NO", mb2."MBR_NM" as "MTR_NM"
+        select b."PSTART_NO", b."RGTR_ID", b."RGTR_NM", b."RGTR_MBR_CD", to_char(b."REG_DT", 'YYYY-MM-DD HH24:MI:SS') as "REG_DT", b."PSTART_TITL_NM", b."PSTART_CN", b."INQ_CNT", b."SLCTN_YN", b."MBR_NO", mb2."MBR_NM" as "MTR_NM"
         from "BOARD" b
                  join "MBR_BAS" mb
                       on b."MBR_NO" = mb."MBR_NO"
