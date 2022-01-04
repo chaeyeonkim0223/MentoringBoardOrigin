@@ -21,7 +21,15 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public List<BoardDTO> findAll() {
-        return boardMapper.findAll();
+
+
+        List<BoardDTO> result = boardMapper.findAll();
+        int index=result.size();
+        for (BoardDTO boardDTO:
+             result) {
+            boardDTO.setIndex(index--);
+        }
+        return result;
     }
 
     @Override

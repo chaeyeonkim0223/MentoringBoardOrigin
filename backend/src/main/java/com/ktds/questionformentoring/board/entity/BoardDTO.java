@@ -36,5 +36,7 @@ public class BoardDTO {
     private int mbrNo;
     // 멘토 이름
     private String mtrNm;
+    // 테이블에 보여질 인덱스
+    private int index;
 
 }
