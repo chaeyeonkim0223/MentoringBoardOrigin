@@ -42,6 +42,7 @@
       tile elevation="0"
       class="d-flex justify-center mb-6 bar">
       <bar-chart v-if="weekPostLoaded" :data="barData" :options="barOptions"></bar-chart>
+      <small v-if="this.isEmptyBoardCount">{{ boardCountMessage }}</small>
     </v-card>
     </div>
   </div>
@@ -61,6 +62,9 @@ export default {
   },
 
   methods: {
+    isEmptyValue(val) {
+      return val == "" || val == null || val == undefined || (val != null && typeof val == "object" && !Object.keys(val).length);
+    },
     getMembersStatus() {
       this.mbrLoaded = false;
       axios.get(`api/chartData/members`).then((item) => {
@@ -70,9 +74,15 @@ export default {
 
         this.chartData.datasets[0].data = [item.data.totMtrNum, item.data.totMteNum, item.data.totWhdwlMbrNum];
         this.mbrLoaded = true;
+        if (this.isEmptyValue(item.data)) {
+          this.memberMessage = "회원이 없습니다";
+          this.chartData.labels = [];
+          this.totalMember = 0;
+        }
         if (item.data.totMtrNum === 0 && item.data.totMteNum === 0 && item.data.totWhdwlMbrNum === 0) {
           this.memberMessage = "회원이 없습니다";
           this.chartData.labels = [];
+          this.totalMember = 0;
         }
       }); 
     },
@@ -84,9 +94,16 @@ export default {
 
         this.outData.datasets[0].data = [item.data.totMtrWhdwlNum, item.data.totMteWhdwlNum];
         this.outMbrLoaded = true;
+
+        if (this.isEmptyValue(item.data)) {
+          this.outMessage = "탈퇴한 회원이 없습니다";
+          this.outData.labels = [];
+          this.totalOutMember = 0;
+        }
         if (item.data.totMtrWhdwlNum === 0 && item.data.totMteWhdwlNum === 0) {
           this.outMessage = "탈퇴한 회원이 없습니다.";
           this.outData.labels = [];
+          this.totalOutMember = 0;
         }
       });
     },
@@ -96,6 +113,10 @@ export default {
         this.postMessage = "";
         this.postData.datasets[0].data = [item.data.totAnsCmptnPstartNum, item.data.totAnsYetCmptnPstartNum];
         this.postLoaded = true;
+        if (this.isEmptyValue(item.data)) {
+          this.postMessage = "오늘 작성된 글이 없습니다.";
+          this.postData.labels = [];
+        }
         if (item.data.totAnsCmptnPstartNum === 0 && item.data.totAnsYetCmptnPstartNum === 0) {
           this.postMessage = "오늘 작성된 글이 없습니다."
           this.postData.labels = [];
@@ -107,6 +128,14 @@ export default {
       axios.get(`api/chartData/boardCount`).then((res) => {
         const boardCount = res.data;
         const cnt = boardCount.length < 7 ? boardCount.length : 7;
+        
+        if (this.isEmptyValue(boardCount)) {
+          this.barData.labels = [];
+          this.barData.datasets[0].data = [];
+          this.isEmptyBoardCount = true;
+          this.boardCountMessage = "게시글이 존재하지 않습니다."
+          return;
+        }
 
         this.barData.labels = [];
         this.barData.datasets[0].data = [];
@@ -118,6 +147,7 @@ export default {
           this.barData.labels.push(boardCount[i].totYmd);
           this.barData.datasets[0].data.push(boardCount[i].totPstartNum);
         }
+        this.isEmptyBoardCount = false;
         this.weekPostLoaded = true;
       });
     },
@@ -132,15 +162,17 @@ export default {
   data() {
     return {
       today: "",
-      totalMember: 5,
-      totalOutMember: 5,
+      totalMember: 0,
+      totalOutMember: 0,
       memberMessage: "",
       outMessage: "",
       postMessage: "",
+      boardCountMessage: "",
       mbrLoaded: false,
       outMbrLoaded: false,
       postLoaded: false,
       weekPostLoaded: false,
+      isEmptyBoardCount: false,
       cnt: null,
       chartOptions: {
         hoverBorderWidth: 20
