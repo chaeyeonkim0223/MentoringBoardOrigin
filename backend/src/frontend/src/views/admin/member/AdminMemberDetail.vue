@@ -7,8 +7,9 @@
     
     <v-divider></v-divider>
 
-    <v-container
-      >
+    <v-card 
+      tile elevation="0" 
+      class="d-flex justify-space-around mb-6">
       <v-list
       subheader
       tile
@@ -19,8 +20,8 @@
             <b>이름</b>
           </v-list-item-action>
 
-          <v-list-item-content class="align-start">
-            <v-list-item-title>{{member.mbrNm}}</v-list-item-title>
+          <v-list-item-content class="align-center">
+            <v-list-item-title>{{ member.mbrNm }}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
 
@@ -29,8 +30,8 @@
             <b>아이디</b>
           </v-list-item-action>
 
-          <v-list-item-content class="align-start">
-            <v-list-item-title>{{member.loginId}}</v-list-item-title>
+          <v-list-item-content class="align-center">
+            <v-list-item-title>{{ member.loginId }}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
 
@@ -40,9 +41,27 @@
           </v-list-item-action>
 
           <v-list-item-content class="align-start">
-            <v-list-item-title>{{member.mbrTypeCd}}</v-list-item-title>
+            <v-list-item-title>{{ member.mbrTypeCd }}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+
+        <v-list-item>
+          <v-list-item-action>
+            <b>전화번호</b>
+          </v-list-item-action>
+
+          <v-list-item-content class="align-start">
+            <v-list-item-title>{{ member.telno }}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+
+      </v-list>
+
+
+      <v-list
+      subheader
+      tile
+      dense>
 
         <v-list-item>
           <v-list-item-action>
@@ -50,12 +69,32 @@
           </v-list-item-action>
 
           <v-list-item-content class="align-start">
-            <v-list-item-title>{{member.mtrId}}</v-list-item-title>
+            <v-list-item-title>{{ member.mtrId }}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+
+        <v-list-item>
+          <v-list-item-action>
+            <b>멘토이름</b>
+          </v-list-item-action>
+
+          <v-list-item-content class="align-start">
+            <v-list-item-title>{{ member.mtrNm }}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+
+        <v-list-item>
+          <v-list-item-action>
+            <b>가입일시</b>
+          </v-list-item-action>
+
+          <v-list-item-content class="align-start">
+            <v-list-item-title>{{ member.mbrSbscDt }}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
 
       </v-list>
-    </v-container>
+    </v-card>
 
     <v-divider></v-divider>
 
@@ -79,12 +118,13 @@ export default {
   methods: {
   },
   created() {
-    axios.get(`/api/admin/memberList/member/${this.$route.params.mbrNo}`).then((res) => {
-      this.member = res.data;
+    axios.get(`/api/member/${this.$route.params.mbrNo}`).then((res) => {
+      this.member = res.data[0];
     });
 
     axios.get(`/api/memberLogin/${this.$route.params.mbrNo}`).then((res) => {
       this.items = res.data;
+      console.log(this.items);
     });
   },
   data() {
