@@ -5,11 +5,20 @@
         {{ item.pstartTitlNm }}
       </h3>
       <v-divider></v-divider>
-      <p class="text">
+
+      <v-chip>{{ item.rgtrNm }}</v-chip>
+      <v-chip>{{ checkMemberCode(item.rgtrMbrCd) }}</v-chip>
+      <v-chip> {{ item.regDt }}</v-chip>
+      <v-chip> {{ item.slctnYn }}</v-chip>
+      <v-chip> {{ item.cmntCnt }}</v-chip>
+      <v-chip>{{ item.slctnYn }}</v-chip>
+
+      <!-- <p class="text">
         {{ item.rgtrNm }} | {{ checkMemberCode(item.rgtrMbrCd) }} | 작성일
         {{ item.regDt }} | 답변여부 : {{ item.slctnYn }} | 댓글 수 :
-        {{ item.cmntCnt }} | 채택 : {{ item.slctnYn }}
-      </p>
+        {{ item.cmntCnt }} | 채택 : {{ item.slctnYn }}s
+      </p> -->
+
       <v-divider></v-divider>
       <div class="text editor" v-html="item.pstartCn"></div>
       <!-- <vue-editor ></vue-editor> -->
@@ -157,5 +166,8 @@ export default {
   width: 100%;
   text-align: right;
   justify-content: right;
+}
+.v-chip {
+  margin: 0.5%;
 }
 </style>
