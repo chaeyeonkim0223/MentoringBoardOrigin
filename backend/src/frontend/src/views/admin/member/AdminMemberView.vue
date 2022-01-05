@@ -8,9 +8,9 @@
       multiple
       color="light-blue accent-4"
     >
-      <v-chip dense value="MB001" @click="getMemberTypeList('MB001')">관리자</v-chip>
-      <v-chip dense value="MB002" @click="getMemberTypeList('MB002')">멘토</v-chip>
-      <v-chip dense value="MB003" @click="getMemberTypeList('MB003')">멘티</v-chip>
+      <v-chip filter dense value="MB001" @click="getMemberTypeList('MB001')">관리자</v-chip>
+      <v-chip filter dense value="MB002" @click="getMemberTypeList('MB002')">멘토</v-chip>
+      <v-chip filter dense value="MB003" @click="getMemberTypeList('MB003')">멘티</v-chip>
     </v-chip-group>
     </v-container>
     
@@ -47,6 +47,17 @@ export default {
     axios.get("/api/admin/memberList").then((res) => {
       console.log(res.data);
       this.items = res.data;
+      this.items.filter((item) => {
+        if (item.mbrTypeCd == "MB001") {
+          item.mbrTypeCd = "관리자";
+        }
+        else if (item.mbrTypeCd == "MB002") {
+          item.mbrTypeCd = "멘토";
+        }
+        else if (item.mbrTypeCd == "MB003") {
+          item.mbrTypeCd = "멘티";
+        }
+      });
       this.allItems = res.data;
     });
   },

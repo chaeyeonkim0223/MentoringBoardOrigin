@@ -27,10 +27,10 @@ export default {
       items: [],
       headers: [
         { text: "글번호", value: "pstartNo" },
-        { text: "글제목", value: "pstartTitlNm" },
-        { text: "멘토명(회원번호로 멘토 회원정보가져와야함)", value: "mbrNo", sortable: false },
+        { text: "글제목", value: "pstartTitlNm", sortable: false  },
+        { text: "멘토이름", value: "mtrNm", sortable: false },
         { text: "작성자", value: "rgtrNm", sortable: false },
-        { text: "등록일자", value: "regDt" },
+        { text: "등록일자", value: "regDt", sortable: false  },
         { text: "답변여부", value: "slctnYn" },
         { text: "", value: "delete", sorted: false},
       ],

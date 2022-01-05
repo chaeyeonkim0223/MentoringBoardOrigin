@@ -4,10 +4,18 @@
 <mapper namespace="com.ktds.questionformentoring.member.mapper.MemberHistoryMapper">
 
     <select id="findByMbrNo" parameterType="int" resultType="com.ktds.questionformentoring.member.entity.MemberHistoryDTO">
-        select "MBR_NO", "HST_CHG_DT", "MBR_NM", "LOGIN_ID", "MBR_TYPE_CD", "MTR_ID", "TELNO",
-               "MBR_SBSC_DT", "RTRMMB_DT", "RTRMMB_WHY_CD", "LAST_LOGIN_DT", "PWD_CHG_DATE", "INFO_AMD_DATE"
-        from "MBR_HST"
-        where "MBR_NO" = #{mbrNo}
+        select h."MBR_NO", h."HST_CHG_DT", h."MBR_NM", h."LOGIN_ID", h."MBR_TYPE_CD", h."MTR_ID", h."TELNO",
+               to_char(h."MBR_SBSC_DT", 'YYYY-MM-DD HH24:MI:SS') as "MBR_SBSC_DT",
+               to_char(h."RTRMMB_DT", 'YYYY-MM-DD HH24:MI:SS') as "RTRMMB_DT",
+               h."RTRMMB_WHY_CD",
+               to_char(h."LAST_LOGIN_DT", 'YYYY-MM-DD HH24:MI:SS') as "LAST_LOGIN_DT",
+               to_char(h."PWD_CHG_DATE", 'YYYY-MM-DD HH24:MI:SS') as "PWD_CHG_DATE",
+               to_char(h."INFO_AMD_DATE", 'YYYY-MM-DD HH24:MI:SS') as "INFO_AMD_DATE",
+               mb."MBR_NM" as "MTR_NM"
+        from "MBR_HST" h
+                join "MBR_BAS" mb
+                    on h."MTR_ID" = mb."LOGIN_ID"
+        where h."MBR_NO" = #{mbrNo}
     </select>
 
 </mapper>
