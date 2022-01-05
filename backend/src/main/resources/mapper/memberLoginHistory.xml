@@ -4,7 +4,7 @@
 <mapper namespace="com.ktds.questionformentoring.member.mapper.MemberLoginHistoryMapper">
 
     <select id="findByMbrNo" parameterType="int" resultType="com.ktds.questionformentoring.member.entity.MemberLoginHistoryDTO">
-        select "MBR_LOGIN_SEQ", "MBR_NO", "LOGIN_ID", "LOGIN_IP", "LOGIN_DT"
+        select "MBR_LOGIN_SEQ", "MBR_NO", "LOGIN_ID", "LOGIN_IP", to_char("LOGIN_DT", 'YYYY-MM-DD HH24:MI:SS') as "LOGIN_DT"
         from "MBR_LOGIN_HST"
         where "MBR_NO" = #{mbrNo}
     </select>
