@@ -21,7 +21,7 @@
         order by b."REG_DT" desc
     </select>
     <select id="findById" parameterType="int" resultType="com.ktds.questionformentoring.board.entity.BoardDTO">
-        select "PSTART_NO", "RGTR_ID", "RGTR_NM", "RGTR_MBR_CD", to_char("REG_DT", 'YYYY-MM-DD HH24:MI:SS'), "PSTART_TITL_NM", "PSTART_CN", "INQ_CNT", "SLCTN_YN", "MBR_NO"
+        select "PSTART_NO", "RGTR_ID", "RGTR_NM", "RGTR_MBR_CD", to_char("REG_DT", 'YYYY-MM-DD HH24:MI:SS') as "REG_DT", "PSTART_TITL_NM", "PSTART_CN", "INQ_CNT", "SLCTN_YN", "MBR_NO" as "MTR_NM"
         from "BOARD"
         where "PSTART_NO" = #{pstartNo}
     </select>
