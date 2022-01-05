@@ -131,11 +131,17 @@ export default {
     },
     deleteBoard() {
       console.log(this.item.pstartNo);
-      axios.delete(`/api/boards/${Number(this.item.pstartNo)}`).then((res) => {
-        this.item = res.data;
-        window.alert("삭제완료");
-        this.$router.push({ name: "BoardView" });
-      });
+      axios
+        .delete(`/api/boards/${Number(this.item.pstartNo)}`)
+        .then((res) => {
+          this.item = res.data;
+          window.alert("삭제완료");
+          this.$router.push({ name: "BoardView" });
+        })
+        .catch((err) => {
+          console.log(err.message);
+          window.alert("삭제에 실패하였습니다.");
+        });
     },
   },
 };
