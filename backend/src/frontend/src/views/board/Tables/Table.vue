@@ -22,7 +22,13 @@
       :footer-props="{
         itemsPerPageText: '쪽수',
       }"
-    ></v-data-table>
+    >
+      <template v-slot:item.slctnYn="{ item }">
+        <v-chip :color="getSlctYn(item.slctnYn)" dark>
+          {{ convertSelectedMsg(item.slctnYn) }}
+        </v-chip>
+      </template>
+    </v-data-table>
   </v-card>
 </template>
 
@@ -48,6 +54,14 @@ export default {
         name: "BoardDetail",
         params: { pstartNo: this.pstartNo },
       });
+    },
+    getSlctYn(slctnYn) {
+      if (slctnYn == "Y") return "green";
+      else if (slctnYn == "N") return "dark";
+    },
+    convertSelectedMsg(slctnYn) {
+      if (slctnYn == "Y") return "완료";
+      else if (slctnYn == "N") return "대기";
     },
     // async getMentorName(mbrNo) {
     //   let mentorName = await axios.get(`/api/boards/mentor/${mbrNo}`).then((res) => {
