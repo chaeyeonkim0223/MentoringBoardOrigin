@@ -34,7 +34,7 @@
       >
         수정
       </v-btn>
-      <v-btn
+      <!-- <v-btn
         class="m-1"
         depressed
         color="error"
@@ -42,7 +42,14 @@
         @click="deleteBoard(item.pstartNo)"
       >
         삭제
-      </v-btn>
+      </v-btn> -->
+      <!-- 알랏시작 -->
+      <Alert
+        v-if="checkMyPost(item.pstartNo)"
+        @deleteBoard="deleteBoard"
+        :alertContent="alertContent"
+      />
+      <!-- 알랏끝 -->
     </div>
     <!-- 댓글 구간 시작 -->
     <CommentWrite
@@ -65,16 +72,28 @@
 import axios from "axios";
 import CommentWrite from "./comment/CommentWrite.vue";
 import CommentView from "./comment/CommentView.vue";
+import Alert from "../../components/Alert/Alert.vue";
 export default {
   components: {
     CommentWrite,
     CommentView,
+    Alert,
   },
   data() {
     return {
+      // 보여줄 게시글
       item: {},
       input: String,
+      // 댓글 배열
       comments: [],
+      // 알랏 컨텐츠
+      alertContent: {
+        title: "정말 삭제하시겠습니까",
+        content: "한번 삭제한 게시글은 복구가 불가능합니다",
+        cancelMsg: "취소",
+        acceptMsg: "삭제",
+        btnMsg: "삭제",
+      },
     };
   },
   created() {
@@ -110,12 +129,19 @@ export default {
         params: { pstartNo: pstartNo },
       });
     },
-    deleteBoard(pstartNo) {
-      axios.delete(`/api/boards/${Number(pstartNo)}`).then((res) => {
-        this.item = res.data;
-        window.alert("삭제완료");
-        this.$router.push({ name: "BoardView" });
-      });
+    deleteBoard() {
+      console.log(this.item.pstartNo);
+      axios
+        .delete(`/api/boards/${Number(this.item.pstartNo)}`)
+        .then((res) => {
+          this.item = res.data;
+          window.alert("삭제완료");
+          this.$router.push({ name: "BoardView" });
+        })
+        .catch((err) => {
+          console.log(err.message);
+          window.alert("삭제에 실패하였습니다.");
+        });
     },
   },
 };
