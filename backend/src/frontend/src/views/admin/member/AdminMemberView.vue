@@ -8,9 +8,9 @@
       multiple
       color="light-blue accent-4"
     >
-      <v-chip filter dense value="MB001" @click="getMemberTypeList('MB001')">관리자</v-chip>
-      <v-chip filter dense value="MB002" @click="getMemberTypeList('MB002')">멘토</v-chip>
-      <v-chip filter dense value="MB003" @click="getMemberTypeList('MB003')">멘티</v-chip>
+      <v-chip filter dense value="관리자" @click="getMemberTypeList('관리자')">관리자</v-chip>
+      <v-chip filter dense value="멘토" @click="getMemberTypeList('멘토')">멘토</v-chip>
+      <v-chip filter dense value="멘티" @click="getMemberTypeList('멘티')">멘티</v-chip>
     </v-chip-group>
     </v-container>
     
@@ -33,6 +33,7 @@ export default {
   },
   methods: {
     getMemberTypeList(mbrType) {
+
       this.items = this.allItems.filter(m => {
         if (this.selected.includes(m.mbrTypeCd) && m.mbrTypeCd == mbrType) { 
           return false; 
@@ -41,6 +42,8 @@ export default {
         }
         return this.selected.includes(m.mbrTypeCd);
       });
+
+      console.log(this.items);
     },
   },
   created() {
@@ -49,22 +52,22 @@ export default {
       this.items = res.data;
       this.items.filter((item) => {
         if (item.mbrTypeCd == "MB001") {
-          item.mbrTypeCd = "관리자";
+          item.mbrTypeCd = '관리자';
         }
         else if (item.mbrTypeCd == "MB002") {
-          item.mbrTypeCd = "멘토";
+          item.mbrTypeCd = '멘토';
         }
         else if (item.mbrTypeCd == "MB003") {
-          item.mbrTypeCd = "멘티";
+          item.mbrTypeCd = '멘티';
         }
       });
-      this.allItems = res.data;
+      this.allItems = this.items;
     });
   },
   data() {
     return {
       checkItems: ["멘토", "멘티"],
-      selected: ['MB001', 'MB002', 'MB003'],
+      selected: ['관리자', '멘토', '멘티'],
       allItems: [],
       items: [],
       headers: [
