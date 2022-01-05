@@ -211,7 +211,7 @@ export default {
               beginAtZero: true
             },
             gridLines: {
-              display: false
+              display: true
             }
           }],
           xAxes: [{
