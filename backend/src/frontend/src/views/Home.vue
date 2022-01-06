@@ -22,6 +22,7 @@
         <v-list-item @click="$router.push({ name: 'AdminMemberView' })">회원 관리</v-list-item>
         <v-list-item @click="$router.push({ name: 'AdminBoardView' })">게시글 관리</v-list-item>
         <v-list-item @click="$router.push({ name: 'ChartView' })">통계</v-list-item>
+        <v-list-item @click="$router.push({ name: 'Dashboard' })">테스트</v-list-item>
       </v-list>
     </v-navigation-drawer>
 

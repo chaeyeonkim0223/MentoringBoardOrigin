@@ -3,15 +3,17 @@ import VueRouter from "vue-router";
 import Home from "@/views/Home.vue";
 import auth from "../common/auth"
 
+import Layout from "../views/Layout";
+
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: "/",
-    name: "Home",
-    component: Home,
+    name: "Layout",
+    component: Layout,
     redirect: {
-      name: "BoardView",
+      name: "Layout",
     },
     children: [
       // 게시판
@@ -63,6 +65,12 @@ const routes = [
         name: "ChartView",
         component: () => import("../views/chart/ChartView"),
       },
+      // 테스트 대시보드
+      {
+        path: "/dashboard",
+        name: "Dashboard",
+        component: () => import("../views/Dashboard"),
+      }
     ],
   },
 
