@@ -20,6 +20,9 @@ export default {
     return {
       //댓글 등록용 content
       content: "",
+      
+      writerNo: null,
+      title: null,
     };
   },
 
@@ -47,7 +50,27 @@ export default {
           console.log("emit전달");
           this.content = "";
 
-        });
+      });
+      
+      // 알림 저장
+      // 작성자 mbrNo 가져오기
+      axios.get(`/api/boards/${Number(this.pstartNo)}`).then((res) => {
+        this.writerNo = res.data.mbrNo;
+        this.title = res.data.pstartTitlNm;
+      });
+
+      this.title = "[" + this.title + "]" + "글에 댓글이 달렸습니다.";
+      const notificationData = {
+        mbrNo: this.writerNo,
+        ntcPstgTitleNm: "알림제목",
+        lgnId: "id",
+        ntcPstgCn: this.title,
+        pstartNo: this.pstartNo,
+      };
+      axios.post(`/api/notification`, notificationData).catch((error) => {
+        console.log(error);
+      })
+
     },
   },
 };
