@@ -6,11 +6,12 @@
     <select id="save" resultType="com.ktds.questionformentoring.notification.entity.NotificationHistoryDTO">
         insert into "MBR_NTC_HST"
             ("MBR_NO", "NTC_PSTG_NO", "NTC_PSTG_TITL_NM", "NTC_PSTG_CN", "LGN_ID", "RCPTN_DT", "PSTART_NO")
-        values (#{mbrNo}, default , #{ntcPsthTitlNm}, #{ntcPstgCn}, #{lgnId}, #{rcptnDt}, #{pstartNo}) returning *
+        values (#{mbrNo}, default , #{ntcPsthTitlNm}, #{ntcPstgCn}, #{lgnId}, pg_catalog.clock_timestamp(), #{pstartNo}) returning *
     </select>
 
     <select id="findByMbrNo" resultType="com.ktds.questionformentoring.notification.entity.NotificationHistoryDTO">
-        select "MBR_NO", "NTC_PSTG_NO", "NTC_PSTG_TITL_NM", "NTC_PSTG_CN", "LGN_ID", "RCPTN_DT", "PSTART_NO"
+        select "MBR_NO", "NTC_PSTG_NO", "NTC_PSTG_TITL_NM", "NTC_PSTG_CN", "LGN_ID",
+               to_char("RCPTN_DT", 'YYYY-MM-DD HH24:MI:SS') as "RCPTN_DT", "PSTART_NO"
         from "MBR_NTC_HST"
         WHERE "MBR_NO" = #{mbrNo}
     </select>

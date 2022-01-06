@@ -16,6 +16,6 @@ public class NotificationHistoryDTO {
     private String ntcPstgTitlNm;   // 알림게시제목명
     private String ntcPstgCn;       // 알림게시내용
     private String lgnId;           // 로그인 아이디
-    private Date rcptnDt;           // 수신일시
+    private String rcptnDt;           // 수신일시
     private int pstartNo;           // 게시물 번호
 }
