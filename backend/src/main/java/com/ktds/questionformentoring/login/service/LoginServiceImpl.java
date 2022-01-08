@@ -123,6 +123,12 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    public MemberDTO getUserInfo(String token) throws Exception {
+        MemberDTO user = new ObjectMapper().convertValue(this.getInfo(token).get("user"), MemberDTO.class);
+        return user;
+    }
+
+    @Override
     public ResponseEntity<Object> checkValidToken(String type, String accessToken, String refreshToken) {
         ResponseMsg msg = new ResponseMsg(200, "", "");
         LoginDTO loginDTO = new LoginDTO();
@@ -131,7 +137,6 @@ public class LoginServiceImpl implements LoginService {
                 this.checkValid(accessToken);
                 msg.setMsg("access token validated");
                 loginDTO.setAccessToken(accessToken);
-                //loginDTO.setRefreshToken(refreshToken);
                 MemberDTO user = new ObjectMapper().convertValue(this.getInfo(accessToken).get("user"), MemberDTO.class);
                 loginDTO.setUser(user);
                 msg.setResData(loginDTO);
@@ -139,7 +144,6 @@ public class LoginServiceImpl implements LoginService {
                 Map<String, Object> tokenInfoMap = this.getInfo(refreshToken);
                 MemberDTO refresh = new ObjectMapper().convertValue(tokenInfoMap.get("info"), MemberDTO.class);
                 loginDTO.setAccessToken(this.createUserToken(refresh));
-                //loginDTO.setRefreshToken(refreshToken);
                 loginDTO.setUser(new ObjectMapper().convertValue(this.getInfo(accessToken).get("user"), MemberDTO.class));
                 msg.setMsg("access, refresh token is valid");
                 msg.setResData(loginDTO);

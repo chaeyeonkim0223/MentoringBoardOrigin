@@ -19,4 +19,10 @@
         select *
         from "MBR_BAS"
     </select>
+
+    <select id="getUserInfo" resultType="com.ktds.questionformentoring.member.entity.MemberDTO">
+        select *
+        from "MBR_BAS"
+        where "LOGIN_ID" = #{loginId} and "LOGIN_PWD" = #{loginPwd}
+    </select>
 </mapper>

@@ -24,7 +24,7 @@ export default {
     return {
       userid: "",
       password: "",
-      name: "",
+      name: ""
     };
   },
   computed() {
@@ -44,8 +44,14 @@ export default {
           if (res.data.code === 200) {
             localStorage.setItem("jwt-auth-token", res.headers["jwt-auth-token"]);
             localStorage.setItem("jwt-refresh-token", res.headers["jwt-refresh-token"]);
+            let userInfoList = res.data.resData.user;
+            for(let key in userInfoList) {
+              if(userInfoList[key] !== null) {
+                this.$cookies.set(key, userInfoList[key]);
+              }
+            }
             alert('login success');
-            location.href = '/'
+            this.$router.push('/');
           } else {
             alert('login fail');
           }

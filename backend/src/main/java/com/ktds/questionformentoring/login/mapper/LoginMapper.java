@@ -13,4 +13,6 @@ public interface LoginMapper {
     public List<MemberDTO> findAll();
     /* 유효 회원 체크 */
     public MemberDTO getUserValidate(String loginId, String loginPwd);
+    /* 회원 조회 */
+    public MemberDTO getUserInfo(String loginId, String loginPwd);
 }
