@@ -3,8 +3,8 @@ node {
     stage('Get Git Source') {
         git branch: 'master',
         credentialsId: '8261bff8-7d51-4889-bf63-485f7cad9612',
-        url: 'https://gitlab.com/jminHwang/questionboard_for_mentoring'
-        //url: 'git@gitlab.com:jminHwang/questionboard_for_mentoring.git'
+        //url: 'https://gitlab.com/jminHwang/questionboard_for_mentoring'
+        url: 'git@gitlab.com:jminHwang/questionboard_for_mentoring.git'
     }
     
     stage('Get Build Frontend Source Code') {
