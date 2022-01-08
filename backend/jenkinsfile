@@ -1,0 +1,43 @@
+node {
+    
+    stage('Get Git Source') {
+        //git branch: 'release-1.0.1',
+        //credentialsId: '5ad8711f-e4bd-4582-9fee-0966df17d0a2',
+        //url: 'https://github.com/zoomspeed/questionboard_for_mentoring.git'
+        git branch: 'feature/kh/login',
+        //credentialsId: '2f3e2139-335f-4059-bbba-a4df368cdbc9',
+        url: 'https://gitlab.com/jminHwang/questionboard_for_mentoring'
+        //url: 'git@gitlab.com:jminHwang/questionboard_for_mentoring.git'
+    }
+    
+    stage('Get Build Frontend Source Code') {
+        dir('backend/src/frontend') {
+            sh 'npm install'
+            sh 'npm run build'
+        }
+    }
+    
+    stage('Build Gradle') {
+        dir('backend') {
+            sh 'sudo gradle build'
+        }
+    }
+    
+    
+    stage('Backend app. running port kill') {
+        sh '''
+        checkPort=`netstat -nltp | grep 8080 | wc -l`
+        if [ "$checkPort" = "1" ];
+        then
+            sudo fuser -k 8080/tcp
+            echo 'kill 8080 port'
+        else
+            echo '8080 port is not running'
+        fi
+        '''
+    }
+    
+    stage('Run backend application') {
+        sh 'sudo java -jar /var/lib/jenkins/workspace/KTDS_Mentoring_Deploy_Test/backend/build/libs/question-for-mentoring-0.0.1-SNAPSHOT.jar &'
+    }
+}
