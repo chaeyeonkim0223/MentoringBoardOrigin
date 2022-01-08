@@ -38,6 +38,6 @@ node {
     }
     
     stage('Run backend application') {
-        sh 'sudo java -jar /var/lib/jenkins/workspace/KTDS_Mentoring_Deploy_Test/backend/build/libs/question-for-mentoring-0.0.1-SNAPSHOT.jar &'
+        sh 'sudo java -jar /var/lib/jenkins/workspace/KTDS_Mentoring_Project_Deploy/backend/build/libs/question-for-mentoring-0.0.1-SNAPSHOT.jar &'
     }
 }
