@@ -27,7 +27,7 @@ class LoginServiceImplTest {
         MemberDTO memberDTO = new MemberDTO();
         memberDTO.setLoginId(loginId++ + "");
         memberDTO.setMbrNm("testuser");
-        token = loginServiceImpl.createToken(memberDTO);
+        token = loginServiceImpl.createUserToken(memberDTO);
         log.info(token);
     }
 
