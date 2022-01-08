@@ -3,14 +3,20 @@
 
 <mapper namespace="com.ktds.questionformentoring.login.mapper.LoginMapper">
 
-    <select id="findOne" resultType="com.ktds.questionformentoring.member.entity.MemberDTO">
+    <select id="getUserValidate" resultType="com.ktds.questionformentoring.member.entity.MemberDTO">
         select "LOGIN_ID", "LOGIN_PWD"
         from "MBR_BAS"
         where "LOGIN_ID" = #{loginId} and "LOGIN_PWD" = #{loginPwd}
     </select>
 
+    <select id="findOne" resultType="com.ktds.questionformentoring.member.entity.MemberDTO">
+        select "MBR_NM", "LOGIN_ID", "MBR_TYPE_CD", "MTR_ID", "TELNO"
+        from "MBR_BAS"
+        where "LOGIN_ID" = #{loginId} and "LOGIN_PWD" = #{loginPwd}
+    </select>
+
     <select id="findAll" resultType="com.ktds.questionformentoring.member.entity.MemberDTO">
-        select "LOGIN_ID", "LOGIN_PWD"
+        select *
         from "MBR_BAS"
     </select>
 </mapper>

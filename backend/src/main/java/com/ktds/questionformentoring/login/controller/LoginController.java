@@ -46,7 +46,7 @@ public class LoginController {
     }
 
     @PostMapping("/checkToken") // 토큰에 담겨있는 사용자 정보를 리턴, 토큰이 필요한 경로
-    public ResponseEntity<Object> checkToken(HttpServletRequest request, @RequestBody Map<String, Object> object) {
+    public ResponseEntity<Object> checkToken(HttpServletRequest request, @RequestBody Map<String, Object> object) throws Exception {
         //파라미터 검증, 유효시간, 토큰값 검증 확인
         String accessToken = request.getHeader("jwt-auth-token");
         String refreshToken = request.getHeader("jwt-refresh-token");
@@ -65,6 +65,7 @@ public class LoginController {
                 response.setHeader("jwt-auth-token", token); // client에 token 전달
                 response.setHeader("jwt-refresh-token", refreshToken); // client에 refresh token 전달
                 msg.setMsg("login Success");
+                msg.setResData(loginService.getInfo(token));
             } else {
                 msg.setCode(401);
                 msg.setMsg("login Fail");

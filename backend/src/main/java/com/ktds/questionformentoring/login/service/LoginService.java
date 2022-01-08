@@ -15,4 +15,5 @@ public interface LoginService {
     public List<MemberDTO> findAll();
     public MemberDTO findOne(MemberDTO memberDTO);
     public ResponseEntity<Object> checkValidToken(String type, String accessToken, String refreshToken);
+    public MemberDTO getUserValidate(MemberDTO memberDTO);
 }
