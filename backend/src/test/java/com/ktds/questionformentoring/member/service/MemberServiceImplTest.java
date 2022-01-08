@@ -29,12 +29,12 @@ class MemberServiceImplTest {
                 .mbrTypeCd("test")
                 .mtrId("")
                 .telno("test")
-                .mbrSbscDt(new Date())
-                .rtrmmbDt(new Date())
+                .mbrSbscDt(new Date().toString())
+                .rtrmmbDt(new Date().toString())
                 .rtrmmbWhyCd("")
-                .lastLoginDt(new Date())
-                .pwdChgDate(new Date())
-                .infoAmdDt(new Date())
+                .lastLoginDt(new Date().toString())
+                .pwdChgDate(new Date().toString())
+                .infoAmdDt(new Date().toString())
                 .build();
 
         memberService.save(member);
