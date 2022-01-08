@@ -35,7 +35,6 @@ axios.interceptors.response.use(
     //json 값으로 내리도록 로직 변경
     const jwtAuthToken = response.data.resData.accessToken;
     const jwtRefreshToken = response.data.resData.refreshToken;
-    
 
     if(jwtAuthToken != null && jwtAuthToken != '') {
       console.log("access token 응답", jwtAuthToken)

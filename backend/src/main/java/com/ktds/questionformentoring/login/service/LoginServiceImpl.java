@@ -38,6 +38,7 @@ public class LoginServiceImpl implements LoginService {
     // 토큰 생성하는 메서드
     @Override
     public String createUserToken(MemberDTO memberDto) { // 토큰에 담고싶은 값 파라미터로 가져오기
+        memberDto = this.findOne(memberDto);
         return Jwts.builder()
                 .setHeaderParam("typ", "JWT") // 토큰 타입
                 .setSubject("userToken") // 토큰 제목
@@ -66,12 +67,12 @@ public class LoginServiceImpl implements LoginService {
             claims = Jwts.parser().setSigningKey(SECRET_KEY.getBytes()).parseClaimsJws(token); // secretKey를 사용하여 복호화
         } catch(ExpiredJwtException e) {
             e.printStackTrace();
-            throw new InvalidParameterException("토큰이 만료되었습니다.");
+            //throw new InvalidParameterException("토큰이 만료되었습니다.");
         } catch(SignatureException | UnsupportedJwtException | MalformedJwtException | IllegalArgumentException e) {
             e.printStackTrace();
-            throw new InvalidParameterException("유효하지 않은 토큰입니다.");
+            //throw new InvalidParameterException("유효하지 않은 토큰입니다.");
         }
-
+        if(claims == null) return null;
         return claims.getBody();
     }
 
@@ -94,7 +95,7 @@ public class LoginServiceImpl implements LoginService {
 
         MemberDTO DBUser = null;
         try {
-            DBUser = this.findOne(memberDto); // DB에 저장되어 있는 사용자 정보 가져와서 조회
+            DBUser = this.getUserValidate(memberDto); // DB에 저장되어 있는 사용자 정보 가져와서 조회
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -117,6 +118,17 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    public MemberDTO getUserValidate(MemberDTO memberDTO) {
+        return loginMapper.getUserValidate(memberDTO.getLoginId(), memberDTO.getLoginPwd());
+    }
+
+    @Override
+    public MemberDTO getUserInfo(String token) throws Exception {
+        MemberDTO user = new ObjectMapper().convertValue(this.getInfo(token).get("user"), MemberDTO.class);
+        return user;
+    }
+
+    @Override
     public ResponseEntity<Object> checkValidToken(String type, String accessToken, String refreshToken) {
         ResponseMsg msg = new ResponseMsg(200, "", "");
         LoginDTO loginDTO = new LoginDTO();
@@ -124,12 +136,17 @@ public class LoginServiceImpl implements LoginService {
             if (accessToken != null && "access-token".equals(type)) {
                 this.checkValid(accessToken);
                 msg.setMsg("access token validated");
+                loginDTO.setAccessToken(accessToken);
+                MemberDTO user = new ObjectMapper().convertValue(this.getInfo(accessToken).get("user"), MemberDTO.class);
+                loginDTO.setUser(user);
+                msg.setResData(loginDTO);
             } else if(refreshToken != null && "refresh-token".equals(type)) {
                 Map<String, Object> tokenInfoMap = this.getInfo(refreshToken);
-                MemberDTO user = new ObjectMapper().convertValue(tokenInfoMap.get("user"), MemberDTO.class);
-                loginDTO.setAccessToken(this.createUserToken(user));
-                msg.setResData(loginDTO);
+                MemberDTO refresh = new ObjectMapper().convertValue(tokenInfoMap.get("info"), MemberDTO.class);
+                loginDTO.setAccessToken(this.createUserToken(refresh));
+                loginDTO.setUser(new ObjectMapper().convertValue(this.getInfo(accessToken).get("user"), MemberDTO.class));
                 msg.setMsg("access, refresh token is valid");
+                msg.setResData(loginDTO);
             } else{
                 msg.setMsg("token값이 누락되었습니다.");
                 msg.setCode(400);

@@ -39,3 +39,5 @@ out/
 ### Build File ###
 ./main/resources/static/
 
+src/main/resources/static/**/**
+../.DS_Store

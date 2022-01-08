@@ -11,4 +11,8 @@ public interface LoginMapper {
     public MemberDTO findOne(String loginId, String loginPwd);
     /* 회원 전체 조회 */
     public List<MemberDTO> findAll();
+    /* 유효 회원 체크 */
+    public MemberDTO getUserValidate(String loginId, String loginPwd);
+    /* 회원 조회 */
+    public MemberDTO getUserInfo(String loginId, String loginPwd);
 }

@@ -13,6 +13,12 @@ import Element from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";
 import vuetify from './plugins/vuetify'
 
+import VueCookies from "vue-cookies";
+
+//쿠키를 사용한다.
+Vue.use(VueCookies);
+Vue.$cookies.config("7d");
+
 Vue.use(BootstrapVue);
 Vue.use(Element, { size: "small", zIndex: 3000 });
 Vue.config.productionTip = false;
