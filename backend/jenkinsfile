@@ -4,7 +4,7 @@ node {
         //git branch: 'release-1.0.1',
         //credentialsId: '5ad8711f-e4bd-4582-9fee-0966df17d0a2',
         //url: 'https://github.com/zoomspeed/questionboard_for_mentoring.git'
-        git branch: 'feature/kh/login',
+        git branch: 'master',
         credentialsId: '8261bff8-7d51-4889-bf63-485f7cad9612',
         url: 'https://gitlab.com/jminHwang/questionboard_for_mentoring'
         //url: 'git@gitlab.com:jminHwang/questionboard_for_mentoring.git'
@@ -38,6 +38,6 @@ node {
     }
     
     stage('Run backend application') {
-        sh 'sudo java -jar /var/lib/jenkins/workspace/KTDS_Mentoring_Deploy_Test/backend/build/libs/question-for-mentoring-0.0.1-SNAPSHOT.jar &'
+        sh 'sudo java -jar /var/lib/jenkins/workspace/KTDS_Mentoring_Project_Deploy/backend/build/libs/question-for-mentoring-0.0.1-SNAPSHOT.jar &'
     }
 }
