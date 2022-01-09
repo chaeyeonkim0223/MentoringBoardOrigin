@@ -72,6 +72,12 @@ const routes = [
     component: () => import('@/views/login/Login'),
     //meta: { authRequired: true },
   },
+  {
+    path: '/signin',
+    name: 'signin',
+    component: () => import('@/views/login/Signin'),
+    //meta: { authRequired: true },
+  },
 
   //Editor
   // {

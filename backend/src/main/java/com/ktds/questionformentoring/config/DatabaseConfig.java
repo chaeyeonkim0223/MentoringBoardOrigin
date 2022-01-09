@@ -11,7 +11,8 @@ import org.springframework.context.annotation.Configuration;
                 "com.ktds.questionformentoring.comment.mapper",
                 "com.ktds.questionformentoring.notification.mapper",
                 "com.ktds.questionformentoring.login.mapper",
-                "com.ktds.questionformentoring.scheduler.mapper"
+                "com.ktds.questionformentoring.scheduler.mapper",
+                "com.ktds.questionformentoring.siginin.mapper"
         }
 )
 public class DatabaseConfig {}
