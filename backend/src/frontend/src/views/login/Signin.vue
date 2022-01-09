@@ -2,11 +2,23 @@
   <div>
     <h1>회원가입 화면 입니다.</h1>
     <div>
-      <label for="userid">userid</label>
+      <label for="username">이름</label>
       <input id="username" type="text" v-model="userid" />
     </div>
     <div>
-      <label for="password">password</label>
+      <label for="userid">아이디</label>
+      <input id="username" type="text" v-model="userid" />
+    </div>
+    <div>
+      <label for="telno">전화번호</label>
+      <input id="telno" type="text" v-model="password" />
+    </div>
+    <div>
+      <label for="password">비밀번호</label>
+      <input id="password" type="text" v-model="password" />
+    </div>
+    <div>
+      <label for="password">비밀번호 확인</label>
       <input id="password" type="text" v-model="password" />
     </div>
     <button @click="login(userid, password)">Login</button>

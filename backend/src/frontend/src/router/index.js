@@ -100,7 +100,7 @@ const router = new VueRouter({
 
 router.beforeEach( async(to, from, next) => {
   // redirect to login page if not logged in and trying to access a restricted page
-  const publicPages = ['/login', '/board', '/'];
+  const publicPages = ['/login', '/board', '/signin', '/'];
   const authRequired = !publicPages.includes(to.path)
   let accessToken = localStorage.getItem('jwt-auth-token')
   let refreshToken = localStorage.getItem('jwt-refresh-token')
