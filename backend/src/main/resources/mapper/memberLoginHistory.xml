@@ -8,5 +8,10 @@
         from "MBR_LOGIN_HST"
         where "MBR_NO" = #{mbrNo}
     </select>
-
+    <select id="saveLoginHistory" parameterType="com.ktds.questionformentoring.member.entity.MemberLoginHistoryDTO" resultType="com.ktds.questionformentoring.member.entity.MemberLoginHistoryDTO">
+        insert into "MBR_LOGIN_HST"
+        ("MBR_NO", "LOGIN_ID", "LOGIN_IP", "LOGIN_DT")
+        values (#{mbrNo}, #{loginId}, #{loginIp}, pg_catalog.clock_timestamp())
+        returning *
+    </select>
 </mapper>
