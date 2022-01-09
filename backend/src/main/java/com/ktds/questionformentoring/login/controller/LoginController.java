@@ -10,6 +10,8 @@ import com.ktds.questionformentoring.common.ResponseMsg;
 import com.ktds.questionformentoring.login.service.LoginServiceImpl;
 import com.ktds.questionformentoring.member.entity.MemberDTO;
 
+import com.ktds.questionformentoring.member.service.MemberLoginHistoryService;
+import com.ktds.questionformentoring.member.service.MemberLoginHistoryServiceImpl;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureException;
@@ -28,6 +30,8 @@ public class LoginController {
 
     @Autowired
     private LoginServiceImpl loginService;
+    @Autowired
+    private MemberLoginHistoryServiceImpl memberLoginHistoryService;
 
     @GetMapping("/getUser") // 토큰에 담겨있는 사용자 정보를 리턴, 토큰이 필요한 경로
     public ResponseEntity<Object> getUser(HttpServletRequest request) {
@@ -66,6 +70,8 @@ public class LoginController {
                 response.setHeader("jwt-refresh-token", refreshToken); // client에 refresh token 전달
                 msg.setMsg("login Success");
                 msg.setResData(loginService.getInfo(token));
+                MemberDTO user = new ObjectMapper().convertValue(loginService.getInfo(token).get("user"), MemberDTO.class);
+                memberLoginHistoryService.setMemberLoginHistory(user);
             } else {
                 msg.setCode(401);
                 msg.setMsg("login Fail");

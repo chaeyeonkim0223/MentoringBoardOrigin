@@ -1,8 +1,14 @@
 package com.ktds.questionformentoring.common.util;
 
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.Properties;
 import java.util.Random;
 import java.util.UUID;
@@ -84,5 +90,15 @@ public class CommonUtil {
      */
     public static String nvl(Object inputObj) {
         return (String) ((inputObj != null) ? String.valueOf(inputObj).trim() : "");
+    }
+
+    public static String getIpAddr() throws UnknownHostException {
+        HttpServletRequest req = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
+        String ip = req.getHeader("X-FORWARDED-FOR");
+        if (ip == null) {
+            InetAddress inetAddr = InetAddress.getLocalHost();
+            ip = inetAddr.getHostAddress();
+        }
+        return ip;
     }
 }
