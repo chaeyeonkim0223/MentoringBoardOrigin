@@ -11,8 +11,11 @@ import com.ktds.questionformentoring.login.entity.LoginDTO;
 import com.ktds.questionformentoring.login.mapper.LoginMapper;
 import com.ktds.questionformentoring.member.entity.MemberDTO;
 import io.jsonwebtoken.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -23,6 +26,7 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpServletResponse;
 
 @Service
+@Slf4j
 public class LoginServiceImpl implements LoginService {
 
     @Value("${environments.jwt.secretkey}")
@@ -34,6 +38,8 @@ public class LoginServiceImpl implements LoginService {
 
     @Autowired
     private LoginMapper loginMapper;
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     // 토큰 생성하는 메서드
     @Override
@@ -139,14 +145,27 @@ public class LoginServiceImpl implements LoginService {
                 loginDTO.setAccessToken(accessToken);
                 MemberDTO user = new ObjectMapper().convertValue(this.getInfo(accessToken).get("user"), MemberDTO.class);
                 loginDTO.setUser(user);
+                //loginDTO.setId(loginDTO.getUser().getLoginId());
                 msg.setResData(loginDTO);
             } else if(refreshToken != null && "refresh-token".equals(type)) {
+                //access token 가져오기
                 Map<String, Object> tokenInfoMap = this.getInfo(refreshToken);
                 MemberDTO refresh = new ObjectMapper().convertValue(tokenInfoMap.get("info"), MemberDTO.class);
                 loginDTO.setAccessToken(this.createUserToken(refresh));
                 loginDTO.setUser(new ObjectMapper().convertValue(this.getInfo(accessToken).get("user"), MemberDTO.class));
-                msg.setMsg("access, refresh token is valid");
-                msg.setResData(loginDTO);
+                //redis token 비교
+                ValueOperations<String, String> valueOperations = redisTemplate.opsForValue();
+                String redisToken = valueOperations.get(loginDTO.getUser().getLoginId());
+                log.info("loginDTO : {}", loginDTO);
+                if(redisToken.equals(refreshToken) == false){
+                    //redis refresh token 불일치
+                    msg.setCode(401);
+                    msg.setMsg("redis token과 일치하지 않습니다.");
+                } else{
+                    //loginDTO.setId(loginDTO.getUser().getLoginId());
+                    msg.setMsg("access, refresh token is valid");
+                    msg.setResData(loginDTO);
+                }
             } else{
                 msg.setMsg("token값이 누락되었습니다.");
                 msg.setCode(400);
@@ -160,6 +179,7 @@ public class LoginServiceImpl implements LoginService {
             return new ResponseEntity<Object>(msg, HttpStatus.OK);
         } catch(Exception e) {
             msg.setCode(500);
+            log.info("500 error : {}", e);
             return new ResponseEntity<Object>(msg, HttpStatus.CONFLICT);
         }
     }

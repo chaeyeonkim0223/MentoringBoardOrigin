@@ -16,7 +16,10 @@ import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureException;
 import io.jsonwebtoken.UnsupportedJwtException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,12 +29,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @RestController
 @RequestMapping("/api/v1/auth")
 @CrossOrigin("*")
+@Slf4j
 public class LoginController {
 
     @Autowired
     private LoginServiceImpl loginService;
     @Autowired
     private MemberLoginHistoryServiceImpl memberLoginHistoryService;
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     @GetMapping("/getUser") // 토큰에 담겨있는 사용자 정보를 리턴, 토큰이 필요한 경로
     public ResponseEntity<Object> getUser(HttpServletRequest request) {
@@ -64,14 +70,20 @@ public class LoginController {
             boolean isValidUser = loginService.checkValidUser(memberDTO);
             ResponseMsg msg = new ResponseMsg(200, "", "");
             if (isValidUser) {
+                //로그인 토큰 생성
                 String token = loginService.createUserToken(memberDTO); // 사용자 정보로 토큰 생성
                 String refreshToken = loginService.createRefreshToken(memberDTO);
                 response.setHeader("jwt-auth-token", token); // client에 token 전달
                 response.setHeader("jwt-refresh-token", refreshToken); // client에 refresh token 전달
                 msg.setMsg("login Success");
                 msg.setResData(loginService.getInfo(token));
+                //회원로그인 이력 저장
                 MemberDTO user = new ObjectMapper().convertValue(loginService.getInfo(token).get("user"), MemberDTO.class);
                 memberLoginHistoryService.setMemberLoginHistory(user);
+                //레디스 토큰 저장
+                ValueOperations<String, String> valueOperations = redisTemplate.opsForValue();
+                valueOperations.set(user.getLoginId(), refreshToken);
+                log.info("redis RT : {}", valueOperations.get(user.getLoginId()));
             } else {
                 msg.setCode(401);
                 msg.setMsg("login Fail");
