@@ -7,14 +7,15 @@ node {
         url: 'https://gitlab.com/jminHwang/questionboard_for_mentoring'
         //url: 'git@gitlab.com:jminHwang/questionboard_for_mentoring.git'
     }
-    
+    /*
+    Build Gradle에서 같이 수행하므로 제거
     stage('Get Build Frontend Source Code') {
         dir('backend/src/frontend') {
             sh 'npm install'
             sh 'npm run build'
         }
     }
-    
+    */
     stage('Build Gradle') {
         dir('backend') {
             sh 'sudo gradle build'
